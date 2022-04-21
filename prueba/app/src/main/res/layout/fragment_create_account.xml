@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateAccount"
+    tools:context=".CreateAccountFragment"
     android:background="@drawable/background_createaccount">
 
     <LinearLayout
@@ -17,7 +17,8 @@
             android:layout_width="170dp"
             android:layout_height="match_parent"
             android:layout_marginStart="128dp"
-            android:hint="nombre"/>
+            android:hint="nombre"
+            android:backgroundTint="@android:color/transparent"/>
     </LinearLayout>
 
     <LinearLayout
@@ -30,7 +31,8 @@
             android:layout_width="170dp"
             android:layout_height="match_parent"
             android:layout_marginStart="128dp"
-            android:hint="contraseña"/>
+            android:hint="contraseña"
+            android:backgroundTint="@android:color/transparent"/>
 
     </LinearLayout>
     <LinearLayout
@@ -43,7 +45,8 @@
             android:layout_width="170dp"
             android:layout_height="match_parent"
             android:layout_marginStart="128dp"
-            android:hint="email"/>
+            android:hint="email"
+            android:backgroundTint="@android:color/transparent"/>
 
     </LinearLayout>
     <LinearLayout
@@ -57,7 +60,8 @@
             android:layout_width="170dp"
             android:layout_height="match_parent"
             android:layout_marginStart="128dp"
-            android:hint="telefono"/>
+            android:hint="telefono"
+            android:backgroundTint="@android:color/transparent"/>
 
 
     </LinearLayout>  <LinearLayout
@@ -68,7 +72,7 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button"
+        android:id="@+id/btnCreate"
         android:layout_width="260dp"
         android:layout_height="50dp"
         android:layout_marginLeft="62dp"

@@ -4,11 +4,18 @@ import android.media.Image;
 
 public class Tables {
     int img;
-    String nombre;
+    String zona;
+    String num;
 
-    public Tables(int img, String nombre) {
+    public Tables(int img, String num) {
         this.img = img;
-        this.nombre = nombre;
+        this.num = num;
+    }
+
+    public Tables(int img, String zona, String num) {
+        this.img = img;
+        this.zona = zona;
+        this.num = num;
     }
 
     public int getImg() {
@@ -19,11 +26,19 @@ public class Tables {
         this.img = img;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getZona() {
+        return zona;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setZona(String zona) {
+        this.zona = zona;
+    }
+
+    public String getNum() {
+        return num;
+    }
+
+    public void setNum(String num) {
+        this.num = num;
     }
 }

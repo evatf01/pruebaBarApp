@@ -3,16 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav"
-    app:startDestination="@id/createAccount">
+    app:startDestination="@id/logInFragment">
 
     <fragment
         android:id="@+id/createAccount"
-        android:name="com.example.prueba.CreateAccount"
+        android:name="com.example.prueba.CreateAccountFragment"
         android:label="fragment_create_account"
         tools:layout="@layout/fragment_create_account" >
         <action
             android:id="@+id/action_createAccount_to_logInFragment"
             app:destination="@id/logInFragment" />
+        <action
+            android:id="@+id/action_createAccount_to_tablesInteriorFragment"
+            app:destination="@id/tablesInteriorFragment" />
     </fragment>
     <fragment
         android:id="@+id/logInFragment"
@@ -22,10 +25,50 @@
         <action
             android:id="@+id/action_logInFragment_to_createAccount"
             app:destination="@id/createAccount" />
+        <action
+            android:id="@+id/action_logInFragment_to_tablesInteriorFragment"
+            app:destination="@id/tablesInteriorFragment" />
     </fragment>
     <fragment
-        android:id="@+id/tablesFragment"
-        android:name="com.example.prueba.TablesFragment"
-        android:label="fragment_tables"
-        tools:layout="@layout/fragment_tables" />
+        android:id="@+id/tablesInteriorFragment"
+        android:name="com.example.prueba.TablesInteriorFragment"
+        android:label="fragment_tables_interior"
+        tools:layout="@layout/fragment_tables_interior" >
+        <action
+            android:id="@+id/action_tablesInteriorFragment_to_tablesExteriorFragment"
+            app:destination="@id/tablesExteriorFragment" />
+        <action
+            android:id="@+id/action_tablesInteriorFragment_to_categoriasFragment"
+            app:destination="@id/categoriasFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tablesExteriorFragment"
+        android:name="com.example.prueba.TablesExteriorFragment"
+        android:label="fragment_tables_exterior"
+        tools:layout="@layout/fragment_tables_exterior" >
+        <action
+            android:id="@+id/action_tablesExteriorFragment_to_tablesInteriorFragment"
+            app:destination="@id/tablesInteriorFragment" />
+        <action
+            android:id="@+id/action_tablesExteriorFragment_to_categoriasFragment"
+            app:destination="@id/categoriasFragment" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_createAccount"
+        app:destination="@id/createAccount"
+        app:popUpTo="@id/createAccount" />
+    <fragment
+        android:id="@+id/categoriasFragment"
+        android:name="com.example.prueba.CategoriasFragment"
+        android:label="fragment_categorias"
+        tools:layout="@layout/fragment_categorias" >
+        <action
+            android:id="@+id/action_categoriasFragment_to_bebidasFragment"
+            app:destination="@id/bebidasFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bebidasFragment"
+        android:name="com.example.prueba.BebidasFragment"
+        android:label="fragment_bebidas"
+        tools:layout="@layout/fragment_bebidas" />
 </navigation>

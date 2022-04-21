@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CategoriasFragment"
+    android:background="@drawable/background_categorias"
+    android:id="@+id/contenedorCategoria">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="MESA 1"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="18sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="680dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:text="NUMERO DE COMENSALES:"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="15sp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:hint="nº"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:inputType="number"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="110dp">
+
+        <ListView
+            android:id="@+id/listaCategorias"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+        </ListView>
+
+    </LinearLayout>
+</FrameLayout>

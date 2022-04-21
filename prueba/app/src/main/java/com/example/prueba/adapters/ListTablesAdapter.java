@@ -46,7 +46,7 @@ public class ListTablesAdapter extends BaseAdapter {
         TextView txtMesa  = (TextView) view.findViewById(R.id.txtMesa);
 
         img.setImageResource(table.getImg());
-        txtMesa.setText(table.getNombre());
+        txtMesa.setText(table.getNum());
 
         return view;
     }
