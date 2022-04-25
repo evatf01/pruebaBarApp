@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,85 +7,118 @@
     tools:context=".CreateAccountFragment"
     android:background="@drawable/background_createaccount">
 
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/createAccountFragment"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="185dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <EditText
-            android:layout_width="170dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="128dp"
-            android:hint="nombre"
-            android:backgroundTint="@android:color/transparent"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:layout_marginTop="252dp">
-
-        <EditText
-            android:layout_width="170dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="128dp"
-            android:hint="contraseña"
-            android:backgroundTint="@android:color/transparent"/>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:layout_marginTop="320dp">
-
-        <EditText
-            android:layout_width="170dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="128dp"
-            android:hint="email"
-            android:backgroundTint="@android:color/transparent"/>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:layout_marginTop="385dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginBottom="685dp">
 
 
-        <EditText
-            android:layout_width="170dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="128dp"
-            android:hint="telefono"
-            android:backgroundTint="@android:color/transparent"/>
+            <ImageView
+                android:id="@+id/imbArrowBack"
+                android:layout_width="45dp"
+                android:layout_height="30dp"
+                android:src="@drawable/arrow_back"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="6dp"
+                android:padding="2dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="185dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:layout_width="170dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="128dp"
+                android:hint="nombre"
+                android:backgroundTint="@android:color/transparent"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="252dp">
+
+            <EditText
+                android:layout_width="170dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="128dp"
+                android:hint="contraseña"
+                android:inputType="textPassword"
+                android:backgroundTint="@android:color/transparent"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="320dp">
+
+            <EditText
+                android:layout_width="170dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="128dp"
+                android:hint="email"
+                android:backgroundTint="@android:color/transparent"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="385dp">
 
 
-    </LinearLayout>  <LinearLayout
+            <EditText
+                android:layout_width="170dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="128dp"
+                android:hint="telefono"
+                android:backgroundTint="@android:color/transparent"
+                android:inputType="number|phone"/>
+
+
+        </LinearLayout>
+        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
         android:layout_marginTop="460dp">
 
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnCreate"
-        android:layout_width="260dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="62dp"
-        android:background="@drawable/botones"
-        android:text="REGISTRARSE"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnCreate"
+            android:layout_width="260dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="62dp"
+            android:background="@drawable/botones"
+            android:text="REGISTRARSE"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
 
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     </LinearLayout>
-</FrameLayout>
+
+
+
+    </FrameLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

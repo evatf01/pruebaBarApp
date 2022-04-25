@@ -3,8 +3,6 @@ package com.example.prueba;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,11 +16,7 @@ import com.example.prueba.models.Tables;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link TablesInteriorFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class TablesInteriorFragment extends Fragment {
 
     private TextView txtExterior;
@@ -31,34 +25,16 @@ public class TablesInteriorFragment extends Fragment {
     private Fragment fragment;
     private static String ZONA = "interior";
 
-    private final FragmentManager fm = getActivity().getSupportFragmentManager();
-    private final FragmentTransaction ft = fm.beginTransaction();
-
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
-
-    // TODO: Rename and change types of parameters
 
 
     public TablesInteriorFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TablesFragment.
-     */
     // TODO: Rename and change types and number of parameters
     public static TablesInteriorFragment newInstance(String param1, String param2) {
-        TablesInteriorFragment fragment = new TablesInteriorFragment();
 
-        return fragment;
+        return new TablesInteriorFragment();
     }
 
     @Override
@@ -77,7 +53,7 @@ public class TablesInteriorFragment extends Fragment {
         listview_mesas = (ListView) view.findViewById(R.id.listTablesInterior);
 
         setOnClickListenerZona();
-        setOnClickListenerText();
+        setOnClickListenerCategory();
 
         adapter = new ListTablesAdapter( listaMesas(),getContext());
         listview_mesas.setAdapter(adapter);
@@ -87,27 +63,27 @@ public class TablesInteriorFragment extends Fragment {
     }
 
     private void setOnClickListenerZona() {
-        listview_mesas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                fragment = new CategoriasFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString(ZONA, "interior" );
-                fragment.setArguments(bundle);
-                fm.beginTransaction().add(R.id.contenedorCategoria, fragment);
-                ft.commit();
-            }
-        });
+     txtExterior.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View view) {
+             fragment = new TablesExteriorFragment();
+             requireActivity().getSupportFragmentManager().beginTransaction()
+                     .replace(R.id.contenedorZonaInterior, fragment)
+                     .addToBackStack(TablesInteriorFragment.class.getName())
+                     .commit();
+         }
+     });
     }
 
-    private void setOnClickListenerText() {
+    private void setOnClickListenerCategory() {
         listview_mesas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 fragment = new CategoriasFragment();
-
-                fm.beginTransaction().add(R.id.contenedorZonaExterior, fragment);
-                ft.commit();
+                requireActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contenedorZonaInterior, fragment)
+                        .addToBackStack(TablesInteriorFragment.class.getName())
+                        .commit();
             }
         });
     }

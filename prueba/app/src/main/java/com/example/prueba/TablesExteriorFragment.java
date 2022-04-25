@@ -18,8 +18,6 @@ import android.widget.TextView;
  */
 public class TablesExteriorFragment extends Fragment {
     private Fragment fragment;
-    private FragmentManager fm =  getActivity().getSupportFragmentManager();
-    private final FragmentTransaction ft = fm.beginTransaction();
     TextView txtInterior;
 
 
@@ -36,29 +34,33 @@ public class TablesExteriorFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+    }
+
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_tables_exterior, container, false);
+        txtInterior = (TextView) view.findViewById(R.id.txtInterior);
         setOnClickListenerZona();
-        setOnClickListenerCtegoria();
+        //setOnClickListenerCtegoria();
+        // Inflate the layout for this fragment
+        return view;
     }
 
-    private void setOnClickListenerCtegoria() {
-
-    }
 
     private void setOnClickListenerZona() {
         txtInterior.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragment = new CreateAccountFragment();
-                fm.beginTransaction().add(R.id.contenedorZonaInterior, fragment);
-                ft.commit();
+                fragment = new TablesInteriorFragment();
+                requireActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contenedorZonaExterior, fragment)
+                        .addToBackStack(TablesExteriorFragment.class.getName())
+                        .commit();
             }
         });
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tables_exterior, container, false);
     }
 }

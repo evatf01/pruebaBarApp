@@ -2,14 +2,12 @@ package com.example.prueba;
 
 import android.os.Bundle;
 
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,13 +15,9 @@ import android.widget.Button;
  * create an instance of this fragment.
  */
 public class CreateAccountFragment extends Fragment {
-    Button btnCreateAccount;
+    AppCompatButton btnCreateAccount;
+    ImageView arrow;
     private Fragment fragment;
-    private final FragmentManager fm = getActivity().getSupportFragmentManager();
-    private final FragmentTransaction ft = fm.beginTransaction();
-
-
-
 
     public CreateAccountFragment() {
         // Required empty public constructor
@@ -39,26 +33,42 @@ public class CreateAccountFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       setOnClickListener();
+
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_account, container, false);
-        btnCreateAccount = (Button) view.findViewById(R.id.btnCreate);
+        btnCreateAccount = (AppCompatButton) view.findViewById(R.id.btnCreate);
+        arrow = (ImageView) view.findViewById(R.id.imbArrowBack);
+        setOnClickListenerCreate();
+        setOnClickListenerBack();
         return view;
     }
 
-    private void setOnClickListener() {
+    private void setOnClickListenerBack() {
+        arrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragment = new LogInFragment();
+                requireActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.createAccountFragment, fragment)
+                        .addToBackStack(CreateAccountFragment.class.getName())
+                        .commit();
+            }
+        });
+    }
+
+    private void setOnClickListenerCreate() {
         btnCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragment = new CreateAccountFragment();
-                fm.beginTransaction().add(R.id.contenedorZonaInterior, fragment);
-                ft.commit();
+                fragment = new TablesInteriorFragment();
+                requireActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.createAccountFragment, fragment)
+                        .addToBackStack(CreateAccountFragment.class.getName())
+                        .commit();
             }
         });
     }

@@ -26,8 +26,7 @@ public class CategoriasFragment extends Fragment {
     ListCategoriesAdapter adapter;
     private ListView listaCategorias;
     private Fragment fragment;
-    private FragmentManager fm =  getActivity().getSupportFragmentManager();;
-    private FragmentTransaction ft = fm.beginTransaction();
+
     private static String CATEGORIA= "caegoria";
 
 
@@ -42,7 +41,7 @@ public class CategoriasFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        listaCategorias.setClickable(true);
+
 
 
     }
@@ -57,6 +56,7 @@ public class CategoriasFragment extends Fragment {
         adapter = new ListCategoriesAdapter(listaCategorias(), getContext());
 
         listaCategorias.setAdapter(adapter);
+        listaCategorias.setClickable(true);
         setOnClickListener();
 
         return view;
@@ -69,12 +69,15 @@ public class CategoriasFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Category category = adapter.getItem(i);
-                fragment = new CategoriasFragment();
+                fragment = new BebidasFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString(CATEGORIA, category.getNombre());
                 fragment.setArguments(bundle);
-                fm.beginTransaction().add(R.id.contenedorCategoria, fragment);
-                ft.commit();
+
+                requireActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contenedorCategoria, fragment)
+                        .addToBackStack(CategoriasFragment.class.getName())
+                        .commit();
             }
         });
     }
