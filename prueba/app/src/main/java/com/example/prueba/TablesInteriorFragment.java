@@ -2,14 +2,18 @@ package com.example.prueba;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.example.prueba.adapters.ListTablesAdapter;
 import com.example.prueba.models.Tables;
@@ -41,6 +45,7 @@ public class TablesInteriorFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
     }
 
 
@@ -49,9 +54,10 @@ public class TablesInteriorFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tables_interior, container, false);
-        txtExterior = (TextView) view.findViewById(R.id.txtExterior);
+        txtExterior = (TextView) view.findViewById(R.id.exterior);
         listview_mesas = (ListView) view.findViewById(R.id.listTablesInterior);
-
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
         setOnClickListenerZona();
         setOnClickListenerCategory();
 
@@ -61,6 +67,7 @@ public class TablesInteriorFragment extends Fragment {
 
         return view;
     }
+
 
     private void setOnClickListenerZona() {
      txtExterior.setOnClickListener(new View.OnClickListener() {

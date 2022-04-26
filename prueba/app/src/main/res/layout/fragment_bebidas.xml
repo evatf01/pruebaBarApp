@@ -46,12 +46,13 @@
         android:layout_alignParentBottom="true"
         android:background="#FE7050"
         app:itemIconSize="28sp"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/drinks_menu"
-        tools:ignore="MissingConstraints" />
+        app:itemIconTint="@color/black"
+
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

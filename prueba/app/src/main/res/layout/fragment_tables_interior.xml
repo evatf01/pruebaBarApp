@@ -5,20 +5,22 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".TablesInteriorFragment"
-    android:background="@drawable/background_tables">
+    android:background="@color/white"
+   >
 
-
-    <ImageButton
-        android:id="@+id/imgAdmin"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="#FE7050"
-        android:src="@drawable/adminicon"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.982"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="5dp"/>
+        android:backgroundTint="#F98A72"
+        app:menu="@menu/admin_menu"
+        android:elevation="4dp"/>
 
     <FrameLayout
         android:id="@+id/contenedorZonaInterior"
@@ -34,6 +36,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
                 android:text="INTERIOR"
                 android:gravity="center"
                 android:textColor="@color/black"
@@ -59,33 +62,21 @@
 
     </FrameLayout>
 
-    <TextView
-        android:id="@+id/txtInterior"
-        android:layout_width="170dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="4dp"
-        android:text="INTERIOR"
-        android:gravity="center"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/txtExterior"
-        android:layout_width="166dp"
-        android:layout_height="39dp"
-        android:gravity="center"
-        android:text="EXTERIOR"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:background="#FE7050"
+        app:itemIconSize="28sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.609"
-        app:layout_constraintStart_toEndOf="@+id/txtInterior"
-        app:layout_constraintTop_toBottomOf="@+id/contenedorZonaInterior"
-        app:layout_constraintVertical_bias="0.8" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/tables_menu"
+        app:itemTextColor="@color/black"
+        style="@style/BottomNavigationView"
+
+        />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

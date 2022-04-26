@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/interior"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        android:title="INTERIOR"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        />
+    <item
+        android:id="@+id/exterior"
+        android:enabled="true"
+        android:title="EXTERIOR"
+        app:showAsAction="ifRoom"
+        android:textSize="16sp"
+        android:textStyle="bold"/>
+</menu>

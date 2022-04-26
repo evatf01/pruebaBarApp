@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 public class BebidasFragment extends Fragment {
 
 
@@ -31,7 +33,10 @@ public class BebidasFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view =inflater.inflate(R.layout.fragment_bebidas, container, false);
+        BottomNavigationView nav = (BottomNavigationView) view.findViewById(R.id.bottomNavigationView);
+        nav.setItemIconTintList(null);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_bebidas, container, false);
+        return view;
     }
 }

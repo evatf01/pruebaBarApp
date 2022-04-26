@@ -2,21 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/inicio"
+        android:id="@+id/refrescos"
         android:icon="@drawable/refrescos"
         android:enabled="true"
         app:showAsAction="ifRoom"
-        android:title="" />
+        android:title="Refrescos"/>
     <item
-        android:id="@+id/buscar"
+        android:id="@+id/cerveza"
         android:enabled="true"
         android:icon="@drawable/beer"
-        android:title=""
+        android:title="Cerveza"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/ajustes"
+        android:id="@+id/cafes"
         android:enabled="true"
         android:icon="@drawable/cafe"
-        android:title=""
+        android:title="Cafés"
         app:showAsAction="ifRoom" />
 </menu>
