@@ -4,46 +4,45 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".TablesExteriorFragment"
-    android:background="@drawable/background_menu"
+    android:id="@+id/contenedorExterior"
+     android:background="@color/white"
 
   >
 
-
     <FrameLayout
-        android:id="@+id/contenedorZonaExterior"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="55dp"
-        android:layout_marginBottom="55dp">
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:id="@+id/txtExterior"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:text="@string/exterior"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
 
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:layout_marginBottom="620dp">
-           <TextView
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:gravity="center"
-               android:text="EXTERIOR"
-               android:textColor="@color/black"
-               android:textSize="18sp"
-               android:textStyle="bold" />
-       </LinearLayout>
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="60dp"
+            >
 
             <ListView
                 android:id="@+id/listTablesExterior"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="58dp"
-                android:layout_marginBottom="18dp">
+                android:layout_marginTop="60dp"
+                >
 
 
             </ListView>
@@ -54,20 +53,20 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:background="#FE7050"
+        style="@style/BottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#F98A72"
+
         app:itemIconSize="28sp"
+        app:itemTextColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/tables_menu"
-        app:itemTextColor="@color/black"
-        style="@style/BottomNavigationView"
-
-        />
+        app:menu="@menu/tables_menu" />
 
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+

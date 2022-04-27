@@ -1,5 +1,6 @@
 package com.example.prueba;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.AppCompatButton;
@@ -67,7 +68,7 @@ public class CreateAccountFragment extends Fragment {
                 fragment = new TablesInteriorFragment();
                 requireActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.createAccountFragment, fragment)
-                        .addToBackStack(CreateAccountFragment.class.getName())
+                        .addToBackStack(LogInFragment.class.getName())
                         .commit();
             }
         });

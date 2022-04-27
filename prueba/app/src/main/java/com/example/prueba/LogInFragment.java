@@ -2,10 +2,13 @@ package com.example.prueba;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,10 +50,19 @@ public class LogInFragment extends Fragment {
         signIn = (Button) view.findViewById(R.id.btnSignIn);
         txtRegistro = (TextView) view.findViewById(R.id.txtRegistrar);
 
-        ButtonSetOncLickListener();
-        RegisterSetOnClickListener();
+
 
         return  view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        signIn = (Button) view.findViewById(R.id.btnSignIn);
+        txtRegistro = (TextView) view.findViewById(R.id.txtRegistrar);
+
+        ButtonSetOncLickListener();
+        RegisterSetOnClickListener();
     }
 
     //AL PULSAR EL TEXTO DE REGISTRATE, LANZA EL FRAGMENT PARA CREAR TU CUENTA
@@ -58,11 +70,7 @@ public class LogInFragment extends Fragment {
         txtRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragment = new CreateAccountFragment();
-                requireActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.logInFragment, fragment)
-                        .addToBackStack(LogInFragment.class.getName())
-                        .commit();
+                Navigation.findNavController(view).navigate(R.id.createAccountFragment2);
 
                /* fm.beginTransaction().add(R.id.contenedorZonaInterior, fragment);
                 ft.commit();*/
@@ -73,14 +81,11 @@ public class LogInFragment extends Fragment {
     //DESDE EL BOTON DE LOGEARSE VOY AL FRAGMENT DONDE ESTÁN LAS MESAS QUE TIENE EL BAR
     private void ButtonSetOncLickListener() {
 
+
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragment = new TablesInteriorFragment();
-                requireActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.logInFragment, fragment)
-                        .addToBackStack(LogInFragment.class.getName())
-                        .commit();
+                Navigation.findNavController(view).navigate(R.id.tablesInteriorFragment);
             }
         });
     }

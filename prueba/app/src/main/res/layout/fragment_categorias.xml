@@ -24,7 +24,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="60dp"
         android:layout_marginBottom="680dp"
         android:orientation="horizontal">
 
@@ -51,7 +51,7 @@
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="110dp">
+        android:layout_marginTop="120dp">
 
         <ListView
             android:id="@+id/listaCategorias"
