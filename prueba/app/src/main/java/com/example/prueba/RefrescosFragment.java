@@ -10,18 +10,18 @@ import android.view.ViewGroup;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class BebidasFragment extends Fragment {
+public class RefrescosFragment extends Fragment {
 
 
 
-    public BebidasFragment() {
+    public RefrescosFragment() {
         // Required empty public constructor
     }
 
     // TODO: Rename and change types and number of parameters
-    public static BebidasFragment newInstance(String param1, String param2) {
+    public static RefrescosFragment newInstance(String param1, String param2) {
 
-        return new BebidasFragment();
+        return new RefrescosFragment();
     }
 
     @Override
@@ -33,7 +33,7 @@ public class BebidasFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =inflater.inflate(R.layout.fragment_bebidas, container, false);
+        View view =inflater.inflate(R.layout.fragment_refrescos, container, false);
         BottomNavigationView nav = (BottomNavigationView) view.findViewById(R.id.bottomNavigationView);
         nav.setItemIconTintList(null);
         // Inflate the layout for this fragment

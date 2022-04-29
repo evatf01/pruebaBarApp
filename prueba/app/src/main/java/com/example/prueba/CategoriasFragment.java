@@ -5,6 +5,9 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,8 +26,12 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class CategoriasFragment extends Fragment {
-    ListCategoriesAdapter adapter;
-    private ListView listaCategorias;
+    ArrayList<Category> listaCategorias = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private ListCategoriesAdapter adapter;
+    private ListCategoriesAdapter.RecyclerViewClickListener listener;
+    private final static String BEBIDAS = "BEBIDAS";
+
     private Fragment fragment;
 
     private static String CATEGORIA= "caegoria";
@@ -50,13 +57,13 @@ public class CategoriasFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        listaCategorias = listaCategorias();
         View view = inflater.inflate(R.layout.fragment_categorias, container, false);
-        listaCategorias = (ListView) view.findViewById(R.id.listaCategorias);
-        adapter = new ListCategoriesAdapter(listaCategorias(), getContext());
-
-        listaCategorias.setAdapter(adapter);
-        listaCategorias.setClickable(true);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerCategories);
+        adapter = new ListCategoriesAdapter(listaCategorias, getContext(), listener);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(layoutManager);
         setOnClickListener();
 
         return view;
@@ -65,21 +72,21 @@ public class CategoriasFragment extends Fragment {
 
 
     private void setOnClickListener() {
-        listaCategorias.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listener= new ListCategoriesAdapter.RecyclerViewClickListener() { //todo hago referencia a la interfaz
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Category category = adapter.getItem(i);
-                fragment = new BebidasFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString(CATEGORIA, category.getNombre());
-                fragment.setArguments(bundle);
+            /**
+             * Lanzo la actividad con la lista de canciones de ese album que clicko, pasandole como dato
+             * el nombre del album y el artista  para hacer la peticion a la API
+             **/
+            public void onClick(View view, int position) {
+                String nombre = listaCategorias.get(position).getNombre();
+                if (nombre.equals(BEBIDAS)){
+                    Navigation.findNavController(view).navigate(R.id.refrescosFragment);
+                }
 
-                requireActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.contenedorCategoria, fragment)
-                        .addToBackStack(CategoriasFragment.class.getName())
-                        .commit();
+
             }
-        });
+        };
     }
 
     private ArrayList<Category> listaCategorias(){

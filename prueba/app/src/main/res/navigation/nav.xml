@@ -42,8 +42,8 @@
             android:id="@+id/action_tablesInteriorFragment_to_tablesExteriorFragment"
             app:destination="@id/tablesExteriorFragment" />
         <action
-            android:id="@+id/action_tablesInteriorFragment_to_categoriasFragment"
-            app:destination="@id/categoriasFragment" />
+            android:id="@+id/action_tablesInteriorFragment_to_comandaFragment"
+            app:destination="@id/comandaFragment" />
     </fragment>
     <fragment
         android:id="@+id/tablesExteriorFragment"
@@ -54,8 +54,8 @@
             android:id="@+id/action_tablesExteriorFragment_to_tablesInteriorFragment"
             app:destination="@id/tablesInteriorFragment" />
         <action
-            android:id="@+id/action_tablesExteriorFragment_to_categoriasFragment"
-            app:destination="@id/categoriasFragment" />
+            android:id="@+id/action_tablesExteriorFragment_to_comandaFragment"
+            app:destination="@id/comandaFragment" />
     </fragment>
     <fragment
         android:id="@+id/categoriasFragment"
@@ -64,15 +64,27 @@
         tools:layout="@layout/fragment_categorias" >
         <action
             android:id="@+id/action_categoriasFragment_to_bebidasFragment"
-            app:destination="@id/bebidasFragment" />
+            app:destination="@id/refrescosFragment" />
+        <action
+            android:id="@+id/action_categoriasFragment_to_comandaFragment"
+            app:destination="@id/comandaFragment" />
     </fragment>
     <fragment
-        android:id="@+id/bebidasFragment"
-        android:name="com.example.prueba.BebidasFragment"
+        android:id="@+id/refrescosFragment"
+        android:name="com.example.prueba.RefrescosFragment"
         android:label="fragment_bebidas"
-        tools:layout="@layout/fragment_bebidas" >
+        tools:layout="@layout/fragment_refrescos" >
         <action
             android:id="@+id/action_bebidasFragment_to_categoriasFragment"
+            app:destination="@id/categoriasFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/comandaFragment"
+        android:name="com.example.prueba.ComandaFragment"
+        android:label="fragment_comanda"
+        tools:layout="@layout/fragment_comanda" >
+        <action
+            android:id="@+id/action_comandaFragment_to_categoriasFragment"
             app:destination="@id/categoriasFragment" />
     </fragment>
 </navigation>

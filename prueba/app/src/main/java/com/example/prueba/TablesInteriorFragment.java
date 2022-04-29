@@ -1,21 +1,21 @@
 package com.example.prueba;
 
 import android.annotation.SuppressLint;
-import android.content.ClipData;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.prueba.adapters.ListTablesAdapter;
 import com.example.prueba.models.Tables;
@@ -24,28 +24,17 @@ import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link TablesInteriorFragment#newInstance} factory method to
- * create an instance of this fragment.
- *
- */
-public class TablesInteriorFragment extends Fragment{
 
-    private ListView listview_mesas;
-    private ListTablesAdapter adapter;
-    private Fragment fragmentInterior;
-    private Fragment fragmentExterior;
+public class TablesInteriorFragment extends Fragment implements NavigationBarView.OnItemSelectedListener {
+    View txtExterior;
+    ArrayList<Tables> listaMesas = new ArrayList<>();
+    private ListTablesAdapter.RecyclerViewClickListenerTables listener;
+
     private static final String ZONA = "interior";
 
-    public static TablesInteriorFragment newInstance(String param1, String param2) {
+    public static TablesInteriorFragment newInstance(String param1, String param2) { return new TablesInteriorFragment(); }
 
-        return new TablesInteriorFragment();
-    }
-
-    public TablesInteriorFragment() {
-        // Required empty public constructor
-    }
+    public TablesInteriorFragment() { }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,48 +42,88 @@ public class TablesInteriorFragment extends Fragment{
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_tables_interior, container, false);
-        fragmentExterior = new TablesExteriorFragment();
-        fragmentInterior = new TablesInteriorFragment();
-        listview_mesas = (ListView) view.findViewById(R.id.listTablesInterior);
-        BottomNavigationView btnNavigation = (BottomNavigationView) view.findViewById(R.id.bottomNavigationView);
-        //btnNavigation.setOnItemSelectedListener(this);
-        adapter = new ListTablesAdapter( listaMesas(),getContext());
-        listview_mesas.setAdapter(adapter);
-        return view;
+
+        return inflater.inflate(R.layout.fragment_tables_interior, container, false);
     }
 
 
 
+    private void setOnClickListenerComanda() {
+        listener = new ListTablesAdapter.RecyclerViewClickListenerTables() {
+            @Override
+            public void onClick(View view, int position) {
+
+                Tables table = listaMesas.get(position);
+                Log.d("mesa click", table.toString());
+                Navigation.findNavController(view).navigate(R.id.comandaFragment);
+            }
+        };
+    }
+
+
     private ArrayList<Tables> listaMesas(){
         ArrayList<Tables> listaMesas = new ArrayList<>();
-        listaMesas.add(new Tables(R.drawable.tables, "MESA 1"));
-        listaMesas.add(new Tables(R.drawable.tables, "MESA 2"));
-        listaMesas.add(new Tables(R.drawable.tables, "MESA 3"));
-        listaMesas.add(new Tables(R.drawable.tables, "MESA 4"));
-        listaMesas.add(new Tables(R.drawable.tables, "MESA 5"));
-        listaMesas.add(new Tables(R.drawable.tables, "MESA 6"));
+        listaMesas.add(new Tables(R.drawable.mesas, "MESA 1"));
+        listaMesas.add(new Tables(R.drawable.mesas, "MESA 2"));
+        listaMesas.add(new Tables(R.drawable.mesas, "MESA 3"));
+        listaMesas.add(new Tables(R.drawable.mesas, "MESA 4"));
+        listaMesas.add(new Tables(R.drawable.mesas, "MESA 5"));
+        listaMesas.add(new Tables(R.drawable.mesas, "MESA 6"));
 
         return listaMesas;
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        listaMesas = listaMesas();
 
-        View txtExterior =(View)view.findViewById(R.id.exterior);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.listTablesInterior);
+        BottomNavigationView btnNav = (BottomNavigationView) view.findViewById(R.id.bottomNavigationView);
+        btnNav.setOnItemSelectedListener(this);
+        Log.d("mesas", listaMesas.toString());
+        ListTablesAdapter adapter = new ListTablesAdapter(listaMesas, getContext(), listener);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+
+        adapter.notifyDataSetChanged();
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setHasFixedSize(true);
+
+
+         txtExterior = (View)view.findViewById(R.id.exterior);
+
+
+        setOnClickListenerComanda();
+        setOnClickListenerExterior();
+
+    }
+
+    private void setOnClickListenerExterior() {
         txtExterior.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.tablesExteriorFragment);
             }
         });
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.exterior:
+                Log.d("","");
+        }
+        return false;
     }
 /*
     @Override

@@ -10,6 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
+        android:windowSoftInputMode="adjustNothing"
+
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

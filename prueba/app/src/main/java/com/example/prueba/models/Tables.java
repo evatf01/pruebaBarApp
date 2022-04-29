@@ -41,4 +41,13 @@ public class Tables {
     public void setNum(String num) {
         this.num = num;
     }
+
+    @Override
+    public String toString() {
+        return "Tables{" +
+                "img=" + img +
+                ", zona='" + zona + '\'' +
+                ", num='" + num + '\'' +
+                '}';
+    }
 }

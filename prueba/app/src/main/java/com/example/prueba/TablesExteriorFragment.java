@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,11 +33,12 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class TablesExteriorFragment extends Fragment  {
-    private Fragment fragment;
-    private ListView lista_mesas;
-    ListTablesAdapter adapter;
-    TextView txtInterior;
+    ArrayList<Tables> listaMesas = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private ListTablesAdapter adapter;
+    private ListTablesAdapter.RecyclerViewClickListenerTables listener;
     private static final String ZONA = "EXTERIOR";
+    private View txtInterior;
 
 
     public TablesExteriorFragment() {
@@ -60,21 +63,29 @@ public class TablesExteriorFragment extends Fragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tables_exterior, container, false);
-        TextView txtExterior = (TextView) view.findViewById(R.id.txtExterior);
-        lista_mesas = (ListView) view.findViewById(R.id.listTablesExterior);
 
-        adapter = new ListTablesAdapter( listaMesas(),getContext());
-        lista_mesas.setAdapter(adapter);
+        recyclerView = (RecyclerView) view.findViewById(R.id.listTablesExterior);
+        listaMesas = listaMesas();
 
-        //setOnClickListenerCtegoria();
-        // Inflate the layout for this fragment
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        adapter = new ListTablesAdapter( listaMesas,getContext(), listener);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+
+
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        View txtInterior = (View) view.findViewById(R.id.interior);
+        txtInterior = (View) view.findViewById(R.id.interior);
+        setOnClickListenerComanda();
+        setOnClickListenerTablesInterior();
+
+    }
+
+    private void setOnClickListenerTablesInterior() {
         txtInterior.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,16 +94,30 @@ public class TablesExteriorFragment extends Fragment  {
         });
     }
 
+    private void setOnClickListenerComanda() {
+        listener = new ListTablesAdapter.RecyclerViewClickListenerTables() {
+            @Override
+            public void onClick(View view, int position) {
+
+                Tables table = listaMesas.get(position);
+                Log.d("mesa click", table.toString());
+                Navigation.findNavController(view).navigate(R.id.comandaFragment);
+            }
+        };
+    }
+
+
+
     private ArrayList<Tables> listaMesas(){
         ArrayList<Tables> listaMesas = new ArrayList<>();
-        listaMesas.add(new Tables(R.drawable.tables, "MESA 1"));
-        listaMesas.add(new Tables(R.drawable.tables, "MESA 2"));
-        listaMesas.add(new Tables(R.drawable.tables, "MESA 3"));
-        listaMesas.add(new Tables(R.drawable.tables, "MESA 4"));
-        listaMesas.add(new Tables(R.drawable.tables, "MESA 5"));
-        listaMesas.add(new Tables(R.drawable.tables, "MESA 6"));
-        listaMesas.add(new Tables(R.drawable.tables, "MESA 7"));
-        listaMesas.add(new Tables(R.drawable.tables, "MESA 8"));
+        listaMesas.add(new Tables(R.drawable.mesas, "MESA 1"));
+        listaMesas.add(new Tables(R.drawable.mesas, "MESA 2"));
+        listaMesas.add(new Tables(R.drawable.mesas, "MESA 3"));
+        listaMesas.add(new Tables(R.drawable.mesas, "MESA 4"));
+        listaMesas.add(new Tables(R.drawable.mesas, "MESA 5"));
+        listaMesas.add(new Tables(R.drawable.mesas, "MESA 6"));
+        listaMesas.add(new Tables(R.drawable.mesas, "MESA 7"));
+        listaMesas.add(new Tables(R.drawable.mesas, "MESA 8"));
 
         return listaMesas;
 

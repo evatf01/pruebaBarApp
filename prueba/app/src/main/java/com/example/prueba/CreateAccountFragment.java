@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,11 +54,7 @@ public class CreateAccountFragment extends Fragment {
         arrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragment = new LogInFragment();
-                requireActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.createAccountFragment, fragment)
-                        .addToBackStack(CreateAccountFragment.class.getName())
-                        .commit();
+                Navigation.findNavController(view).navigate(R.id.logInFragment2);
             }
         });
     }
@@ -65,11 +63,7 @@ public class CreateAccountFragment extends Fragment {
         btnCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragment = new TablesInteriorFragment();
-                requireActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.createAccountFragment, fragment)
-                        .addToBackStack(LogInFragment.class.getName())
-                        .commit();
+                Navigation.findNavController(view).navigate(R.id.tablesInteriorFragment);
             }
         });
     }

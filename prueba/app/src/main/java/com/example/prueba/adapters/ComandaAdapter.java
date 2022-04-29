@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,24 +14,32 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.prueba.R;
 import com.example.prueba.models.Category;
+import com.example.prueba.models.Comanda;
 
 import java.util.ArrayList;
 
-public class ListCategoriesAdapter extends RecyclerView.Adapter<ListCategoriesAdapter.ViewHolder> {
-    ArrayList<Category> categories = new ArrayList<>();
+public class ComandaAdapter extends RecyclerView.Adapter<ComandaAdapter.ViewHolder> {
+    ArrayList<Comanda> comandas = new ArrayList<>();
     Context context;
     private RecyclerViewClickListener listener; // interfaz que me he creado para poder hacer onClick en el recyclerView
 
-    public ListCategoriesAdapter(ArrayList<Category> categories, Context context, RecyclerViewClickListener listener) {
-        this.categories = categories;
+    public ComandaAdapter(ArrayList<Comanda> comandas, Context context, RecyclerViewClickListener listener) {
+        this.comandas = comandas;
         this.context = context;
         this.listener = listener;
+    }
+
+
+
+
+    public  interface RecyclerViewClickListener{
+        void onClick(View view, int position);
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.categories_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.comanda_item,parent,false);
         ViewHolder viewHolder = new ViewHolder(view);
 
         return viewHolder;
@@ -40,36 +47,24 @@ public class ListCategoriesAdapter extends RecyclerView.Adapter<ListCategoriesAd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Category category = categories.get(position);
-        Glide.with(context). // inserto la foto en el recycler con Glide
-                load(category.getImg())
-                .error(R.mipmap.ic_launcher)
-                .apply(RequestOptions.bitmapTransform(new RoundedCorners(50)))
-                .into(holder.imgCategory);
-
-        holder.txtCategory.setText(category.getNombre());
-
-    }
-
-    public  interface RecyclerViewClickListener{
-        void onClick(View view, int position);
+        Comanda comanda = comandas.get(position);
+        holder.txtOrden.setText(comanda.getComanda());
     }
 
     @Override
     public int getItemCount() {
-        return categories.size();
+        return comandas.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        //componentes del RecyclerView
+        // componentes del RecyclerView
 
-        ImageView imgCategory;
-        TextView txtCategory;
+        TextView txtOrden;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imgCategory = (ImageView) itemView.findViewById(R.id.imgCategory);
-            txtCategory = (TextView) itemView.findViewById(R.id.txtCategory);
+            txtOrden = (TextView) itemView.findViewById(R.id.txtOrden);
 
             itemView.setOnClickListener(this);
 
