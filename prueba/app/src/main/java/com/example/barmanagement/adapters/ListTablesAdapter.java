@@ -1,4 +1,4 @@
-package com.example.prueba.adapters;
+package com.example.barmanagement.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,17 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.prueba.R;
-import com.example.prueba.models.Tables;
+import com.example.barmanagement.R;
+import com.example.barmanagement.models.Tables;
 
 import java.util.ArrayList;
 
 public class ListTablesAdapter extends RecyclerView.Adapter<ListTablesAdapter.ViewHolder> {
     ArrayList<Tables> tables;
     Context context;
-    private final RecyclerViewClickListenerTables listener; // interfaz que me he creado para poder hacer onClick en el recyclerView
+    private final OnTablesListener listener; // interfaz que me he creado para poder hacer onClick en el recyclerView
 
-    public ListTablesAdapter(ArrayList<Tables> tables, Context context, RecyclerViewClickListenerTables listener) {
+    public ListTablesAdapter(ArrayList<Tables> tables, Context context, OnTablesListener listener) {
         this.tables = tables;
         this.context = context;
         this.listener = listener;
@@ -34,7 +34,7 @@ public class ListTablesAdapter extends RecyclerView.Adapter<ListTablesAdapter.Vi
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tables_item,parent,false);
 
-        return new ViewHolder(view);
+        return new ViewHolder(view, listener);
     }
 
     @Override
@@ -50,33 +50,36 @@ public class ListTablesAdapter extends RecyclerView.Adapter<ListTablesAdapter.Vi
 
     }
 
-    public  interface RecyclerViewClickListenerTables{
-        void onClick(View view, int position);
-    }
 
     @Override
     public int getItemCount() {
         return tables.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         //componentes del RecyclerView
 
         ImageView imgTable;
         TextView txtMesa;
+        OnTablesListener onTablesListener;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, OnTablesListener onTablesListener) {
             super(itemView);
             imgTable = (ImageView) itemView.findViewById(R.id.imgTable);
             txtMesa = (TextView) itemView.findViewById(R.id.txtMesa);
-
+            this.onTablesListener = onTablesListener;
             itemView.setOnClickListener(this);
 
         }
-        // implementamos el metodo onClick, donde usaremos el metodo de la interfaz creada anteriormente
+
         @Override
-        public void onClick(View v) {
-            listener.onClick(v,getAdapterPosition());
+        public void onClick(View view) {
+            onTablesListener.onTableClick(view,getAdapterPosition());
         }
+
     }
+    public  interface OnTablesListener{
+        void onTableClick(View view, int position);
+    }
+
 }

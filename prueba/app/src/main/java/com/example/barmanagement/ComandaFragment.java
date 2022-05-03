@@ -1,4 +1,4 @@
-package com.example.prueba;
+package com.example.barmanagement;
 
 import android.os.Bundle;
 
@@ -11,15 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.EdgeEffect;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.ImageView;
 
-import com.example.prueba.adapters.ComandaAdapter;
-import com.example.prueba.adapters.ListCategoriesAdapter;
-import com.example.prueba.models.Category;
+import com.example.barmanagement.adapters.ComandaAdapter;
+import com.example.barmanagement.models.Category;
 
 import java.util.ArrayList;
 
@@ -32,9 +29,9 @@ public class ComandaFragment extends Fragment {
     ArrayList<Category> listaOrdenes = new ArrayList<>();
     private RecyclerView recyclerView;
     private ComandaAdapter adapter;
-    private ComandaAdapter.RecyclerViewClickListener listener;
     private EditText txtNumComensales;
     private ImageButton btnAdd;
+    private ImageView btnArrow;
 
 
     public ComandaFragment() {
@@ -67,10 +64,22 @@ public class ComandaFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         txtNumComensales  = (EditText) view.findViewById(R.id.txtNumComensales);
         btnAdd= (ImageButton) view.findViewById(R.id.btnAdd);
-        setOnClickListener();
+        btnArrow = (ImageView) view.findViewById(R.id.imgArrow);
+
+        setOnClickListenerCategory();
+        setOnClickListenerBack();
     }
 
-    private void setOnClickListener() {
+    private void setOnClickListenerBack() {
+        btnArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.tablesInteriorFragment);
+            }
+        });
+    }
+
+    private void setOnClickListenerCategory() {
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override

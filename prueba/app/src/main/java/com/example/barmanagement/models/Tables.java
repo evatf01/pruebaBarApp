@@ -1,6 +1,4 @@
-package com.example.prueba.models;
-
-import android.media.Image;
+package com.example.barmanagement.models;
 
 public class Tables {
     int img;

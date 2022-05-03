@@ -1,4 +1,4 @@
-package com.example.prueba;
+package com.example.barmanagement;
 
 import android.os.Bundle;
 

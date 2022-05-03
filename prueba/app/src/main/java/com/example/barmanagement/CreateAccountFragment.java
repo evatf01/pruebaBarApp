@@ -1,6 +1,5 @@
-package com.example.prueba;
+package com.example.barmanagement;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.AppCompatButton;

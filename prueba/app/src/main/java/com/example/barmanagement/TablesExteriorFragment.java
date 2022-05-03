@@ -1,29 +1,21 @@
-package com.example.prueba;
+package com.example.barmanagement;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.TextView;
 
-import com.example.prueba.adapters.ListTablesAdapter;
-import com.example.prueba.models.Tables;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
+import com.example.barmanagement.adapters.ListTablesAdapter;
+import com.example.barmanagement.models.Tables;
 
 import java.util.ArrayList;
 
@@ -32,11 +24,10 @@ import java.util.ArrayList;
  * Use the {@link TablesExteriorFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TablesExteriorFragment extends Fragment  {
+public class TablesExteriorFragment extends Fragment implements ListTablesAdapter.OnTablesListener {
     ArrayList<Tables> listaMesas = new ArrayList<>();
     private RecyclerView recyclerView;
     private ListTablesAdapter adapter;
-    private ListTablesAdapter.RecyclerViewClickListenerTables listener;
     private static final String ZONA = "EXTERIOR";
     private View txtInterior;
 
@@ -68,7 +59,7 @@ public class TablesExteriorFragment extends Fragment  {
         listaMesas = listaMesas();
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        adapter = new ListTablesAdapter( listaMesas,getContext(), listener);
+        adapter = new ListTablesAdapter( listaMesas,getContext(), this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
@@ -95,15 +86,7 @@ public class TablesExteriorFragment extends Fragment  {
     }
 
     private void setOnClickListenerComanda() {
-        listener = new ListTablesAdapter.RecyclerViewClickListenerTables() {
-            @Override
-            public void onClick(View view, int position) {
 
-                Tables table = listaMesas.get(position);
-                Log.d("mesa click", table.toString());
-                Navigation.findNavController(view).navigate(R.id.comandaFragment);
-            }
-        };
     }
 
 
@@ -124,4 +107,12 @@ public class TablesExteriorFragment extends Fragment  {
     }
 
 
+    @Override
+    public void onTableClick(View view, int position) {
+
+        Tables table = listaMesas.get(position);
+        Log.d("mesa exterior", table.toString());
+        Navigation.findNavController(view).navigate(R.id.comandaFragment);
+
+    }
 }

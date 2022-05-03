@@ -1,4 +1,4 @@
-package com.example.prueba;
+package com.example.barmanagement;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -15,20 +15,18 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.example.prueba.adapters.ListTablesAdapter;
-import com.example.prueba.models.Tables;
+import com.example.barmanagement.adapters.ListTablesAdapter;
+import com.example.barmanagement.models.Tables;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 
 
-public class TablesInteriorFragment extends Fragment implements NavigationBarView.OnItemSelectedListener {
+public class TablesInteriorFragment extends Fragment implements NavigationBarView.OnItemSelectedListener, ListTablesAdapter.OnTablesListener {
     View txtExterior;
     ArrayList<Tables> listaMesas = new ArrayList<>();
-    private ListTablesAdapter.RecyclerViewClickListenerTables listener;
 
     private static final String ZONA = "interior";
 
@@ -50,20 +48,6 @@ public class TablesInteriorFragment extends Fragment implements NavigationBarVie
         // Inflate the layout for this fragment
 
         return inflater.inflate(R.layout.fragment_tables_interior, container, false);
-    }
-
-
-
-    private void setOnClickListenerComanda() {
-        listener = new ListTablesAdapter.RecyclerViewClickListenerTables() {
-            @Override
-            public void onClick(View view, int position) {
-
-                Tables table = listaMesas.get(position);
-                Log.d("mesa click", table.toString());
-                Navigation.findNavController(view).navigate(R.id.comandaFragment);
-            }
-        };
     }
 
 
@@ -90,7 +74,7 @@ public class TablesInteriorFragment extends Fragment implements NavigationBarVie
         BottomNavigationView btnNav = (BottomNavigationView) view.findViewById(R.id.bottomNavigationView);
         btnNav.setOnItemSelectedListener(this);
         Log.d("mesas", listaMesas.toString());
-        ListTablesAdapter adapter = new ListTablesAdapter(listaMesas, getContext(), listener);
+        ListTablesAdapter adapter = new ListTablesAdapter(listaMesas, getContext(), this);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 
@@ -102,8 +86,6 @@ public class TablesInteriorFragment extends Fragment implements NavigationBarVie
 
          txtExterior = (View)view.findViewById(R.id.exterior);
 
-
-        setOnClickListenerComanda();
         setOnClickListenerExterior();
 
     }
@@ -124,6 +106,14 @@ public class TablesInteriorFragment extends Fragment implements NavigationBarVie
                 Log.d("","");
         }
         return false;
+    }
+
+    @Override
+    public void onTableClick(View view, int position) {
+
+        Tables table = listaMesas.get(position);
+        Log.d("mesa interior", table.toString());
+        Navigation.findNavController(view).navigate(R.id.comandaFragment);
     }
 /*
     @Override

@@ -1,4 +1,4 @@
-package com.example.prueba.adapters;
+package com.example.barmanagement.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,12 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.request.RequestOptions;
-import com.example.prueba.R;
-import com.example.prueba.models.Category;
-import com.example.prueba.models.Comanda;
+import com.example.barmanagement.R;
+import com.example.barmanagement.models.Comanda;
 
 import java.util.ArrayList;
 

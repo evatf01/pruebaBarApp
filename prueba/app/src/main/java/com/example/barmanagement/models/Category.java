@@ -1,4 +1,4 @@
-package com.example.prueba.models;
+package com.example.barmanagement.models;
 
 public class Category {
     private int img;

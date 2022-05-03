@@ -6,7 +6,7 @@
     app:startDestination="@id/logInFragment2">
     <fragment
         android:id="@+id/logInFragment2"
-        android:name="com.example.prueba.LogInFragment"
+        android:name="com.example.barmanagement.LogInFragment"
         android:label="fragment_log_in"
         tools:layout="@layout/fragment_log_in" >
         <action
@@ -23,7 +23,7 @@
     </fragment>
     <fragment
         android:id="@+id/createAccountFragment2"
-        android:name="com.example.prueba.CreateAccountFragment"
+        android:name="com.example.barmanagement.CreateAccountFragment"
         android:label="fragment_create_account"
         tools:layout="@layout/fragment_create_account" >
         <action
@@ -35,7 +35,7 @@
     </fragment>
     <fragment
         android:id="@+id/tablesInteriorFragment"
-        android:name="com.example.prueba.TablesInteriorFragment"
+        android:name="com.example.barmanagement.TablesInteriorFragment"
         android:label="fragment_tables_interior"
         tools:layout="@layout/fragment_tables_interior" >
         <action
@@ -47,7 +47,7 @@
     </fragment>
     <fragment
         android:id="@+id/tablesExteriorFragment"
-        android:name="com.example.prueba.TablesExteriorFragment"
+        android:name="com.example.barmanagement.TablesExteriorFragment"
         android:label="fragment_tables_exterior"
         tools:layout="@layout/fragment_tables_exterior" >
         <action
@@ -59,7 +59,7 @@
     </fragment>
     <fragment
         android:id="@+id/categoriasFragment"
-        android:name="com.example.prueba.CategoriasFragment"
+        android:name="com.example.barmanagement.CategoriasFragment"
         android:label="fragment_categorias"
         tools:layout="@layout/fragment_categorias" >
         <action
@@ -71,7 +71,7 @@
     </fragment>
     <fragment
         android:id="@+id/refrescosFragment"
-        android:name="com.example.prueba.RefrescosFragment"
+        android:name="com.example.barmanagement.RefrescosFragment"
         android:label="fragment_bebidas"
         tools:layout="@layout/fragment_refrescos" >
         <action
@@ -80,7 +80,7 @@
     </fragment>
     <fragment
         android:id="@+id/comandaFragment"
-        android:name="com.example.prueba.ComandaFragment"
+        android:name="com.example.barmanagement.ComandaFragment"
         android:label="fragment_comanda"
         tools:layout="@layout/fragment_comanda" >
         <action

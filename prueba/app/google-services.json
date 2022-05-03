@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "598427098143",
+    "firebase_url": "https://bar-management-8538b-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "bar-management-8538b",
+    "storage_bucket": "bar-management-8538b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:598427098143:android:9bb6d42999feee594ec92a",
+        "android_client_info": {
+          "package_name": "com.example.barmanagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "598427098143-5s07gc00uguqf2o6r3rt705fm96gssls.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgG3EpPzhccmYhoBFLQs2D2JmyaerhnAY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "598427098143-5s07gc00uguqf2o6r3rt705fm96gssls.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

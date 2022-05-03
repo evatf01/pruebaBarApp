@@ -12,14 +12,14 @@
         android:id="@+id/txtNumMesa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="25dp"
         android:text="MESA 1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:textStyle="bold"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textColor="@color/white"
         />
 
@@ -45,6 +45,7 @@
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.153"
         app:layout_constraintStart_toEndOf="@+id/textView4"
@@ -87,5 +88,18 @@
         app:layout_constraintHorizontal_bias="0.642"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtNumMesa" />
+
+    <ImageView
+        android:id="@+id/imgArrow"
+        android:layout_width="45dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="16dp"
+        android:padding="4dp"
+
+        android:src="@drawable/arrow_back"
+        app:layout_constraintEnd_toStartOf="@+id/txtNumMesa"
+        app:layout_constraintHorizontal_bias="0.135"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
