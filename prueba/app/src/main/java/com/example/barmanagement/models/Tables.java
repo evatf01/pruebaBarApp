@@ -1,26 +1,17 @@
 package com.example.barmanagement.models;
 
 public class Tables {
-    int img;
-    String zona;
     String num;
+    String zona;
+    String NumComensales;
+    String reservado;
+    String img;
 
-    public Tables(int img, String num) {
-        this.img = img;
+    public Tables(String num, String zona, String numComensales, String reservado, String img) {
         this.num = num;
-    }
-
-    public Tables(int img, String zona, String num) {
-        this.img = img;
         this.zona = zona;
-        this.num = num;
-    }
-
-    public int getImg() {
-        return img;
-    }
-
-    public void setImg(int img) {
+        NumComensales = numComensales;
+        this.reservado = reservado;
         this.img = img;
     }
 
@@ -32,20 +23,35 @@ public class Tables {
         this.zona = zona;
     }
 
+    public String getNumComensales() {
+        return NumComensales;
+    }
+
+    public void setNumComensales(String numComensales) {
+        NumComensales = numComensales;
+    }
+
+    public String getReservado() {
+        return reservado;
+    }
+
+    public void setReservado(String reservado) {
+        this.reservado = reservado;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
     public String getNum() {
         return num;
     }
 
     public void setNum(String num) {
         this.num = num;
-    }
-
-    @Override
-    public String toString() {
-        return "Tables{" +
-                "img=" + img +
-                ", zona='" + zona + '\'' +
-                ", num='" + num + '\'' +
-                '}';
     }
 }

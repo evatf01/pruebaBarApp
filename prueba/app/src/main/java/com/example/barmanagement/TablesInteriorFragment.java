@@ -1,5 +1,7 @@
 package com.example.barmanagement;
 
+import static com.example.barmanagement.utils.FirestoreFields.*;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
@@ -18,15 +20,21 @@ import android.view.ViewGroup;
 
 import com.example.barmanagement.adapters.ListTablesAdapter;
 import com.example.barmanagement.models.Tables;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class TablesInteriorFragment extends Fragment implements NavigationBarView.OnItemSelectedListener, ListTablesAdapter.OnTablesListener {
     View txtExterior;
     ArrayList<Tables> listaMesas = new ArrayList<>();
+    private FirebaseFirestore db;
 
     private static final String ZONA = "interior";
 
@@ -51,7 +59,10 @@ public class TablesInteriorFragment extends Fragment implements NavigationBarVie
     }
 
 
-    private ArrayList<Tables> listaMesas(){
+
+
+    /*private ArrayList<Tables> listaMesas(){
+
         ArrayList<Tables> listaMesas = new ArrayList<>();
         listaMesas.add(new Tables(R.drawable.mesas, "MESA 1"));
         listaMesas.add(new Tables(R.drawable.mesas, "MESA 2"));
@@ -63,18 +74,19 @@ public class TablesInteriorFragment extends Fragment implements NavigationBarVie
         return listaMesas;
 
     }
-
+*/
     @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        listaMesas = listaMesas();
-
+       // listaMesas = listaMesas();
+        db =  FirebaseFirestore.getInstance();
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.listTablesInterior);
         BottomNavigationView btnNav = (BottomNavigationView) view.findViewById(R.id.bottomNavigationView);
         btnNav.setOnItemSelectedListener(this);
         Log.d("mesas", listaMesas.toString());
         ListTablesAdapter adapter = new ListTablesAdapter(listaMesas, getContext(), this);
+
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 
@@ -87,6 +99,30 @@ public class TablesInteriorFragment extends Fragment implements NavigationBarVie
          txtExterior = (View)view.findViewById(R.id.exterior);
 
         setOnClickListenerExterior();
+        crearMesasFS();
+
+    }
+
+    private void crearMesasFS() {
+        Map<String,Object> tables = new HashMap<>();
+        tables.put("iMesa1", new Tables("MESA 1","INTERIOR","","","https://cdn-icons-png.flaticon.com/512/47/47638.png"));
+        tables.put("iMesa2", new Tables("MESA 2","INTERIOR","","","https://cdn-icons-png.flaticon.com/512/47/47638.png"));
+        tables.put("iMesa3", new Tables("MESA 3","INTERIOR","","","https://cdn-icons-png.flaticon.com/512/47/47638.png"));
+        tables.put("iMesa4", new Tables("MESA 4","INTERIOR","","","https://cdn-icons-png.flaticon.com/512/47/47638.png"));
+        tables.put("iMesa5", new Tables("MESA 5","INTERIOR","","","https://cdn-icons-png.flaticon.com/512/47/47638.png"));
+
+
+        db.collection(MESAS).document().set(tables).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Log.d("bien", "añadido");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("mal","no añadido");
+            }
+        });
 
     }
 

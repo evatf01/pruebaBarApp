@@ -15,7 +15,7 @@
         android:id="@+id/imageView2"
         android:layout_width="180dp"
         android:layout_height="180dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="80dp"
         android:src="@drawable/imglogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -72,23 +72,23 @@
 
     <EditText
         android:id="@+id/txtUser"
-        android:layout_width="wrap_content"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="76dp"
 
         android:backgroundTint="@android:color/transparent"
         android:hint="@string/hintName"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.423"
+        app:layout_constraintHorizontal_bias="0.586"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <EditText
         android:id="@+id/txtPassword"
-        android:layout_width="wrap_content"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="62dp"
         android:backgroundTint="@android:color/transparent"
         android:hint="@string/hintPassword"
         android:textColor="@color/black"

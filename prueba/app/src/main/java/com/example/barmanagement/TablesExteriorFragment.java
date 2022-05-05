@@ -56,7 +56,7 @@ public class TablesExteriorFragment extends Fragment implements ListTablesAdapte
         View view = inflater.inflate(R.layout.fragment_tables_exterior, container, false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.listTablesExterior);
-        listaMesas = listaMesas();
+        //listaMesas = listaMesas();
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         adapter = new ListTablesAdapter( listaMesas,getContext(), this);
@@ -91,7 +91,7 @@ public class TablesExteriorFragment extends Fragment implements ListTablesAdapte
 
 
 
-    private ArrayList<Tables> listaMesas(){
+   /* private ArrayList<Tables> listaMesas(){
         ArrayList<Tables> listaMesas = new ArrayList<>();
         listaMesas.add(new Tables(R.drawable.mesas, "MESA 1"));
         listaMesas.add(new Tables(R.drawable.mesas, "MESA 2"));
@@ -104,7 +104,7 @@ public class TablesExteriorFragment extends Fragment implements ListTablesAdapte
 
         return listaMesas;
 
-    }
+    }*/
 
 
     @Override

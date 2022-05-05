@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="32dp"
             android:layout_marginBottom="685dp">
 
 
@@ -33,11 +33,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="140dp"
+            android:layout_marginTop="155dp"
             android:orientation="vertical">
 
             <EditText
-                android:layout_width="170dp"
+                android:id="@+id/txtName"
+                android:layout_width="180dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="128dp"
                 android:backgroundTint="@android:color/transparent"
@@ -48,25 +49,27 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
-            android:layout_marginTop="205dp">
+            android:layout_marginTop="225dp">
 
             <EditText
-                android:layout_width="170dp"
+                android:id="@+id/txtPassword"
+                android:layout_width="180dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="128dp"
+                android:backgroundTint="@android:color/transparent"
                 android:hint="contraseña"
-                android:inputType="textPassword"
-                android:backgroundTint="@android:color/transparent"/>
+                android:inputType="textPassword" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="268dp"
+            android:layout_marginTop="295dp"
             android:orientation="horizontal">
             <EditText
-                android:layout_width="match_parent"
+                android:id="@+id/txtDni"
+                android:layout_width="180dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="128dp"
                 android:layout_marginEnd="100dp"
@@ -78,10 +81,11 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
-            android:layout_marginTop="330dp">
+            android:layout_marginTop="365dp">
 
             <EditText
-                android:layout_width="170dp"
+                android:id="@+id/txtEmail"
+                android:layout_width="180dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="128dp"
                 android:hint="email"
@@ -92,10 +96,11 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
-            android:layout_marginTop="390dp">
+            android:layout_marginTop="435dp">
 
 
             <EditText
+                android:id="@+id/txtPhone"
                 android:layout_width="170dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="128dp"
@@ -109,7 +114,7 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:orientation="horizontal"
-        android:layout_marginTop="470dp">
+        android:layout_marginTop="500dp">
 
 
             <androidx.appcompat.widget.AppCompatButton

@@ -1,5 +1,12 @@
 package com.example.barmanagement;
 
+import static com.example.barmanagement.utils.FirestoreFields.DNI;
+import static com.example.barmanagement.utils.FirestoreFields.EMAIL;
+import static com.example.barmanagement.utils.FirestoreFields.EMPLOYE;
+import static com.example.barmanagement.utils.FirestoreFields.NAME;
+import static com.example.barmanagement.utils.FirestoreFields.PASSWORD;
+import static com.example.barmanagement.utils.FirestoreFields.PHONE;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -7,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +23,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.pranavpandey.android.dynamic.toasts.DynamicToast;
 
@@ -32,7 +44,7 @@ public class LogInFragment extends Fragment {
     private  Button signIn;
     private TextView txtRegistro;
     private EditText txtUser, txtPassword;
-    FirebaseFirestore db;
+    private  FirebaseFirestore db;
 
     //private  final FragmentManager fm =  LogInFragment.class.getSupportFragmentManager();
     //)  private final FragmentTransaction ft = fm.beginTransaction();
@@ -68,7 +80,6 @@ public class LogInFragment extends Fragment {
         txtPassword = (EditText)view.findViewById(R.id.txtPassword);
         FirebaseApp.initializeApp(requireContext());
         db =  FirebaseFirestore.getInstance();
-        FirebaseApp.initializeApp(requireContext());
 
 
         ButtonSetOncLickListener();
@@ -95,16 +106,38 @@ public class LogInFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(txtUser.getText().toString().isEmpty() || txtPassword.getText().toString().isEmpty()){
-                    DynamicToast.makeWarning(requireContext(),"Rellene los campos", Toast.LENGTH_SHORT).show();
-                }else{
-                    Map<String, Object> user = new HashMap<>();
-                    user.put("name", txtUser.getText().toString());
-                    user.put("password", txtPassword.getText().toString());
-                    db.collection("Users").document().set(user);
                     Navigation.findNavController(view).navigate(R.id.tablesInteriorFragment);
+                    //DynamicToast.makeWarning(requireContext(),"Rellene los campos", Toast.LENGTH_SHORT).show();
+                }else{
+                    ComprobarUser(view);
+
                 }
 
             }
         });
     }
-}
+
+    private void ComprobarUser(View view) {
+        DocumentReference userRef = db.collection(EMPLOYE).document(txtUser.getText().toString());
+        userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    DocumentSnapshot doc = task.getResult();
+                    if(doc.exists()){
+                        String password = doc.getString(PASSWORD);
+                        if(password.equals(txtPassword.getText().toString())) Navigation.findNavController(view).navigate(R.id.tablesInteriorFragment);
+                        else DynamicToast.makeError(requireContext(),"Contraseña incorrecta", Toast.LENGTH_SHORT).show();
+
+
+                    }else{
+                        DynamicToast.makeError(requireContext(),"credenciales no coinciden, registrese si no lo ha hecho", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Log.d("Error","Error: ",task.getException());
+                }
+            }
+        });
+
+    }
+    }
