@@ -19,6 +19,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.barmanagement.controllers.SqliteController;
+import com.example.barmanagement.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -41,7 +43,7 @@ public class CreateAccountFragment extends Fragment {
     private ImageView arrow;
     private EditText txtName, txtPassword, txtDni, txtEmail, txtPhone;
     private FirebaseFirestore db;
-
+    SqliteController sqliteController;
     public CreateAccountFragment() { }
 
 
@@ -67,6 +69,7 @@ public class CreateAccountFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        sqliteController = new SqliteController();
         btnCreateAccount = (AppCompatButton) view.findViewById(R.id.btnCreate);
         arrow = (ImageView) view.findViewById(R.id.imbArrowBack);
         txtName = (EditText) view.findViewById(R.id.txtName);
@@ -94,6 +97,13 @@ public class CreateAccountFragment extends Fragment {
                     || txtPhone.getText().toString().isEmpty()){
                 DynamicToast.makeWarning(requireContext(),"Rellene los campos", Toast.LENGTH_SHORT).show();
             }else{
+                String name = txtName.getText().toString();
+                String password =txtPassword.getText().toString();
+                String dni = txtDni.getText().toString();
+                String email = txtEmail.getText().toString();
+                String phone = txtPhone.getText().toString();
+
+                sqliteController.createUserSqlite(getContext(),name,password,dni,email,phone);
                 createUser(view);
             }
 
@@ -102,6 +112,8 @@ public class CreateAccountFragment extends Fragment {
     }
 
     private void createUser(View view) {
+
+
             DocumentReference userRef = db.collection(EMPLOYE).document(txtName.getText().toString());
             userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
