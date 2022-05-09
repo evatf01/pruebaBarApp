@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.barmanagement.adapters.ComandaAdapter;
 import com.example.barmanagement.models.Category;
@@ -32,6 +33,7 @@ public class ComandaFragment extends Fragment {
     private EditText txtNumComensales;
     private ImageButton btnAdd;
     private ImageView btnArrow;
+    private String numero;
 
 
     public ComandaFragment() {
@@ -62,10 +64,12 @@ public class ComandaFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (getArguments()!= null) numero = getArguments().getString("numero");
         txtNumComensales  = (EditText) view.findViewById(R.id.txtNumComensales);
         btnAdd= (ImageButton) view.findViewById(R.id.btnAdd);
         btnArrow = (ImageView) view.findViewById(R.id.imgArrow);
-
+        TextView txtNum = (TextView) view.findViewById(R.id.txtNumMesa);
+        txtNum.setText(numero);
         setOnClickListenerCategory();
         setOnClickListenerBack();
     }

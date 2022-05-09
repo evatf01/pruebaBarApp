@@ -64,14 +64,14 @@
         tools:layout="@layout/fragment_categorias" >
         <action
             android:id="@+id/action_categoriasFragment_to_bebidasFragment"
-            app:destination="@id/refrescosFragment" />
+            app:destination="@id/drinksFragment" />
         <action
             android:id="@+id/action_categoriasFragment_to_comandaFragment"
             app:destination="@id/comandaFragment" />
     </fragment>
     <fragment
-        android:id="@+id/refrescosFragment"
-        android:name="com.example.barmanagement.RefrescosFragment"
+        android:id="@+id/drinksFragment"
+        android:name="com.example.barmanagement.DrinksFragment"
         android:label="fragment_bebidas"
         tools:layout="@layout/fragment_refrescos" >
         <action

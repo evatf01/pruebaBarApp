@@ -2,40 +2,53 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="150dp"
     android:background="@color/white"
     >
 
     <RelativeLayout
 
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="150dp"
         android:background="@color/white"
         >
 
         <ImageView
-            android:id="@+id/imgTable"
-            android:layout_width="100dp"
-            android:layout_height="90dp"
+            android:id="@+id/imgDrink"
+            android:layout_width="150dp"
+            android:layout_height="120dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="5dp"
-
+            android:layout_marginBottom="5dp"
             android:padding="5dp"
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/txtMesa"
+            android:id="@+id/txtBebida"
             android:layout_width="254dp"
             android:layout_height="50dp"
-            android:layout_marginStart="27dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="25dp"
             android:layout_marginEnd="10dp"
-            android:layout_toEndOf="@+id/imgTable"
+            android:layout_toEndOf="@+id/imgDrink"
             android:paddingTop="10dp"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/txtCantidad"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="85dp"
+            android:layout_marginEnd="10dp"
+            android:layout_toEndOf="@+id/imgDrink"
+            android:backgroundTint="@color/black"
+            android:inputType="number"
+            android:gravity="center"
+            android:text="" />
 
 
     </RelativeLayout>

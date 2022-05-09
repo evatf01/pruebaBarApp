@@ -15,18 +15,27 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.barmanagement.R;
 import com.example.barmanagement.models.Category;
+import com.example.barmanagement.models.CategoryTypes;
+import com.example.barmanagement.models.Comanda;
 
 import java.util.ArrayList;
 
 public class ListCategoriesAdapter extends RecyclerView.Adapter<ListCategoriesAdapter.ViewHolder> {
-    ArrayList<Category> listCategories;
+    ArrayList<CategoryTypes> categories = new ArrayList<>();
     Context context;
-    private final OnCategoryListener listener; // interfaz que me he creado para poder hacer onClick en el recyclerView
+    private RecyclerViewClickListener listener; // interfaz que me he creado para poder hacer onClick en el recyclerView
 
-    public ListCategoriesAdapter(ArrayList<Category> listCategories, Context context, OnCategoryListener listener) {
-        this.listCategories = listCategories;
+    public ListCategoriesAdapter(ArrayList<CategoryTypes> categories, Context context, RecyclerViewClickListener listener) {
+        this.categories = categories;
         this.context = context;
         this.listener = listener;
+    }
+
+
+
+
+    public  interface RecyclerViewClickListener{
+        void onClick(View view, int position);
     }
 
     @NonNull
@@ -34,53 +43,45 @@ public class ListCategoriesAdapter extends RecyclerView.Adapter<ListCategoriesAd
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.categories_item,parent,false);
 
-        return new ViewHolder(view, listener);
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Category category = listCategories.get(position);
+        CategoryTypes category = categories.get(position);
         Glide.with(context). // inserto la foto en el recycler con Glide
                 load(category.getImg())
                 .error(R.mipmap.ic_launcher)
                 .apply(RequestOptions.bitmapTransform(new RoundedCorners(50)))
-                .into(holder.imgCategory);
+                .into(holder.imgCat);
 
-        holder.txtNom.setText(category.getNombre());
-
+        holder.txtNom.setText(category.getName());
     }
-
 
     @Override
     public int getItemCount() {
-        return listCategories.size();
+        return categories.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        //componentes del RecyclerView
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        // componentes del RecyclerView
 
-        ImageView imgCategory;
         TextView txtNom;
-        OnCategoryListener onCategoryListener;
+        ImageView imgCat;
 
-        public ViewHolder(@NonNull View itemView, OnCategoryListener onTablesListener) {
+
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imgCategory = (ImageView) itemView.findViewById(R.id.imgCategory);
             txtNom = (TextView) itemView.findViewById(R.id.txtCategory);
-            this.onCategoryListener = onTablesListener;
+            imgCat = (ImageView) itemView.findViewById(R.id.imgCategory);
+
             itemView.setOnClickListener(this);
 
         }
-
-        @Override
-        public void onClick(View view) {
-            onCategoryListener.onClickListener(view, getAdapterPosition());
-        }
         // implementamos el metodo onClick, donde usaremos el metodo de la interfaz creada anteriormente
-
+        @Override
+        public void onClick(View v) {
+            listener.onClick(v,getBindingAdapterPosition());
+        }
     }
-    public interface OnCategoryListener{
-        void onClickListener(View view, int position);
-    }
-
 }

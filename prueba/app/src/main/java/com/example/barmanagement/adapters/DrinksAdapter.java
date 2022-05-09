@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EdgeEffect;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +17,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.barmanagement.R;
+import com.example.barmanagement.models.Category;
+import com.example.barmanagement.models.Comanda;
 import com.example.barmanagement.models.Tables;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -22,10 +26,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
 
-public class ListTablesAdapter extends FirestoreRecyclerAdapter<Tables, ListTablesAdapter.ViewHolder> {
+public class DrinksAdapter extends FirestoreRecyclerAdapter<Category, DrinksAdapter.ViewHolder> {
 
     Context context;
-    private OnTablesListener listener; // interfaz que me he creado para poder hacer onClick en el recyclerView
+    private OnCategoryListener listener; // interfaz que me he creado para poder hacer onClick en el recyclerView
 
     /**
      * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
@@ -33,16 +37,15 @@ public class ListTablesAdapter extends FirestoreRecyclerAdapter<Tables, ListTabl
      *
      * @param options
      */
-    public ListTablesAdapter(@NonNull FirestoreRecyclerOptions<Tables> options, Context context) {
+    public DrinksAdapter(@NonNull FirestoreRecyclerOptions<Category> options, Context context) {
         super(options);
-
         this.context = context;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tables_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.drinks_item,parent,false);
 
         return new ViewHolder(view, listener);
     }
@@ -50,48 +53,50 @@ public class ListTablesAdapter extends FirestoreRecyclerAdapter<Tables, ListTabl
 
 
     @Override
-    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Tables model) {
-        Log.d("mesas", model.toString());
+    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Category model) {
         Glide.with(context). // inserto la foto en el recycler con Glide
                 load(model.getImg())
                 .error(R.mipmap.ic_launcher)
                 .apply(RequestOptions.bitmapTransform(new RoundedCorners(50)))
-                .into(holder.imgTable);
+                .into(holder.imgCategory);
 
-        holder.txtMesa.setText(model.getNum());
-
+        holder.txtNombre.setText(model.getNombre());
+        holder.txtCantidad.setText(model.getCantidad());
     }
+
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         //componentes del RecyclerView
 
-        ImageView imgTable;
-        TextView txtMesa;
-        OnTablesListener onTablesListener;
+        ImageView imgCategory;
+        TextView txtNombre;
+        EditText txtCantidad;
+        OnCategoryListener onCategoryListener;
 
-        public ViewHolder(@NonNull View itemView, OnTablesListener onTablesListener) {
+        public ViewHolder(@NonNull View itemView, OnCategoryListener onCategoryListener) {
             super(itemView);
-            imgTable = (ImageView) itemView.findViewById(R.id.imgTable);
-            txtMesa = (TextView) itemView.findViewById(R.id.txtMesa);
-            this.onTablesListener = onTablesListener;
+            imgCategory = (ImageView) itemView.findViewById(R.id.imgDrink);
+            txtNombre = (TextView) itemView.findViewById(R.id.txtBebida);
+            txtCantidad = (EditText) itemView.findViewById(R.id.txtCantidad);
+            this.onCategoryListener = onCategoryListener;
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int position = getBindingAdapterPosition();
                     if(position != RecyclerView.NO_POSITION && listener != null){
-                        listener.onTableClick(getSnapshots().getSnapshot(position), position);
+                        listener.onCategoryClick(getSnapshots().getSnapshot(position), position);
                     }
                 }
             });
 
         }
     }
-    public  interface OnTablesListener{
-        void onTableClick(DocumentSnapshot documentSnapshot, int position);
+    public  interface OnCategoryListener{
+        void onCategoryClick(DocumentSnapshot documentSnapshot, int position);
     }
 
-    public void setOnClickListener(OnTablesListener listener){
+    public void setOnClickListener(OnCategoryListener listener){
         this.listener = listener;
     }
 

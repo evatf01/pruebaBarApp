@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.barmanagement.adapters.ListCategoriesAdapter;
-import com.example.barmanagement.models.Category;
+import com.example.barmanagement.models.CategoryTypes;
 
 import java.util.ArrayList;
 
@@ -24,16 +24,16 @@ import java.util.ArrayList;
  * Use the {@link CategoriasFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CategoriasFragment extends Fragment implements ListCategoriesAdapter.OnCategoryListener {
-    ArrayList<Category> listaCategorias = new ArrayList<>();
+public class CategoriasFragment extends Fragment implements ListCategoriesAdapter.RecyclerViewClickListener {
+    ArrayList<CategoryTypes> listaCategorias = new ArrayList<>();
     private final static String BEBIDAS = "BEBIDAS";
 
-    private Fragment fragment;
 
-    private static String CATEGORIA= "caegoria";
+    private static String CATEGORIA = "categoria";
 
 
-    public CategoriasFragment() {}
+    public CategoriasFragment() {
+    }
 
 
     public static CategoriasFragment newInstance(String param1, String param2) {
@@ -44,7 +44,6 @@ public class CategoriasFragment extends Fragment implements ListCategoriesAdapte
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
 
     }
@@ -63,7 +62,7 @@ public class CategoriasFragment extends Fragment implements ListCategoriesAdapte
         super.onViewCreated(view, savedInstanceState);
         listaCategorias = listaCategorias();
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerCategories);
-        ListCategoriesAdapter adapter = new ListCategoriesAdapter(listaCategorias, getContext(), this );
+        ListCategoriesAdapter adapter = new ListCategoriesAdapter(listaCategorias, getContext(),  this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         adapter.notifyDataSetChanged();
         recyclerView.setLayoutManager(layoutManager);
@@ -72,20 +71,18 @@ public class CategoriasFragment extends Fragment implements ListCategoriesAdapte
 
     }
 
-    private ArrayList<Category> listaCategorias(){
-        ArrayList<Category> lista = new ArrayList<>();
-        lista.add(new Category(R.drawable.bebidas,"BEBIDAS"));
-        lista.add(new Category(R.drawable.tapas,"TAPAS"));
-        lista.add(new Category(R.drawable.raciones,"RACIONES"));
-        lista.add(new Category(R.drawable.postre,"POSTRES"));
+    private ArrayList<CategoryTypes> listaCategorias() {
+        ArrayList<CategoryTypes> lista = new ArrayList<>();
+        lista.add(new CategoryTypes(R.drawable.bebidas, "BEBIDAS"));
+        lista.add(new CategoryTypes(R.drawable.tapas, "TAPAS"));
+        lista.add(new CategoryTypes(R.drawable.raciones, "RACIONES"));
+        lista.add(new CategoryTypes(R.drawable.postre, "POSTRES"));
 
         return lista;
     }
 
     @Override
-    public void onClickListener(View view, int position) {
-        Category category = listaCategorias.get(position);
-        if(category.getNombre().equals("BEBIDAS")) Navigation.findNavController(view).navigate(R.id.refrescosFragment);
-
+    public void onClick(View view, int position) {
+        Navigation.findNavController(view).navigate(R.id.drinksFragment);
     }
 }

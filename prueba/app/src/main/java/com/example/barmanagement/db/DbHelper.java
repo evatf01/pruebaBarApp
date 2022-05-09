@@ -36,7 +36,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
         sqLiteDatabase.execSQL("CREATE TABLE "+ TABLE_ADMIN+ "(" +
                 " "+COLUMN_ID_ADMIN+ " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                " "+COLUMN_IDUSER_ADMIN+ "IdUser INTEGER," +
+                " "+COLUMN_IDUSER_ADMIN+ " INTEGER," +
                 " "+COLUMN_CODE_ADMIN+ " INTEGER, " +
                 "FOREIGN KEY (" +COLUMN_IDUSER_ADMIN+ ") REFERENCES "+ TABLE_USERS+ " ("+COLUMN_ID+"))");
 
@@ -57,7 +57,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 " "+COLUMN_CATEGORY_QUANTITY+ " INTEGER," +
                 " "+COLUMN_CATEGORY_IMGURL+ " TEXT )");
 
-        sqLiteDatabase.execSQL("");
+
 
     }
 
