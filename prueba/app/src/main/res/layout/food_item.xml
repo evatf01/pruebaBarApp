@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="140dp"
+    android:layout_height="130dp"
     android:background="@color/white"
     >
 
@@ -13,38 +13,26 @@
         android:background="@color/white"
         >
 
-        <ImageView
-            android:id="@+id/imgDrink"
-            android:layout_width="150dp"
-            android:layout_height="120dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
-            android:padding="5dp"
-            tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/txtBebida"
-            android:layout_width="254dp"
+            android:id="@+id/txtFood"
+            android:layout_width="260dp"
             android:layout_height="50dp"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_toEndOf="@+id/imgDrink"
             android:paddingTop="10dp"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/txtCantidad"
+            android:id="@+id/txtCantidadFood"
             android:layout_width="60dp"
             android:layout_height="45dp"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="70dp"
             android:layout_marginEnd="10dp"
-            android:layout_toEndOf="@+id/imgDrink"
             android:backgroundTint="@color/black"
             android:gravity="center"
             android:inputType="number"

@@ -27,6 +27,9 @@ import java.util.ArrayList;
 public class CategoriasFragment extends Fragment implements ListCategoriesAdapter.RecyclerViewClickListener {
     ArrayList<CategoryTypes> listaCategorias = new ArrayList<>();
     private final static String BEBIDAS = "BEBIDAS";
+    private final static String TAPAS = "TAPAS";
+    private final static String RACIONES = "RACIONES";
+    private final static String POSTRES = "POSTRES";
 
 
     private static String CATEGORIA = "categoria";
@@ -73,16 +76,20 @@ public class CategoriasFragment extends Fragment implements ListCategoriesAdapte
 
     private ArrayList<CategoryTypes> listaCategorias() {
         ArrayList<CategoryTypes> lista = new ArrayList<>();
-        lista.add(new CategoryTypes(R.drawable.bebidas, "BEBIDAS"));
-        lista.add(new CategoryTypes(R.drawable.tapas, "TAPAS"));
-        lista.add(new CategoryTypes(R.drawable.raciones, "RACIONES"));
-        lista.add(new CategoryTypes(R.drawable.postre, "POSTRES"));
+        lista.add(new CategoryTypes(R.drawable.bebidas, BEBIDAS));
+        lista.add(new CategoryTypes(R.drawable.tapas, TAPAS));
+        lista.add(new CategoryTypes(R.drawable.raciones, RACIONES));
+        lista.add(new CategoryTypes(R.drawable.postre, POSTRES));
 
         return lista;
     }
 
     @Override
     public void onClick(View view, int position) {
-        Navigation.findNavController(view).navigate(R.id.drinksFragment);
+        if(listaCategorias.get(position).getName().equals(BEBIDAS)) Navigation.findNavController(view).navigate(R.id.drinksFragment);
+        if(listaCategorias.get(position).getName().equals(TAPAS)) Navigation.findNavController(view).navigate(R.id.drinksFragment);
+        if(listaCategorias.get(position).getName().equals(RACIONES)) Navigation.findNavController(view).navigate(R.id.drinksFragment);
+        if(listaCategorias.get(position).getName().equals(POSTRES)) Navigation.findNavController(view).navigate(R.id.drinksFragment);
+
     }
 }

@@ -31,13 +31,19 @@
         <entry key="..\:/Users/Eva/Documents/GitHub/pruebaBarApp/prueba/app/src/main/res/layout/activity_main.xml" value="0.2357080035180299" />
         <entry key="..\:/Users/Eva/Documents/GitHub/pruebaBarApp/prueba/app/src/main/res/layout/categories_item.xml" value="0.3684684684684685" />
         <entry key="..\:/Users/Eva/Documents/GitHub/pruebaBarApp/prueba/app/src/main/res/layout/comanda_item.xml" value="0.47927927927927927" />
+        <entry key="..\:/Users/Eva/Documents/GitHub/pruebaBarApp/prueba/app/src/main/res/layout/drinks_item.xml" value="0.47927927927927927" />
+        <entry key="..\:/Users/Eva/Documents/GitHub/pruebaBarApp/prueba/app/src/main/res/layout/food_item.xml" value="0.47927927927927927" />
+        <entry key="..\:/Users/Eva/Documents/GitHub/pruebaBarApp/prueba/app/src/main/res/layout/fragment_beer.xml" value="0.47927927927927927" />
         <entry key="..\:/Users/Eva/Documents/GitHub/pruebaBarApp/prueba/app/src/main/res/layout/fragment_categorias.xml" value="0.31431159420289856" />
+        <entry key="..\:/Users/Eva/Documents/GitHub/pruebaBarApp/prueba/app/src/main/res/layout/fragment_coffee.xml" value="0.47927927927927927" />
         <entry key="..\:/Users/Eva/Documents/GitHub/pruebaBarApp/prueba/app/src/main/res/layout/fragment_comanda.xml" value="0.26811594202898553" />
         <entry key="..\:/Users/Eva/Documents/GitHub/pruebaBarApp/prueba/app/src/main/res/layout/fragment_create_account.xml" value="0.37907608695652173" />
         <entry key="..\:/Users/Eva/Documents/GitHub/pruebaBarApp/prueba/app/src/main/res/layout/fragment_log_in.xml" value="0.33" />
         <entry key="..\:/Users/Eva/Documents/GitHub/pruebaBarApp/prueba/app/src/main/res/layout/fragment_refrescos.xml" value="0.33" />
         <entry key="..\:/Users/Eva/Documents/GitHub/pruebaBarApp/prueba/app/src/main/res/layout/fragment_tables_exterior.xml" value="0.33" />
         <entry key="..\:/Users/Eva/Documents/GitHub/pruebaBarApp/prueba/app/src/main/res/layout/fragment_tables_interior.xml" value="0.2695035460992908" />
+        <entry key="..\:/Users/Eva/Documents/GitHub/pruebaBarApp/prueba/app/src/main/res/layout/fragment_tapas.xml" value="0.4671171171171171" />
+        <entry key="..\:/Users/Eva/Documents/GitHub/pruebaBarApp/prueba/app/src/main/res/menu/drinks_menu.xml" value="0.47927927927927927" />
         <entry key="..\:/Users/Eva/Documents/GitHub/pruebaBarApp/prueba/app/src/main/res/xml/network_security_config.xml" value="0.2963963963963964" />
         <entry key="..\:/pruebaBarApp/prueba/app/src/main/res/drawable/arrow.xml" value="0.331" />
         <entry key="..\:/pruebaBarApp/prueba/app/src/main/res/drawable/arrow_background.xml" value="0.331" />

@@ -19,4 +19,11 @@
         android:icon="@drawable/cafe"
         android:title="Cafés"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/more"
+        android:enabled="true"
+        android:icon="@drawable/add"
+        android:title="Mas"
+        app:showAsAction="ifRoom" />
 </menu>

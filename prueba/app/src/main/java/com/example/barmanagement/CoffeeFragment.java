@@ -1,54 +1,54 @@
 package com.example.barmanagement;
 
+import static com.example.barmanagement.DrinksFragment.CATEGORIAS;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ImageView;
 
 import com.example.barmanagement.adapters.DrinksAdapter;
-import com.example.barmanagement.adapters.ListCategoriesAdapter;
-import com.example.barmanagement.adapters.ListTablesAdapter;
 import com.example.barmanagement.models.Category;
-import com.example.barmanagement.models.Tables;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link DrinksFragment#newInstance} factory method to
+ * Use the {@link CoffeeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DrinksFragment extends Fragment implements NavigationBarView.OnItemSelectedListener{
+public class CoffeeFragment extends Fragment {
     private FirebaseFirestore db;
     DrinksAdapter adapter;
-    public static final String CATEGORIAS = "CATEGORIAS";
     ImageView arrow;
 
 
-    public DrinksFragment() {
+    public CoffeeFragment() {
         // Required empty public constructor
     }
 
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment CoffeeFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static CoffeeFragment newInstance(String param1, String param2) {
 
-    public static DrinksFragment newInstance(String param1, String param2) {
-
-        return new DrinksFragment();
+        return new CoffeeFragment();
     }
 
     @Override
@@ -61,20 +61,20 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_refrescos, container, false);
+        return inflater.inflate(R.layout.fragment_coffee, container, false);
     }
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        db =  FirebaseFirestore.getInstance();
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.listaRefrescos);
-        BottomNavigationView btnNav = (BottomNavigationView) view.findViewById(R.id.bottomNavigationViewDrinks);
+
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.listaCafes);
+        db = FirebaseFirestore.getInstance();
+        Query query = db.collection(CATEGORIAS).document("tapas").collection("cafes");
+
 
         arrow = (ImageView) view.findViewById(R.id.imbArrowBack);
-        Query query = db.collection(CATEGORIAS).document("bebidas").collection("refrescos");
-        Log.d("query", query.toString());
         FirestoreRecyclerOptions<Category> options = new FirestoreRecyclerOptions.Builder<Category>()
                 .setQuery(query, Category.class).build();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -87,21 +87,8 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
 
-        btnNav.setOnItemSelectedListener(this);
-
-        setOnClickListenerBack();
 
     }
-
-    private void setOnClickListenerBack() {
-        arrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.comandaFragment);
-            }
-        });
-    }
-
 
     @Override
     public void onStart() {
@@ -113,18 +100,5 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
     public void onStop() {
         super.onStop();
         adapter.stopListening();
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.cerveza:
-                Navigation.findNavController(requireView()).navigate(R.id.beerFragment);
-                break;
-            case R.id.cafes:
-                Navigation.findNavController(requireView()).navigate(R.id.coffeeFragment);
-
-        }
-       return true;
     }
 }

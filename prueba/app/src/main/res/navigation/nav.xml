@@ -77,6 +77,9 @@
         <action
             android:id="@+id/action_bebidasFragment_to_categoriasFragment"
             app:destination="@id/categoriasFragment" />
+        <action
+            android:id="@+id/action_drinksFragment_to_beerFragment"
+            app:destination="@id/beerFragment" />
     </fragment>
     <fragment
         android:id="@+id/comandaFragment"
@@ -86,5 +89,25 @@
         <action
             android:id="@+id/action_comandaFragment_to_categoriasFragment"
             app:destination="@id/categoriasFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/beerFragment"
+        android:name="com.example.barmanagement.BeerFragment"
+        android:label="fragment_beer"
+        tools:layout="@layout/fragment_beer" >
+        <action
+            android:id="@+id/action_beerFragment_to_drinksFragment"
+            app:destination="@id/drinksFragment" />
+        <action
+            android:id="@+id/action_beerFragment_to_coffeeFragment"
+            app:destination="@id/coffeeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/coffeeFragment"
+        android:name="com.example.barmanagement.CoffeeFragment"
+        android:label="CoffeeFragment" >
+        <action
+            android:id="@+id/action_coffeeFragment_to_beerFragment"
+            app:destination="@id/beerFragment" />
     </fragment>
 </navigation>

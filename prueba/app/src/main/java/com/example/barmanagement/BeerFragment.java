@@ -1,5 +1,7 @@
 package com.example.barmanagement;
 
+import static com.example.barmanagement.DrinksFragment.CATEGORIAS;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
@@ -12,43 +14,33 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ImageView;
 
 import com.example.barmanagement.adapters.DrinksAdapter;
-import com.example.barmanagement.adapters.ListCategoriesAdapter;
-import com.example.barmanagement.adapters.ListTablesAdapter;
 import com.example.barmanagement.models.Category;
-import com.example.barmanagement.models.Tables;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link DrinksFragment#newInstance} factory method to
+ * Use the {@link BeerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DrinksFragment extends Fragment implements NavigationBarView.OnItemSelectedListener{
+public class BeerFragment extends Fragment {
+
     private FirebaseFirestore db;
     DrinksAdapter adapter;
-    public static final String CATEGORIAS = "CATEGORIAS";
     ImageView arrow;
-
-
-    public DrinksFragment() {
+    public BeerFragment() {
         // Required empty public constructor
     }
 
+    public static BeerFragment newInstance() {
 
-    public static DrinksFragment newInstance(String param1, String param2) {
-
-        return new DrinksFragment();
+        return new BeerFragment();
     }
 
     @Override
@@ -61,20 +53,19 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_refrescos, container, false);
+        return inflater.inflate(R.layout.fragment_beer, container, false);
     }
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.listCerveza);
         db =  FirebaseFirestore.getInstance();
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.listaRefrescos);
-        BottomNavigationView btnNav = (BottomNavigationView) view.findViewById(R.id.bottomNavigationViewDrinks);
+        Query query = db.collection(CATEGORIAS).document("bebidas").collection("cervezas");
+
 
         arrow = (ImageView) view.findViewById(R.id.imbArrowBack);
-        Query query = db.collection(CATEGORIAS).document("bebidas").collection("refrescos");
-        Log.d("query", query.toString());
         FirestoreRecyclerOptions<Category> options = new FirestoreRecyclerOptions.Builder<Category>()
                 .setQuery(query, Category.class).build();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -86,8 +77,6 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
-
-        btnNav.setOnItemSelectedListener(this);
 
         setOnClickListenerBack();
 
@@ -102,7 +91,6 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
         });
     }
 
-
     @Override
     public void onStart() {
         super.onStart();
@@ -113,18 +101,5 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
     public void onStop() {
         super.onStop();
         adapter.stopListening();
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.cerveza:
-                Navigation.findNavController(requireView()).navigate(R.id.beerFragment);
-                break;
-            case R.id.cafes:
-                Navigation.findNavController(requireView()).navigate(R.id.coffeeFragment);
-
-        }
-       return true;
     }
 }
