@@ -4,29 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DrinksFragment"
+    tools:context=".BeerFragment"
     android:background="@drawable/background_menu">
 
     <ImageView
         android:id="@+id/imbArrowBack"
         android:layout_width="48dp"
         android:layout_height="30dp"
+        android:layout_marginStart="18dp"
         android:padding="4dp"
         android:src="@drawable/arrow_back"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="4dp"
-        app:layout_constraintEnd_toStartOf="@+id/txtNumMesa"
-        app:layout_constraintHorizontal_bias="0.225"
+        app:layout_constraintBottom_toTopOf="@+id/listCerveza"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.382" />
 
     <TextView
         android:id="@+id/txtNumMesa"
-        android:layout_width="160dp"
+        android:layout_width="match_parent"
         android:layout_height="31dp"
         android:layout_marginTop="25dp"
         android:gravity="center"
-        android:text="BEBIDAS"
+        android:text="CERVEZA"
         android:elevation="4dp"
         android:textColor="@color/white"
         android:textSize="18sp"
@@ -35,6 +34,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 
 
@@ -53,11 +53,11 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationViewDrinks"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:elevation="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
         android:layout_alignParentBottom="true"
         android:background="#FE7050"
+        android:elevation="5dp"
         app:itemIconSize="28sp"
         app:itemIconTint="@color/black"
         app:itemTextColor="@color/white"

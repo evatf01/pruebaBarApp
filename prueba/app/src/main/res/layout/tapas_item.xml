@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="130dp"
+    android:background="@color/white"
+    >
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:background="@color/white">
+
+
+        <TextView
+            android:id="@+id/txtFood"
+
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="5dp"
+            android:padding="5dp"
+            android:paddingTop="10dp"
+            android:textColor="@color/black"
+            android:textSize="19sp"
+
+            android:textStyle="bold" />
+
+
+        <EditText
+            android:id="@+id/txtCantidadFood"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/txtFood"
+            android:layout_alignEnd="@+id/txtFood"
+
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="140dp"
+            android:backgroundTint="@color/black"
+            android:gravity="center"
+
+            android:inputType="number"
+            android:textColor="@color/black" />
+
+        <CheckBox
+            android:id="@+id/checkExtra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtFood"
+            android:layout_alignStart="@+id/txtFood"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="-2dp"
+            android:buttonTint="@color/black"
+            android:checked="false"
+            android:gravity="center"
+
+            android:textColor="@color/black" />
+
+        <TextView
+            android:layout_width="97dp"
+            android:layout_height="35dp"
+            android:layout_below="@+id/txtFood"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            android:layout_toEndOf="@+id/checkExtra"
+            android:gravity="left"
+            android:text="Tapa extra"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
+

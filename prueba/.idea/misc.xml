@@ -58,22 +58,28 @@
         <entry key="..\:/pruebaBarApp/prueba/app/src/main/res/layout/category_item.xml" value="0.32592592592592595" />
         <entry key="..\:/pruebaBarApp/prueba/app/src/main/res/layout/comanda_item.xml" value="0.32592592592592595" />
         <entry key="..\:/pruebaBarApp/prueba/app/src/main/res/layout/drinks_item.xml" value="0.30085470085470084" />
+        <entry key="..\:/pruebaBarApp/prueba/app/src/main/res/layout/food_item.xml" value="0.32592592592592595" />
         <entry key="..\:/pruebaBarApp/prueba/app/src/main/res/layout/fragment_bebidas.xml" value="0.32592592592592595" />
+        <entry key="..\:/pruebaBarApp/prueba/app/src/main/res/layout/fragment_beer.xml" value="0.23981481481481481" />
         <entry key="..\:/pruebaBarApp/prueba/app/src/main/res/layout/fragment_cafe.xml" value="0.31342592592592594" />
         <entry key="..\:/pruebaBarApp/prueba/app/src/main/res/layout/fragment_cafes.xml" value="0.32592592592592595" />
         <entry key="..\:/pruebaBarApp/prueba/app/src/main/res/layout/fragment_categorias.xml" value="0.32592592592592595" />
         <entry key="..\:/pruebaBarApp/prueba/app/src/main/res/layout/fragment_cerveza.xml" value="0.32592592592592595" />
         <entry key="..\:/pruebaBarApp/prueba/app/src/main/res/layout/fragment_cervezas.xml" value="0.32592592592592595" />
+        <entry key="..\:/pruebaBarApp/prueba/app/src/main/res/layout/fragment_coffee.xml" value="0.23981481481481481" />
         <entry key="..\:/pruebaBarApp/prueba/app/src/main/res/layout/fragment_comanda.xml" value="0.32592592592592595" />
         <entry key="..\:/pruebaBarApp/prueba/app/src/main/res/layout/fragment_create_account.xml" value="0.32592592592592595" />
         <entry key="..\:/pruebaBarApp/prueba/app/src/main/res/layout/fragment_drinks.xml" value="0.32592592592592595" />
         <entry key="..\:/pruebaBarApp/prueba/app/src/main/res/layout/fragment_log_in.xml" value="0.27898550724637683" />
+        <entry key="..\:/pruebaBarApp/prueba/app/src/main/res/layout/fragment_raciones.xml" value="0.32592592592592595" />
         <entry key="..\:/pruebaBarApp/prueba/app/src/main/res/layout/fragment_refrescos.xml" value="0.32592592592592595" />
         <entry key="..\:/pruebaBarApp/prueba/app/src/main/res/layout/fragment_tables_exterior.xml" value="0.32592592592592595" />
         <entry key="..\:/pruebaBarApp/prueba/app/src/main/res/layout/fragment_tables_interior.xml" value="0.32592592592592595" />
         <entry key="..\:/pruebaBarApp/prueba/app/src/main/res/layout/fragment_tapas.xml" value="0.32592592592592595" />
+        <entry key="..\:/pruebaBarApp/prueba/app/src/main/res/layout/raciones_item.xml" value="0.32592592592592595" />
         <entry key="..\:/pruebaBarApp/prueba/app/src/main/res/layout/refrescos_item.xml" value="0.32592592592592595" />
         <entry key="..\:/pruebaBarApp/prueba/app/src/main/res/layout/tables_item.xml" value="0.32592592592592595" />
+        <entry key="..\:/pruebaBarApp/prueba/app/src/main/res/layout/tapas_item.xml" value="0.25" />
         <entry key="..\:/pruebaBarApp/prueba/app/src/main/res/menu/admin_menu.xml" value="0.32592592592592595" />
         <entry key="..\:/pruebaBarApp/prueba/app/src/main/res/menu/drinks_menu.xml" value="0.32592592592592595" />
         <entry key="..\:/pruebaBarApp/prueba/app/src/main/res/menu/tables_menu.xml" value="0.32592592592592595" />

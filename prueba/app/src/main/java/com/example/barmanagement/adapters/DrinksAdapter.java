@@ -80,14 +80,11 @@ public class DrinksAdapter extends FirestoreRecyclerAdapter<Category, DrinksAdap
             txtNombre = (TextView) itemView.findViewById(R.id.txtBebida);
             txtCantidad = (EditText) itemView.findViewById(R.id.txtCantidad);
             this.onCategoryListener = onCategoryListener;
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+            itemView.setOnClickListener(view -> {
                     int position = getBindingAdapterPosition();
                     if(position != RecyclerView.NO_POSITION && listener != null){
                         listener.onCategoryClick(getSnapshots().getSnapshot(position), position);
                     }
-                }
             });
 
         }

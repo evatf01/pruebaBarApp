@@ -8,10 +8,12 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -19,6 +21,8 @@ import android.widget.ImageView;
 import com.example.barmanagement.adapters.DrinksAdapter;
 import com.example.barmanagement.models.Category;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -27,15 +31,13 @@ import com.google.firebase.firestore.Query;
  * Use the {@link CoffeeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CoffeeFragment extends Fragment {
+public class CoffeeFragment extends Fragment implements NavigationBarView.OnItemSelectedListener {
     private FirebaseFirestore db;
     DrinksAdapter adapter;
     ImageView arrow;
 
 
-    public CoffeeFragment() {
-        // Required empty public constructor
-    }
+    public CoffeeFragment() {}
 
     /**
      * Use this factory method to create a new instance of
@@ -70,8 +72,9 @@ public class CoffeeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.listaCafes);
+        BottomNavigationView btnNav = (BottomNavigationView) view.findViewById(R.id.bottomNavigationViewDrinks);
         db = FirebaseFirestore.getInstance();
-        Query query = db.collection(CATEGORIAS).document("tapas").collection("cafes");
+        Query query = db.collection(CATEGORIAS).document("bebidas").collection("cafes");
 
 
         arrow = (ImageView) view.findViewById(R.id.imbArrowBack);
@@ -86,6 +89,7 @@ public class CoffeeFragment extends Fragment {
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
+        btnNav.setOnItemSelectedListener(this);
 
 
     }
@@ -100,5 +104,18 @@ public class CoffeeFragment extends Fragment {
     public void onStop() {
         super.onStop();
         adapter.stopListening();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.cerveza:
+                Navigation.findNavController(requireView()).navigate(R.id.beerFragment);
+                break;
+            case R.id.cafes:
+                Navigation.findNavController(requireView()).navigate(R.id.coffeeFragment);
+
+        }
+        return true;
     }
 }

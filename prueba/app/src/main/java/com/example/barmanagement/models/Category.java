@@ -6,15 +6,17 @@ public class Category {
     private String cantidad;
     private String familia;
     private String img;
+    private String extra;
 
 
     public Category(){}
-    public Category(String nombre, String precio, String cantidad, String familia, String img) {
+    public Category(String nombre, String precio, String cantidad, String familia, String img, String extra) {
         this.nombre = nombre;
         this.precio = precio;
         this.cantidad = cantidad;
         this.familia = familia;
         this.img = img;
+        this.extra = extra;
     }
 
     public String getNombre() {
@@ -26,7 +28,7 @@ public class Category {
     }
 
     public String getPrecio() {
-        return precio;
+        return  "Precio: "+precio +" €";
     }
 
     public void setPrecio(String precio) {
@@ -55,6 +57,14 @@ public class Category {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public String getExtra() {
+        return extra;
+    }
+
+    public void setExtra(String extra) {
+        this.extra = extra;
     }
 }
 

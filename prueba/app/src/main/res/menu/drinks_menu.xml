@@ -5,25 +5,26 @@
         android:id="@+id/refrescos"
         android:icon="@drawable/refrescos"
         android:enabled="true"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
+
         android:title="Refrescos"/>
     <item
         android:id="@+id/cerveza"
         android:enabled="true"
         android:icon="@drawable/beer"
         android:title="Cerveza"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/cafes"
         android:enabled="true"
         android:icon="@drawable/cafe"
         android:title="Cafés"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/more"
         android:enabled="true"
         android:icon="@drawable/add"
         android:title="Mas"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 </menu>

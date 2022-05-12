@@ -1,6 +1,5 @@
 package com.example.barmanagement;
 
-import static com.example.barmanagement.DrinksFragment.CATEGORIAS;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -8,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,7 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.barmanagement.adapters.DrinksAdapter;
+import com.example.barmanagement.adapters.FoodAdapter;
 import com.example.barmanagement.models.Category;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -30,7 +30,7 @@ import com.google.firebase.firestore.Query;
 public class TapasFragment extends Fragment {
 
     private FirebaseFirestore db;
-    DrinksAdapter adapter;
+    FoodAdapter adapter;
     public static final String CATEGORIAS = "CATEGORIAS";
     ImageView arrow;
 
@@ -70,25 +70,33 @@ public class TapasFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.listaCafes);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.listaTapas);
         db = FirebaseFirestore.getInstance();
-        Query query = db.collection(CATEGORIAS).document("bebidas").collection("cafes");
+        Query query = db.collection(CATEGORIAS).document("tapas_category").collection("tapas");
 
 
         arrow = (ImageView) view.findViewById(R.id.imbArrowBack);
         FirestoreRecyclerOptions<Category> options = new FirestoreRecyclerOptions.Builder<Category>()
                 .setQuery(query, Category.class).build();
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 
-        adapter = new DrinksAdapter( options,getContext());
+        adapter = new FoodAdapter( options,getContext());
         adapter.notifyDataSetChanged();
 
         recyclerView.setLayoutManager(layoutManager);
-
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
 
 
+        setOnClickListenerBack();
+
+    }
+
+    private void setOnClickListenerBack() {
+        arrow.setOnClickListener(view -> {
+                Navigation.findNavController(view).navigate(R.id.comandaFragment);
+        });
     }
 
     @Override
