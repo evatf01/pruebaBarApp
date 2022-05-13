@@ -1,11 +1,12 @@
 package com.example.barmanagement.adapters;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EdgeEffect;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,27 +20,33 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.barmanagement.R;
 import com.example.barmanagement.models.Category;
 import com.example.barmanagement.models.Comanda;
-import com.example.barmanagement.models.Tables;
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-public class DrinksAdapter extends FirestoreRecyclerAdapter<Category, DrinksAdapter.ViewHolder> {
-
+public class DrinksAdapter extends RecyclerView.Adapter<DrinksAdapter.ViewHolder> {
+    List<Category> categorias;
+    String[] texto;
     Context context;
-    private OnCategoryListener listener; // interfaz que me he creado para poder hacer onClick en el recyclerView
+    private final RecyclerViewClickListener listener; // interfaz que me he creado para poder hacer onClick en el recyclerView
+    FirebaseFirestore db;
 
-    /**
-     * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
-     * FirestoreRecyclerOptions} for configuration options.
-     *
-     * @param options
-     */
-    public DrinksAdapter(@NonNull FirestoreRecyclerOptions<Category> options, Context context) {
-        super(options);
+    public DrinksAdapter(List<Category> categorias, Context context, RecyclerViewClickListener listener) {
+        this.categorias = categorias;
         this.context = context;
+        this.listener = listener;
+
+        texto = new String[this.categorias.size()];
+        Log.d("longitud lista", String.valueOf(categorias.size()));
+    }
+
+
+
+
+    public  interface RecyclerViewClickListener{
+        void onClick(View view, int position);
     }
 
     @NonNull
@@ -47,56 +54,69 @@ public class DrinksAdapter extends FirestoreRecyclerAdapter<Category, DrinksAdap
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.drinks_item,parent,false);
 
-        return new ViewHolder(view, listener);
+        return new ViewHolder(view);
     }
-
-
 
     @Override
-    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Category model) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Category category = categorias.get(position);
         Glide.with(context). // inserto la foto en el recycler con Glide
-                load(model.getImg())
+                load(categorias.get(position).getImg())
                 .error(R.mipmap.ic_launcher)
                 .apply(RequestOptions.bitmapTransform(new RoundedCorners(50)))
-                .into(holder.imgCategory);
-
-        holder.txtNombre.setText(model.getNombre());
-        holder.txtCantidad.setText(model.getCantidad());
+                .into(holder.imgDrink);
+        holder.txtBebida.setText(categorias.get(position).getNombre());
+        holder.txtCantidad.setText(categorias.get(position).getCantidad());
     }
 
+    public String[] getTexto() {
+        return texto;
+    }
 
+    @Override
+    public int getItemCount() {
+        return categorias.size();
+    }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        //componentes del RecyclerView
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        // componentes del RecyclerView
 
-        ImageView imgCategory;
-        TextView txtNombre;
+        ImageView imgDrink;
+        TextView txtBebida;
         EditText txtCantidad;
-        OnCategoryListener onCategoryListener;
 
-        public ViewHolder(@NonNull View itemView, OnCategoryListener onCategoryListener) {
+
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imgCategory = (ImageView) itemView.findViewById(R.id.imgDrink);
-            txtNombre = (TextView) itemView.findViewById(R.id.txtBebida);
+            imgDrink = (ImageView) itemView.findViewById(R.id.imgDrink);
+            txtBebida = (TextView) itemView.findViewById(R.id.txtBebida);
             txtCantidad = (EditText) itemView.findViewById(R.id.txtCantidad);
-            this.onCategoryListener = onCategoryListener;
-            itemView.setOnClickListener(view -> {
-                    int position = getBindingAdapterPosition();
-                    if(position != RecyclerView.NO_POSITION && listener != null){
-                        listener.onCategoryClick(getSnapshots().getSnapshot(position), position);
-                    }
+
+            itemView.setOnClickListener(this);
+
+            txtCantidad.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    texto[getBindingAdapterPosition()] = charSequence.toString();
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                }
             });
 
         }
+        // implementamos el metodo onClick, donde usaremos el metodo de la interfaz creada anteriormente
+        @Override
+        public void onClick(View v) {
+
+            listener.onClick(v,getBindingAdapterPosition());
+        }
     }
-    public  interface OnCategoryListener{
-        void onCategoryClick(DocumentSnapshot documentSnapshot, int position);
-    }
-
-    public void setOnClickListener(OnCategoryListener listener){
-        this.listener = listener;
-    }
-
-
-
 }

@@ -4,19 +4,20 @@ public class Category {
     private String nombre;
     private String precio;
     private String cantidad;
-    private String familia;
     private String img;
     private String extra;
+    private String familia;
 
 
     public Category(){}
-    public Category(String nombre, String precio, String cantidad, String familia, String img, String extra) {
+
+    public Category(String nombre, String precio, String cantidad, String img, String extra, String familia) {
         this.nombre = nombre;
         this.precio = precio;
         this.cantidad = cantidad;
-        this.familia = familia;
         this.img = img;
         this.extra = extra;
+        this.familia = familia;
     }
 
     public String getNombre() {
@@ -43,13 +44,7 @@ public class Category {
         this.cantidad = cantidad;
     }
 
-    public String getFamilia() {
-        return familia;
-    }
 
-    public void setFamilia(String familia) {
-        this.familia = familia;
-    }
 
     public String getImg() {
         return img;
@@ -65,6 +60,26 @@ public class Category {
 
     public void setExtra(String extra) {
         this.extra = extra;
+    }
+
+    public String getFamilia() {
+        return familia;
+    }
+
+    public void setFamilia(String familia) {
+        this.familia = familia;
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "nombre='" + nombre + '\'' +
+                ", precio='" + precio + '\'' +
+                ", cantidad='" + cantidad + '\'' +
+                ", familia='" + familia + '\'' +
+                ", img='" + img + '\'' +
+                ", extra='" + extra + '\'' +
+                '}';
     }
 }
 
