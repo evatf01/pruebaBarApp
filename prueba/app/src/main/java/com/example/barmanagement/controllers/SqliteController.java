@@ -13,6 +13,7 @@ public class SqliteController {
         DbHelper db = new DbHelper(context);
         SQLiteDatabase sqLiteDatabase = db.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put(COLUMN_TYPE, "Empleado");
         values.put(COLUMN_NAME, name);
         values.put(COLUMN_PASSWORD, password);
         values.put(COLUMN_DNI, dni);

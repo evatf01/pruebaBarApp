@@ -19,9 +19,9 @@ public class FirestoreFields {
     public  static final String PHONE ="phone";
 
     /*---------MESAS----------------*/
-    public static final String NUM_MESA = "NumMesa";
+    public static final String NUM_MESA = "num";
     public static final String ZONA = "Zona";
     public static final String NUM_COMENSALES = "NumComensales";
     public static final String RESERVADO = "Reservado";
-    public static final String URL = "ImgUrl";
+    public static final String URL = "img";
 }

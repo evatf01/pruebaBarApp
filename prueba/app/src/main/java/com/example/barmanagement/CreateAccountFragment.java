@@ -1,7 +1,6 @@
 package com.example.barmanagement;
 
 import static com.example.barmanagement.utils.FirestoreFields.*;
-import static com.example.barmanagement.utils.UserTypes.*;
 
 import android.os.Bundle;
 
@@ -18,13 +17,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.example.barmanagement.controllers.SqliteController;
-import com.example.barmanagement.models.User;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -93,35 +86,31 @@ public class CreateAccountFragment extends Fragment {
 
     private void setOnClickListenerCreate() {
         btnCreateAccount.setOnClickListener(view -> {
-            if(txtName.getText().toString().isEmpty()||txtPassword.getText().toString().isEmpty()||txtDni.getText().toString().isEmpty()|| txtEmail.getText().toString().isEmpty()
-                    || txtPhone.getText().toString().isEmpty()){
-                DynamicToast.makeWarning(requireContext(),"Rellene los campos", Toast.LENGTH_SHORT).show();
-            }else{
+            if (txtName.getText().toString().isEmpty() || txtPassword.getText().toString().isEmpty() || txtDni.getText().toString().isEmpty() || txtEmail.getText().toString().isEmpty()
+                    || txtPhone.getText().toString().isEmpty()) {
+                DynamicToast.makeWarning(requireContext(), "Rellene los campos", Toast.LENGTH_SHORT).show();
+            } else {
                 String name = txtName.getText().toString();
-                String password =txtPassword.getText().toString();
+                String password = txtPassword.getText().toString();
                 String dni = txtDni.getText().toString();
                 String email = txtEmail.getText().toString();
                 String phone = txtPhone.getText().toString();
 
-                sqliteController.createUserSqlite(getContext(),name,password,dni,email,phone);
+                sqliteController.createUserSqlite(getContext(), name, password, dni, email, phone);
                 createUser(view);
             }
-
 
         });
     }
 
     private void createUser(View view) {
 
-
             DocumentReference userRef = db.collection(EMPLOYE).document(txtName.getText().toString());
-            userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+            userRef.get().addOnCompleteListener(task -> {
                     if(task.isSuccessful()){
                         DocumentSnapshot doc = task.getResult();
                         if(doc.exists()){
-                            DynamicToast.makeError(requireContext(),"Este usuario ya existe, pruebe con otro nombre", Toast.LENGTH_SHORT).show();
+                            DynamicToast.makeError(requireContext(),"Nombre de usuario ya existe, pruebe con otro nombre", Toast.LENGTH_SHORT).show();
                         }else{
                             Map<String, Object> user = new HashMap<>();
                             user.put(NAME, txtName.getText().toString());
@@ -135,10 +124,8 @@ public class CreateAccountFragment extends Fragment {
                     }else{
                         Log.d("Error","Error: ",task.getException());
                     }
-                }
+
             });
 
         }
-
-
 }

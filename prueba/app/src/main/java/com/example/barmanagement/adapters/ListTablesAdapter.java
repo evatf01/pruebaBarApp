@@ -21,6 +21,8 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ListTablesAdapter extends FirestoreRecyclerAdapter<Tables, ListTablesAdapter.ViewHolder> {
 

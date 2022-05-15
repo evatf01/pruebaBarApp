@@ -1,12 +1,8 @@
 package com.example.barmanagement;
 
-import static com.example.barmanagement.utils.FirestoreFields.DNI;
-import static com.example.barmanagement.utils.FirestoreFields.EMAIL;
 import static com.example.barmanagement.utils.FirestoreFields.EMPLOYE;
-import static com.example.barmanagement.utils.FirestoreFields.NAME;
 import static com.example.barmanagement.utils.FirestoreFields.PASSWORD;
 import static com.example.barmanagement.utils.FirestoreFields.PHONE;
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -102,40 +98,31 @@ public class LogInFragment extends Fragment {
     //DESDE EL BOTON DE LOGEARSE VOY AL FRAGMENT DONDE ESTÁN LAS MESAS QUE TIENE EL BAR
     private void ButtonSetOncLickListener() {
 
-        signIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(txtUser.getText().toString().isEmpty() || txtPassword.getText().toString().isEmpty()){
-                    Navigation.findNavController(view).navigate(R.id.tablesInteriorFragment);
-                    //DynamicToast.makeWarning(requireContext(),"Rellene los campos", Toast.LENGTH_SHORT).show();
-                }else{
-                    ComprobarUser(view);
-
-                }
-
+        signIn.setOnClickListener(view -> {
+            if(txtUser.getText().toString().isEmpty() || txtPassword.getText().toString().isEmpty()){
+                Navigation.findNavController(view).navigate(R.id.tablesInteriorFragment);
+                //DynamicToast.makeWarning(requireContext(),"Rellene los campos", Toast.LENGTH_SHORT).show();
+            }else{
+                ComprobarUser(view);
             }
         });
     }
-
     private void ComprobarUser(View view) {
         DocumentReference userRef = db.collection(EMPLOYE).document(txtUser.getText().toString());
-        userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
-                    DocumentSnapshot doc = task.getResult();
-                    if(doc.exists()){
-                        String password = doc.getString(PASSWORD);
-                        if(password.equals(txtPassword.getText().toString())) Navigation.findNavController(view).navigate(R.id.tablesInteriorFragment);
-                        else DynamicToast.makeError(requireContext(),"Contraseña incorrecta", Toast.LENGTH_SHORT).show();
+        userRef.get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                DocumentSnapshot doc = task.getResult();
+                if(doc.exists()){
+                    String password = doc.getString(PASSWORD);
+                    assert password != null;
+                    if(password.equals(txtPassword.getText().toString())) Navigation.findNavController(view).navigate(R.id.tablesInteriorFragment);
+                    else DynamicToast.makeError(requireContext(),"Contraseña incorrecta", Toast.LENGTH_SHORT).show();
 
-
-                    }else{
-                        DynamicToast.makeError(requireContext(),"credenciales no coinciden, registrese si no lo ha hecho", Toast.LENGTH_SHORT).show();
-                    }
                 }else{
-                    Log.d("Error","Error: ",task.getException());
+                    DynamicToast.makeError(requireContext(),"credenciales no coinciden, registrese si no lo ha hecho", Toast.LENGTH_SHORT).show();
                 }
+            }else{
+                Log.d("Error","Error: ",task.getException());
             }
         });
 
