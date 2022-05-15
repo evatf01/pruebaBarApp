@@ -8,10 +8,13 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -19,23 +22,29 @@ import android.widget.ImageView;
 import com.example.barmanagement.adapters.DrinksAdapter;
 import com.example.barmanagement.models.Category;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link CoffeeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CoffeeFragment extends Fragment {
+public class CoffeeFragment extends Fragment implements NavigationBarView.OnItemSelectedListener, DrinksAdapter.RecyclerViewClickListener {
     private FirebaseFirestore db;
     DrinksAdapter adapter;
     ImageView arrow;
+    List<Category> cafes = new ArrayList<>();
 
 
-    public CoffeeFragment() {
-        // Required empty public constructor
-    }
+    public CoffeeFragment() {}
 
     /**
      * Use this factory method to create a new instance of
@@ -70,27 +79,33 @@ public class CoffeeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.listaCafes);
+        BottomNavigationView btnNav = (BottomNavigationView) view.findViewById(R.id.bottomNavigationViewDrinks);
         db = FirebaseFirestore.getInstance();
-        Query query = db.collection(CATEGORIAS).document("tapas").collection("cafes");
+       // Query query = db.collection(CATEGORIAS).document("bebidas").collection("cafes");
 
+
+        cafes = obtenerDatos();
 
         arrow = (ImageView) view.findViewById(R.id.imbArrowBack);
-        FirestoreRecyclerOptions<Category> options = new FirestoreRecyclerOptions.Builder<Category>()
+      /*  FirestoreRecyclerOptions<Category> options = new FirestoreRecyclerOptions.Builder<Category>()
                 .setQuery(query, Category.class).build();
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 
-        adapter = new DrinksAdapter( options,getContext());
+*/
+        adapter = new DrinksAdapter( cafes,getContext(),this);
         adapter.notifyDataSetChanged();
-
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
+        btnNav.setOnItemSelectedListener(this);
+
+        setOnClickListenerBack();
 
 
     }
 
-    @Override
+  /*  @Override
     public void onStart() {
         super.onStart();
         adapter.startListening();
@@ -100,5 +115,47 @@ public class CoffeeFragment extends Fragment {
     public void onStop() {
         super.onStop();
         adapter.stopListening();
+    }*/
+
+    @SuppressLint("NotifyDataSetChanged")
+    private List<Category> obtenerDatos()  {
+        List<Category> lista_cafes = new ArrayList<>();
+        CollectionReference refrescos =  db.collection(CATEGORIAS).document("bebidas").collection("cafes");
+
+        refrescos.get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()  && task.isComplete()){
+                for (QueryDocumentSnapshot document: task.getResult()){
+                    Category category = document.toObject(Category.class);
+                    lista_cafes.add(category);
+
+                }
+            }
+            adapter.notifyDataSetChanged();
+        });
+
+        return lista_cafes;
+    }
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.cerveza:
+                Navigation.findNavController(requireView()).navigate(R.id.beerFragment);
+                break;
+            case R.id.cafes:
+                Navigation.findNavController(requireView()).navigate(R.id.coffeeFragment);
+
+        }
+        return true;
+    }
+
+    @Override
+    public void onClick(View view, int position) {
+
+    }
+
+    private void setOnClickListenerBack() {
+        arrow.setOnClickListener(view -> {
+            Navigation.findNavController(view).navigate(R.id.comandaFragment);
+        });
     }
 }

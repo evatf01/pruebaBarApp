@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -21,19 +22,27 @@ import android.widget.ImageView;
 import com.example.barmanagement.adapters.DrinksAdapter;
 import com.example.barmanagement.models.Category;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link BeerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BeerFragment extends Fragment {
+public class BeerFragment extends Fragment  implements NavigationBarView.OnItemSelectedListener, DrinksAdapter.RecyclerViewClickListener {
 
     private FirebaseFirestore db;
     DrinksAdapter adapter;
     ImageView arrow;
+    List<Category> cervezas = new ArrayList<>();
     public BeerFragment() {
         // Required empty public constructor
     }
@@ -61,24 +70,33 @@ public class BeerFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.listCerveza);
+        BottomNavigationView btnNav = (BottomNavigationView) view.findViewById(R.id.bottomNavigationViewDrinks);
         db =  FirebaseFirestore.getInstance();
-        Query query = db.collection(CATEGORIAS).document("bebidas").collection("cervezas");
+
+
+        cervezas = obtenerDatos();
+
+        //Query query = db.collection(CATEGORIAS).document("bebidas").collection("cervezas");
 
 
         arrow = (ImageView) view.findViewById(R.id.imbArrowBack);
-        FirestoreRecyclerOptions<Category> options = new FirestoreRecyclerOptions.Builder<Category>()
+       /* FirestoreRecyclerOptions<Category> options = new FirestoreRecyclerOptions.Builder<Category>()
                 .setQuery(query, Category.class).build();
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 
-        adapter = new DrinksAdapter( options,getContext());
+        */
+        adapter = new DrinksAdapter(cervezas,getContext(),this);
         adapter.notifyDataSetChanged();
 
+
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
 
         setOnClickListenerBack();
+        btnNav.setOnItemSelectedListener(this);
 
     }
 
@@ -91,7 +109,27 @@ public class BeerFragment extends Fragment {
         });
     }
 
-    @Override
+    @SuppressLint("NotifyDataSetChanged")
+    private List<Category> obtenerDatos() {
+        List<Category> lista_cervza = new ArrayList<>();
+        CollectionReference cerveza =  db.collection(CATEGORIAS).document("bebidas").collection("cervezas");
+
+        cerveza.get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()  && task.isComplete()){
+                for (QueryDocumentSnapshot document: task.getResult()){
+                    Category category = document.toObject(Category.class);
+                    lista_cervza.add(category);
+
+                }
+            }
+            adapter.notifyDataSetChanged();
+        });
+
+
+        return lista_cervza;
+    }
+
+ /*   @Override
     public void onStart() {
         super.onStart();
         adapter.startListening();
@@ -101,5 +139,23 @@ public class BeerFragment extends Fragment {
     public void onStop() {
         super.onStop();
         adapter.stopListening();
+    }*/
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.cafes:
+                Navigation.findNavController(requireView()).navigate(R.id.coffeeFragment);
+                break;
+            case R.id.refrescos:
+                Navigation.findNavController(requireView()).navigate(R.id.drinksFragment);
+
+        }
+        return true;
+    }
+
+    @Override
+    public void onClick(View view, int position) {
+
     }
 }

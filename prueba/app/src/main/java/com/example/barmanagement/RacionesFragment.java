@@ -1,5 +1,6 @@
 package com.example.barmanagement;
 
+import static com.example.barmanagement.TapasFragment.CATEGORIAS;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -11,37 +12,29 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.barmanagement.adapters.FoodAdapter;
+import com.example.barmanagement.adapters.RacionesAdapter;
 import com.example.barmanagement.models.Category;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link TapasFragment#newInstance} factory method to
+ * Use the {@link RacionesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TapasFragment extends Fragment implements FoodAdapter.RecyclerViewClickListener{
-
-    private FirebaseFirestore db;
-    FoodAdapter adapter;
+public class RacionesFragment extends Fragment {
+    FirebaseFirestore db;
+    RacionesAdapter adapter;
     public static final String CATEGORIAS = "CATEGORIAS";
     ImageView arrow;
-    List<Category> tapas = new ArrayList<>();
-
-    public TapasFragment() {
+    public RacionesFragment() {
         // Required empty public constructor
     }
 
@@ -51,12 +44,12 @@ public class TapasFragment extends Fragment implements FoodAdapter.RecyclerViewC
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment TapasFragment.
+     * @return A new instance of fragment RacionesFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static TapasFragment newInstance(String param1, String param2) {
+    public static RacionesFragment newInstance(String param1, String param2) {
 
-        return new TapasFragment();
+        return new RacionesFragment();
     }
 
     @Override
@@ -69,72 +62,44 @@ public class TapasFragment extends Fragment implements FoodAdapter.RecyclerViewC
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tapas, container, false);
+        return inflater.inflate(R.layout.fragment_raciones, container, false);
     }
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.listaTapas);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.listaRaciones);
         db = FirebaseFirestore.getInstance();
-      /*  Query query = db.collection(CATEGORIAS).document("tapas_category").collection("tapas");
+        Query query = db.collection(CATEGORIAS).document("tapas_category").collection("raciones");
 
 
         arrow = (ImageView) view.findViewById(R.id.imbArrowBack);
         FirestoreRecyclerOptions<Category> options = new FirestoreRecyclerOptions.Builder<Category>()
-                .setQuery(query, Category.class).build();*/
-
+                .setQuery(query, Category.class).build();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        tapas = obtenerDatos();
 
-        adapter = new FoodAdapter( tapas,getContext(), this, db);
+        adapter = new RacionesAdapter( options,getContext());
         adapter.notifyDataSetChanged();
-
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
 
-
         setOnClickListenerBack();
 
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    private List<Category> obtenerDatos()  {
-        List<Category> lista_tapas = new ArrayList<>();
-        CollectionReference tapas =  db.collection(CATEGORIAS).document("tapas_category").collection("tapas");
-
-        tapas.get().addOnCompleteListener(task -> {
-            if(task.isSuccessful() && task.isComplete()){
-                for (QueryDocumentSnapshot document: task.getResult()){
-                    Category category = document.toObject(Category.class);
-                    lista_tapas.add(category);
-
-                }
-            }
-
-
-            adapter.notifyDataSetChanged();
-        });
-
-        return lista_tapas;
-    }
-
     private void setOnClickListenerBack() {
-        arrow.setOnClickListener(view -> {
+        arrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.comandaFragment);
+            }
         });
     }
 
     @Override
-    public void onClick(View view, int position) {
-
-    }
-
-  /*  @Override
     public void onStart() {
         super.onStart();
         adapter.startListening();
@@ -144,6 +109,5 @@ public class TapasFragment extends Fragment implements FoodAdapter.RecyclerViewC
     public void onStop() {
         super.onStop();
         adapter.stopListening();
-    }*/
-
+    }
 }

@@ -1,5 +1,7 @@
 package com.example.barmanagement;
 
+
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
@@ -15,35 +17,37 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.barmanagement.adapters.DrinksAdapter;
-import com.example.barmanagement.adapters.ListCategoriesAdapter;
-import com.example.barmanagement.adapters.ListTablesAdapter;
 import com.example.barmanagement.models.Category;
-import com.example.barmanagement.models.Tables;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link DrinksFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DrinksFragment extends Fragment implements NavigationBarView.OnItemSelectedListener{
+public class DrinksFragment extends Fragment implements NavigationBarView.OnItemSelectedListener, DrinksAdapter.RecyclerViewClickListener{
     private FirebaseFirestore db;
     DrinksAdapter adapter;
+    List<Category> refrescos = new ArrayList<>();
     public static final String CATEGORIAS = "CATEGORIAS";
     ImageView arrow;
 
 
-    public DrinksFragment() {
-        // Required empty public constructor
-    }
+
+    public DrinksFragment() { }
 
 
     public static DrinksFragment newInstance(String param1, String param2) {
@@ -69,17 +73,23 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         db =  FirebaseFirestore.getInstance();
+
+
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.listaRefrescos);
         BottomNavigationView btnNav = (BottomNavigationView) view.findViewById(R.id.bottomNavigationViewDrinks);
 
         arrow = (ImageView) view.findViewById(R.id.imbArrowBack);
-        Query query = db.collection(CATEGORIAS).document("bebidas").collection("refrescos");
-        Log.d("query", query.toString());
-        FirestoreRecyclerOptions<Category> options = new FirestoreRecyclerOptions.Builder<Category>()
-                .setQuery(query, Category.class).build();
+        //Query query = db.collection(CATEGORIAS).document("bebidas").collection("refrescos");
+
+       /* FirestoreRecyclerOptions<Category> options = new FirestoreRecyclerOptions.Builder<Category>()
+                .setQuery(query, Category.class).build();*/
+
+        //Log.d("query", options.getSnapshots().toString());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 
-        adapter = new DrinksAdapter( options,getContext());
+        refrescos = obtenerDatos();
+
+        adapter = new DrinksAdapter(refrescos,getContext(),this);
         adapter.notifyDataSetChanged();
 
         recyclerView.setLayoutManager(layoutManager);
@@ -89,21 +99,54 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
 
         btnNav.setOnItemSelectedListener(this);
 
+        getCantidadBebidas();
+
         setOnClickListenerBack();
+
 
     }
 
-    private void setOnClickListenerBack() {
-        arrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.comandaFragment);
+    private void getCantidadBebidas() {
+
+        Map<String, Object> comanda = new HashMap<>();
+
+
+        db.collection(CATEGORIAS).document("bebidas").collection("refrescos").document("comandas").set(comanda);
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private List<Category> obtenerDatos() {
+        List<Category> lista_refrescos = new ArrayList<>();
+        CollectionReference refrescos =  db.collection(CATEGORIAS).document("bebidas").collection("refrescos");
+
+        refrescos.get().addOnCompleteListener(task -> {
+            if(task.isSuccessful() && task.isComplete()){
+                for (QueryDocumentSnapshot document: task.getResult()){
+                    Category category = document.toObject(Category.class);
+                    lista_refrescos.add(category);
+
+                }
             }
+
+
+            adapter.notifyDataSetChanged();
+        });
+
+        //Thread.sleep(200);
+        Log.d("refrescos", lista_refrescos.toString());
+
+
+        return lista_refrescos;
+    }
+
+    private void setOnClickListenerBack() {
+        arrow.setOnClickListener(view -> {
+                Navigation.findNavController(view).navigate(R.id.comandaFragment);
         });
     }
 
 
-    @Override
+  /*  @Override
     public void onStart() {
         super.onStart();
         adapter.startListening();
@@ -113,8 +156,9 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
     public void onStop() {
         super.onStop();
         adapter.stopListening();
-    }
+    }*/
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
@@ -126,5 +170,10 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
 
         }
        return true;
+    }
+
+    @Override
+    public void onClick(View view, int position) {
+
     }
 }

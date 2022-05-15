@@ -87,8 +87,8 @@ public class CategoriasFragment extends Fragment implements ListCategoriesAdapte
     @Override
     public void onClick(View view, int position) {
         if(listaCategorias.get(position).getName().equals(BEBIDAS)) Navigation.findNavController(view).navigate(R.id.drinksFragment);
-        if(listaCategorias.get(position).getName().equals(TAPAS)) Navigation.findNavController(view).navigate(R.id.drinksFragment);
-        if(listaCategorias.get(position).getName().equals(RACIONES)) Navigation.findNavController(view).navigate(R.id.drinksFragment);
+        if(listaCategorias.get(position).getName().equals(TAPAS)) Navigation.findNavController(view).navigate(R.id.tapasFragment);
+        if(listaCategorias.get(position).getName().equals(RACIONES)) Navigation.findNavController(view).navigate(R.id.racionesFragment);
         if(listaCategorias.get(position).getName().equals(POSTRES)) Navigation.findNavController(view).navigate(R.id.drinksFragment);
 
     }
