@@ -89,6 +89,9 @@
         <action
             android:id="@+id/action_drinksFragment_to_coffeeFragment"
             app:destination="@id/coffeeFragment" />
+        <action
+            android:id="@+id/action_drinksFragment_to_moreDrinksFragment"
+            app:destination="@id/moreDrinksFragment" />
     </fragment>
     <fragment
         android:id="@+id/comandaFragment"
@@ -110,6 +113,9 @@
         <action
             android:id="@+id/action_beerFragment_to_coffeeFragment"
             app:destination="@id/coffeeFragment" />
+        <action
+            android:id="@+id/action_beerFragment_to_moreDrinksFragment"
+            app:destination="@id/moreDrinksFragment" />
     </fragment>
     <fragment
         android:id="@+id/coffeeFragment"
@@ -121,6 +127,9 @@
         <action
             android:id="@+id/action_coffeeFragment_to_drinksFragment"
             app:destination="@id/drinksFragment" />
+        <action
+            android:id="@+id/action_coffeeFragment_to_moreDrinksFragment"
+            app:destination="@id/moreDrinksFragment" />
     </fragment>
     <fragment
         android:id="@+id/tapasFragment"
@@ -137,5 +146,13 @@
         <action
             android:id="@+id/action_racionesFragment_to_categoriasFragment"
             app:destination="@id/categoriasFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/moreDrinksFragment"
+        android:name="com.example.barmanagement.MoreDrinksFragment"
+        android:label="MoreDrinksFragment" >
+        <action
+            android:id="@+id/action_moreDrinksFragment_to_drinksFragment"
+            app:destination="@id/drinksFragment" />
     </fragment>
 </navigation>

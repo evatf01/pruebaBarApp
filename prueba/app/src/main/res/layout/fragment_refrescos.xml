@@ -7,41 +7,42 @@
     tools:context=".DrinksFragment"
     android:background="@drawable/background_menu">
 
+
     <ImageView
         android:id="@+id/imbArrowBack"
         android:layout_width="48dp"
         android:layout_height="30dp"
-        android:layout_marginStart="18dp"
+        android:layout_marginStart="16dp"
         android:padding="4dp"
         android:src="@drawable/arrow_back"
         app:layout_constraintBottom_toTopOf="@+id/listaRefrescos"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.382" />
+        app:layout_constraintVertical_bias="0.48" />
 
     <TextView
         android:id="@+id/txtNumMesa"
         android:layout_width="match_parent"
         android:layout_height="31dp"
         android:layout_marginTop="25dp"
+        android:elevation="4dp"
         android:gravity="center"
         android:text="REFRESCOS"
-        android:elevation="4dp"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/listaRefrescos"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listaRefrescos"
-        android:layout_width="0dp"
-        android:layout_height="590dp"
-        android:layout_marginBottom="32dp"
+        android:layout_width="394dp"
+        android:layout_height="550dp"
+        android:layout_marginBottom="88dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewDrinks"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -53,12 +54,13 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationViewDrinks"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
+        android:layout_height="70dp"
         android:layout_alignParentBottom="true"
         android:background="#FE7050"
         android:elevation="5dp"
-        app:itemIconSize="28sp"
-        app:itemIconTint="@android:color/black"
+        app:itemIconSize="25sp"
+
+        app:labelVisibilityMode="labeled"
         app:itemTextColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,6 +68,22 @@
 
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/drinks_menu" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:backgroundTint="#FDBDA0"
+        android:src="@drawable/check"
+
+
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewDrinks"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.952"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listaRefrescos"
+        app:layout_constraintVertical_bias="0.375" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

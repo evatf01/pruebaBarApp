@@ -1,5 +1,6 @@
 package com.example.barmanagement.adapters;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -27,8 +28,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DrinksAdapter extends RecyclerView.Adapter<DrinksAdapter.ViewHolder> {
+
     List<Category> categorias;
-    String[] texto;
+    public List<ContentValues>texto;
     Context context;
     private final RecyclerViewClickListener listener; // interfaz que me he creado para poder hacer onClick en el recyclerView
     FirebaseFirestore db;
@@ -38,11 +40,9 @@ public class DrinksAdapter extends RecyclerView.Adapter<DrinksAdapter.ViewHolder
         this.context = context;
         this.listener = listener;
 
-        texto = new String[this.categorias.size()];
+        texto =new ArrayList<>();
         Log.d("longitud lista", String.valueOf(categorias.size()));
     }
-
-
 
 
     public  interface RecyclerViewClickListener{
@@ -59,17 +59,17 @@ public class DrinksAdapter extends RecyclerView.Adapter<DrinksAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Category category = categorias.get(position);
+        holder.setIsRecyclable(false);
         Glide.with(context). // inserto la foto en el recycler con Glide
                 load(categorias.get(position).getImg())
                 .error(R.mipmap.ic_launcher)
                 .apply(RequestOptions.bitmapTransform(new RoundedCorners(50)))
                 .into(holder.imgDrink);
         holder.txtBebida.setText(categorias.get(position).getNombre());
-        holder.txtCantidad.setText(categorias.get(position).getCantidad());
+        //holder.txtCantidad.setText(texto.get(position));
     }
 
-    public String[] getTexto() {
+    public List<ContentValues> getTexto() {
         return texto;
     }
 
@@ -78,45 +78,66 @@ public class DrinksAdapter extends RecyclerView.Adapter<DrinksAdapter.ViewHolder
         return categorias.size();
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return super.getItemId(position);
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         // componentes del RecyclerView
 
         ImageView imgDrink;
-        TextView txtBebida;
-        EditText txtCantidad;
-
+        public TextView txtBebida;
+        public EditText txtCantidad;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imgDrink = (ImageView) itemView.findViewById(R.id.imgDrink);
             txtBebida = (TextView) itemView.findViewById(R.id.txtBebida);
             txtCantidad = (EditText) itemView.findViewById(R.id.txtCantidad);
-
+            MyTextWatcher myTextWatcher = new MyTextWatcher(txtCantidad, txtBebida);
+            txtCantidad.addTextChangedListener(myTextWatcher);
             itemView.setOnClickListener(this);
-
-            txtCantidad.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    texto[getBindingAdapterPosition()] = charSequence.toString();
-                }
-
-                @Override
-                public void afterTextChanged(Editable editable) {
-
-                }
-            });
 
         }
         // implementamos el metodo onClick, donde usaremos el metodo de la interfaz creada anteriormente
         @Override
         public void onClick(View v) {
-
             listener.onClick(v,getBindingAdapterPosition());
+        }
+    }
+
+    public class MyTextWatcher implements TextWatcher {
+        private EditText editText;
+        private TextView txtBebida;
+
+        public MyTextWatcher(EditText editText, TextView txtBebida) {
+            this.editText = editText;
+            this.txtBebida = txtBebida;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            String cantidad = String.valueOf(editText.getText());
+            ContentValues cv = new ContentValues();
+            cv.put(txtBebida.getText().toString(),cantidad);
+            texto.add(cv);
+
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
         }
     }
 }

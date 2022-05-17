@@ -24,4 +24,14 @@ public class FirestoreFields {
     public static final String NUM_COMENSALES = "NumComensales";
     public static final String RESERVADO = "Reservado";
     public static final String URL = "ImgUrl";
+
+    /*--------BEBIDAS---------*/
+    public static final String COCA_COLA = "CocaCola normal";
+    public static final String COCA_COLA_ZERO = "Cocacola Zero";
+    public static final String AQUARIUS_LIMON = "Aquarius Limon";
+    public static final String AQUARIUS_NARANJA = "Aquarius Naranja";
+    public static final String FANTA_NARANJA= "Fanta Limon";
+    public static final String FANTA_LIMON= "Fanta Limon";
+    public static final String SEVENUP= "Seven up";
+
 }

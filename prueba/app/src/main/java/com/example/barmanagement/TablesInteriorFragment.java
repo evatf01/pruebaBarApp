@@ -1,7 +1,5 @@
 package com.example.barmanagement;
 
-import static com.example.barmanagement.utils.FirestoreFields.*;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
@@ -11,33 +9,20 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.example.barmanagement.adapters.ListTablesAdapter;
 import com.example.barmanagement.models.Tables;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 
-public class TablesInteriorFragment extends Fragment implements NavigationBarView.OnItemSelectedListener {
+public class TablesInteriorFragment extends Fragment {
     View txtExterior;
     private FirebaseFirestore db;
     ListTablesAdapter adapter;
@@ -73,12 +58,9 @@ public class TablesInteriorFragment extends Fragment implements NavigationBarVie
 
         db =  FirebaseFirestore.getInstance();
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.listTablesInterior);
-        BottomNavigationView btnNav = (BottomNavigationView) view.findViewById(R.id.bottomNavigationView);
-        btnNav.setOnItemSelectedListener(this);
 
 
         Query query = db.collection(ZONA);
-
         FirestoreRecyclerOptions<Tables> options = new FirestoreRecyclerOptions.Builder<Tables>()
                 .setQuery(query, Tables.class).build();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -123,24 +105,6 @@ public class TablesInteriorFragment extends Fragment implements NavigationBarVie
         adapter.stopListening();
     }
 
-   /* private void crearMesasFS() {
-        Map<String,Object> tables = new HashMap<>();
-        tables.put("iMesa1", new Tables("MESA 1","INTERIOR","","","https://cdn-icons-png.flaticon.com/512/47/47638.png"));
-        tables.put("iMesa2", new Tables("MESA 2","INTERIOR","","","https://cdn-icons-png.flaticon.com/512/47/47638.png"));
-        tables.put("iMesa3", new Tables("MESA 3","INTERIOR","","","https://cdn-icons-png.flaticon.com/512/47/47638.png"));
-        tables.put("iMesa4", new Tables("MESA 4","INTERIOR","","","https://cdn-icons-png.flaticon.com/512/47/47638.png"));
-        tables.put("iMesa5", new Tables("MESA 5","INTERIOR","","","https://cdn-icons-png.flaticon.com/512/47/47638.png"));
-        tables.put("iMesa6", new Tables("MESA 6","INTERIOR","","","https://cdn-icons-png.flaticon.com/512/47/47638.png"));
-        tables.put("iMesa7", new Tables("MESA 7","INTERIOR","","","https://cdn-icons-png.flaticon.com/512/47/47638.png"));
-
-
-        db.collection(ZONA).document("MESA"+num+1).set(tables).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-
-            }
-        });
-    }*/
 
     private void setOnClickListenerExterior() {
         txtExterior.setOnClickListener(new View.OnClickListener() {
@@ -151,39 +115,6 @@ public class TablesInteriorFragment extends Fragment implements NavigationBarVie
         });
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.exterior:
-                Log.d("","");
-        }
-        return false;
-    }
 
 
-/*
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-        switch (item.getItemId()){
-            case R.id.exterior:
-
-
-
-                break;
-            case R.id.interior:
-
-                requireActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.contenedorExterior,  fragmentInterior)
-                        .remove(fragmentExterior)
-                        .addToBackStack(TablesInteriorFragment.class.getName())
-                        .commit();
-
-
-                break;
-
-
-        }
-        return true;
-    }*/
 }

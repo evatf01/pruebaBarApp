@@ -1,15 +1,10 @@
 package com.example.barmanagement;
 
 
-import static com.example.barmanagement.utils.FirestoreFields.COCA_COLA;
-
 import android.annotation.SuppressLint;
-import android.content.ContentValues;
-import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,10 +14,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.example.barmanagement.adapters.DrinksAdapter;
 import com.example.barmanagement.models.Category;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -31,8 +23,6 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.util.Assert;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,17 +33,16 @@ import java.util.Map;
  * Use the {@link DrinksFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DrinksFragment extends Fragment implements NavigationBarView.OnItemSelectedListener, DrinksAdapter.RecyclerViewClickListener{
+public class MoreDrinksFragment extends Fragment implements NavigationBarView.OnItemSelectedListener, DrinksAdapter.RecyclerViewClickListener{
     private FirebaseFirestore db;
     DrinksAdapter adapter;
     List<Category> refrescos = new ArrayList<>();
     public static final String CATEGORIAS = "CATEGORIAS";
     ImageView arrow;
     FloatingActionButton btnCheck;
-    List<ContentValues> escrito;
-    RecyclerView recyclerView;
+    List<String> escrito;
 
-    public DrinksFragment() { }
+    public MoreDrinksFragment() { }
 
     public static DrinksFragment newInstance(String param1, String param2) {
         return new DrinksFragment();
@@ -74,12 +63,12 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        db =  FirebaseFirestore.getInstance();
+        db = FirebaseFirestore.getInstance();
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.listaRefrescos);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.listaRefrescos);
         BottomNavigationView btnNav = (BottomNavigationView) view.findViewById(R.id.bottomNavigationViewDrinks);
         btnNav.setItemIconTintList(null);
-        btnCheck = (FloatingActionButton)view.findViewById(R.id.btnCheck);
+        btnCheck = (FloatingActionButton) view.findViewById(R.id.btnCheck);
         arrow = (ImageView) view.findViewById(R.id.imbArrowBack);
         escrito = new ArrayList<>();
         //Query query = db.collection(CATEGORIAS).document("bebidas").collection("refrescos");
@@ -92,7 +81,7 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
 
         refrescos = obtenerDatos();
 
-        adapter = new DrinksAdapter(refrescos,getContext(),this);
+        adapter = new DrinksAdapter(refrescos, getContext(), this);
         adapter.notifyDataSetChanged();
 
         recyclerView.setLayoutManager(layoutManager);
@@ -103,22 +92,20 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
 
         btnNav.setOnItemSelectedListener(this);
 
-       // getCantidadBebidas();
+        // getCantidadBebidas();
 
         setOnClickListenerBack();
         setOnClickListenerCheck();
-
-
     }
+
 
     private void setOnClickListenerCheck() {
         btnCheck.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
-               List<ContentValues> texto = adapter.getTexto();
+                //escrito = adapter.getTexto();
 
-               Log.d("texto", texto.toString());
+                Log.d("escrito", escrito.toString());
             }
         });
     }
@@ -133,7 +120,7 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
     @SuppressLint("NotifyDataSetChanged")
     private List<Category> obtenerDatos() {
         List<Category> lista_refrescos = new ArrayList<>();
-        CollectionReference refrescos =  db.collection(CATEGORIAS).document("bebidas").collection("refrescos");
+        CollectionReference refrescos =  db.collection(CATEGORIAS).document("bebidas").collection("mas_bebidas");
 
         refrescos.get().addOnCompleteListener(task -> {
             if(task.isSuccessful() && task.isComplete()){
@@ -143,19 +130,17 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
 
                 }
             }
+
+
             adapter.notifyDataSetChanged();
         });
-
-        //Thread.sleep(200);
-        Log.d("refrescos", lista_refrescos.toString());
-
 
         return lista_refrescos;
     }
 
     private void setOnClickListenerBack() {
         arrow.setOnClickListener(view -> {
-                Navigation.findNavController(view).navigate(R.id.comandaFragment);
+            Navigation.findNavController(view).navigate(R.id.comandaFragment);
         });
     }
 
@@ -170,10 +155,12 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
             case R.id.cafes:
                 Navigation.findNavController(requireView()).navigate(R.id.coffeeFragment);
                 break;
-            case R.id.more:
-                Navigation.findNavController(requireView()).navigate(R.id.moreDrinksFragment);
+            case R.id.refrescos:
+                Navigation.findNavController(requireView()).navigate(R.id.drinksFragment);
+                break;
+
         }
-       return true;
+        return true;
     }
 
     @Override
