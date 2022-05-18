@@ -1,15 +1,21 @@
 package com.example.barmanagement;
 
 
+import static com.example.barmanagement.ComandaFragment.numero;
+import static com.example.barmanagement.utils.FirestoreFields.AQUARIUS_LIMON;
+import static com.example.barmanagement.utils.FirestoreFields.AQUARIUS_NARANJA;
 import static com.example.barmanagement.utils.FirestoreFields.COCA_COLA;
+import static com.example.barmanagement.utils.FirestoreFields.COCA_COLA_ZERO;
+import static com.example.barmanagement.utils.FirestoreFields.COMANDA;
+import static com.example.barmanagement.utils.FirestoreFields.FANTA_LIMON;
+import static com.example.barmanagement.utils.FirestoreFields.FANTA_NARANJA;
+import static com.example.barmanagement.utils.FirestoreFields.SEVENUP;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
-import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,9 +25,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.barmanagement.adapters.DrinksAdapter;
 import com.example.barmanagement.models.Category;
@@ -31,12 +35,13 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.util.Assert;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -116,14 +121,92 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
 
             @Override
             public void onClick(View view) {
-               List<ContentValues> texto = adapter.getTexto();
+               List<HashMap<String, Object>> texto = adapter.getTexto();
+                for (int a =0; a<texto.size();a++)
+                {
+                    HashMap<String, Object> data = (HashMap<String, Object>) texto.get(a);
+                    Set<String> key = data.keySet();
+                    Iterator<String> it = key.iterator();
+                    while (it.hasNext()) {
+                        String keyData = (String)it.next();
+                        Object num = data.get(keyData);
+                        //getCantidadBebidas(keyData, num);
+                        System.out.println("Key: "+keyData +" & Data: "+num);
+                        switch (keyData){
+                            case COCA_COLA:
+                                if(num!=null){
+                                    HashMap<String,Object> refresco = new HashMap<>();
+                                    refresco.put("nombre", COCA_COLA);
+                                    refresco.put("cantidad",num);
+                                    db.collection(COMANDA).document(numero).collection("bebidas").document(COCA_COLA).set(refresco);
+                                }
+                                break;
+                            case COCA_COLA_ZERO:
+                                if(num!=null){
+                                    HashMap<String,Object> refresco = new HashMap<>();
+                                    refresco.put("nombre", COCA_COLA_ZERO);
+                                    refresco.put("cantidad",num);
+                                    db.collection(COMANDA).document(numero).collection("bebidas").document(COCA_COLA_ZERO).set(refresco);
+                                }
+                                break;
+                            case AQUARIUS_LIMON:
+                                if(num!=null){
+                                    List<Integer> total = new ArrayList<>();
+                                    total.add(Integer.parseInt(num.toString()));
+                                    HashMap<String,Object> refresco = new HashMap<>();
+                                    int resultado=0;
+                                    for (int numero : total){
+                                        resultado += numero;
+                                    }
+                                    refresco.put("nombre", AQUARIUS_LIMON);
+                                    refresco.put("cantidad",resultado);
+                                    db.collection(COMANDA).document(numero).collection("bebidas").document(AQUARIUS_LIMON).set(refresco);
+                                }
+                                break;
+                            case AQUARIUS_NARANJA:
+                                if(num!=null){
+                                    HashMap<String,Object> refresco = new HashMap<>();
+                                    refresco.put("nombre", AQUARIUS_LIMON);
+                                    refresco.put("cantidad",num);
+                                    db.collection(COMANDA).document(numero).collection("bebidas").document(AQUARIUS_NARANJA).set(refresco);
+                                }
+                                break;
+                            case SEVENUP:
+                                if(num!=null){
+                                    HashMap<String,Object> refresco = new HashMap<>();
+                                    refresco.put("nombre", SEVENUP);
+                                    refresco.put("cantidad",num);
+                                    db.collection(COMANDA).document(numero).collection("bebidas").document(SEVENUP).set(refresco);
+                                }
+                                break;
+                            case FANTA_LIMON:
+                                if(num!=null){
+                                    HashMap<String,Object> refresco = new HashMap<>();
+                                    refresco.put("nombre", FANTA_LIMON);
+                                    refresco.put("cantidad",num);
+                                    db.collection(COMANDA).document(numero).collection("bebidas").document(FANTA_LIMON).set(refresco);
+                                }
+                                break;
+                            case FANTA_NARANJA:
+                                if(num!=null){
+                                    HashMap<String,Object> refresco = new HashMap<>();
+                                    refresco.put("nombre", FANTA_NARANJA);
+                                    refresco.put("cantidad",num);
+                                    db.collection(COMANDA).document(numero).collection("bebidas").document(FANTA_NARANJA).set(refresco);
+                                }
+                                break;
 
-               Log.d("texto", texto.toString());
+                        }
+                        it.remove(); // avoids a ConcurrentModificationException
+                    }
+
+                }
+                //Log.d("texto", texto.toString());
             }
         });
     }
 
-    private void getCantidadBebidas() {
+    private void getCantidadBebidas(String key, String num) {
 
         Map<String, Object> comanda = new HashMap<>();
 

@@ -25,12 +25,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class DrinksAdapter extends RecyclerView.Adapter<DrinksAdapter.ViewHolder> {
 
     List<Category> categorias;
-    public List<ContentValues>texto;
+    public List<HashMap<String, Object>>texto;
     Context context;
     private final RecyclerViewClickListener listener; // interfaz que me he creado para poder hacer onClick en el recyclerView
     FirebaseFirestore db;
@@ -69,7 +70,7 @@ public class DrinksAdapter extends RecyclerView.Adapter<DrinksAdapter.ViewHolder
         //holder.txtCantidad.setText(texto.get(position));
     }
 
-    public List<ContentValues> getTexto() {
+    public List<HashMap<String, Object>> getTexto() {
         return texto;
     }
 
@@ -128,9 +129,9 @@ public class DrinksAdapter extends RecyclerView.Adapter<DrinksAdapter.ViewHolder
         public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             String cantidad = String.valueOf(editText.getText());
-            ContentValues cv = new ContentValues();
-            cv.put(txtBebida.getText().toString(),cantidad);
-            texto.add(cv);
+            HashMap<String,Object> map= new HashMap<>();
+            map.put(txtBebida.getText().toString(),cantidad);
+            texto.add(map);
 
 
         }

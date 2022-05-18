@@ -5,7 +5,7 @@ public class FirestoreFields {
     /*COLECCIONES*/
     public static final String EMPLOYE = "EMPLOYE";
     public static final String RECEIPT = "RECEIPT";
-    public static final String COMANDA = "Comanda";
+    public static final String COMANDA = "COMANDA";
     public static final String MESAS = "MESAS";
 
     /*-----------EMPLEADOS-------------*/
@@ -30,8 +30,9 @@ public class FirestoreFields {
     public static final String COCA_COLA_ZERO = "Cocacola Zero";
     public static final String AQUARIUS_LIMON = "Aquarius Limon";
     public static final String AQUARIUS_NARANJA = "Aquarius Naranja";
-    public static final String FANTA_NARANJA= "Fanta Limon";
+    public static final String FANTA_NARANJA= "Fanta Naranja";
     public static final String FANTA_LIMON= "Fanta Limon";
     public static final String SEVENUP= "Seven up";
+    public static final String PRECIO= "2,20";
 
 }

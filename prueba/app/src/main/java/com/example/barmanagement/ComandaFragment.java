@@ -1,5 +1,7 @@
 package com.example.barmanagement;
 
+import static com.example.barmanagement.utils.FirestoreFields.COMANDA;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,6 +20,7 @@ import android.widget.TextView;
 
 import com.example.barmanagement.adapters.ComandaAdapter;
 import com.example.barmanagement.models.Category;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -33,7 +36,8 @@ public class ComandaFragment extends Fragment {
     private EditText txtNumComensales;
     private ImageButton btnAdd;
     private ImageView btnArrow;
-    private String numero;
+    public static String numero;
+    private FirebaseFirestore db;
 
 
     public ComandaFragment() {
@@ -64,6 +68,7 @@ public class ComandaFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        db = FirebaseFirestore.getInstance();
         if (getArguments()!= null) numero = getArguments().getString("numero");
         txtNumComensales  = (EditText) view.findViewById(R.id.txtNumComensales);
         btnAdd= (ImageButton) view.findViewById(R.id.btnAdd);
@@ -72,6 +77,8 @@ public class ComandaFragment extends Fragment {
         txtNum.setText(numero);
         setOnClickListenerCategory();
         setOnClickListenerBack();
+        //db.collection(COMANDA).document(numero);
+
     }
 
     private void setOnClickListenerBack() {
