@@ -40,8 +40,9 @@ public class Category {
         return cantidad;
     }
 
-    public void setCantidad(String cantidad) {
+    public Category setCantidad(String cantidad) {
         this.cantidad = cantidad;
+        return null;
     }
 
 

@@ -82,9 +82,11 @@ public class TapasFragment extends Fragment implements FoodAdapter.RecyclerViewC
       /*  Query query = db.collection(CATEGORIAS).document("tapas_category").collection("tapas");
 
 
-        arrow = (ImageView) view.findViewById(R.id.imbArrowBack);
+
         FirestoreRecyclerOptions<Category> options = new FirestoreRecyclerOptions.Builder<Category>()
                 .setQuery(query, Category.class).build();*/
+
+        arrow = (ImageView) view.findViewById(R.id.imbArrowBack);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         tapas = obtenerDatos();

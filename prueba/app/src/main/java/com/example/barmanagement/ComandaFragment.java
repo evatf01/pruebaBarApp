@@ -1,13 +1,19 @@
 package com.example.barmanagement;
 
+import static com.example.barmanagement.utils.FirestoreFields.COMANDA;
+
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.FileObserver;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +23,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.barmanagement.adapters.ComandaAdapter;
+import com.example.barmanagement.adapters.DrinksAdapter;
 import com.example.barmanagement.models.Category;
+import com.example.barmanagement.models.Comanda;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,13 +40,14 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class ComandaFragment extends Fragment {
-    ArrayList<Category> listaOrdenes = new ArrayList<>();
+    List<Comanda> listaOrdenes = new ArrayList<>();
     private RecyclerView recyclerView;
     private ComandaAdapter adapter;
     private EditText txtNumComensales;
     private ImageButton btnAdd;
     private ImageView btnArrow;
-    private String numero;
+    public static String numero;
+    private FirebaseFirestore db;
 
 
     public ComandaFragment() {
@@ -61,17 +75,56 @@ public class ComandaFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_comanda, container, false);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (getArguments()!= null) numero = getArguments().getString("numero");
-        txtNumComensales  = (EditText) view.findViewById(R.id.txtNumComensales);
+        db = FirebaseFirestore.getInstance();
+        recyclerView = (RecyclerView) view.findViewById(R.id.listaComanda);
+
         btnAdd= (ImageButton) view.findViewById(R.id.btnAdd);
         btnArrow = (ImageView) view.findViewById(R.id.imgArrow);
         TextView txtNum = (TextView) view.findViewById(R.id.txtNumMesa);
         txtNum.setText(numero);
+
+        listaOrdenes = obtenerDatos();
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+
+        adapter = new ComandaAdapter(listaOrdenes,getContext());
+        adapter.notifyDataSetChanged();
+
+        recyclerView.setLayoutManager(layoutManager);
+
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(adapter);
+
         setOnClickListenerCategory();
         setOnClickListenerBack();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private List<Comanda> obtenerDatos() {
+        List<Comanda> lista_refrescos = new ArrayList<>();
+        CollectionReference refrescos =  db.collection(COMANDA).document(numero).collection("bebidas");
+
+        refrescos.get().addOnCompleteListener(task -> {
+            if(task.isSuccessful() && task.isComplete()){
+                for (QueryDocumentSnapshot document: task.getResult()){
+                    Comanda category = document.toObject(Comanda.class);
+                    lista_refrescos.add(category);
+
+                }
+            }
+            adapter.notifyDataSetChanged();
+        }).addOnFailureListener(e -> Log.d("error", e.toString()));
+
+
+        Log.d("refrescos", lista_refrescos.toString());
+
+
+        return lista_refrescos;
     }
 
     private void setOnClickListenerBack() {

@@ -72,7 +72,7 @@ public class BeerFragment extends Fragment  implements NavigationBarView.OnItemS
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.listCerveza);
         BottomNavigationView btnNav = (BottomNavigationView) view.findViewById(R.id.bottomNavigationViewDrinks);
         db =  FirebaseFirestore.getInstance();
-
+        btnNav.setItemIconTintList(null);
 
         cervezas = obtenerDatos();
 

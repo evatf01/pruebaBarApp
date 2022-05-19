@@ -13,16 +13,16 @@ import com.example.barmanagement.R;
 import com.example.barmanagement.models.Comanda;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ComandaAdapter extends RecyclerView.Adapter<ComandaAdapter.ViewHolder> {
-    ArrayList<Comanda> comandas = new ArrayList<>();
+    List<Comanda> comandas = new ArrayList<>();
     Context context;
-    private RecyclerViewClickListener listener; // interfaz que me he creado para poder hacer onClick en el recyclerView
 
-    public ComandaAdapter(ArrayList<Comanda> comandas, Context context, RecyclerViewClickListener listener) {
+    public ComandaAdapter(List<Comanda> comandas, Context context) {
         this.comandas = comandas;
         this.context = context;
-        this.listener = listener;
+
     }
 
 
@@ -37,13 +37,15 @@ public class ComandaAdapter extends RecyclerView.Adapter<ComandaAdapter.ViewHold
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.comanda_item,parent,false);
 
+
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Comanda comanda = comandas.get(position);
-        holder.txtOrden.setText(comanda.getComanda());
+        holder.txtBebida.setText(comanda.getNombre());
+        holder.txtCantidad.setText(comanda.getCantidad());
     }
 
     @Override
@@ -51,24 +53,18 @@ public class ComandaAdapter extends RecyclerView.Adapter<ComandaAdapter.ViewHold
         return comandas.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder{
         // componentes del RecyclerView
-
-        TextView txtOrden;
-
+        TextView txtBebida;
+        TextView txtCantidad;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtOrden = (TextView) itemView.findViewById(R.id.txtOrden);
-
-            itemView.setOnClickListener(this);
+            txtBebida = (TextView) itemView.findViewById(R.id.txtBebida);
+            txtCantidad = (TextView) itemView.findViewById(R.id.txtCantidad);
 
         }
         // implementamos el metodo onClick, donde usaremos el metodo de la interfaz creada anteriormente
-        @Override
-        public void onClick(View v) {
 
-            listener.onClick(v,getAdapterPosition());
-        }
     }
 }

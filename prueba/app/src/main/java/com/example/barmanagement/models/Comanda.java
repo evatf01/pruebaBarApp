@@ -1,17 +1,29 @@
 package com.example.barmanagement.models;
 
 public class Comanda {
-    String comanda;
+    String nombre;
+    String cantidad;
 
-    public String getComanda() {
-        return comanda;
+    public Comanda() { }
+
+    public Comanda(String nombre, String cantidad) {
+        this.nombre = nombre;
+        this.cantidad = cantidad;
     }
 
-    public void setComanda(String comanda) {
-        this.comanda = comanda;
+    public String getNombre() {
+        return nombre;
     }
 
-    public Comanda(String comanda) {
-        this.comanda = comanda;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(String cantidad) {
+        this.cantidad = cantidad;
     }
 }

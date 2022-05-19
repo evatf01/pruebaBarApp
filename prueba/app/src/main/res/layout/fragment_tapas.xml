@@ -7,27 +7,30 @@
     tools:context=".DrinksFragment"
     android:background="@drawable/background_menu">
 
+
     <ImageView
         android:id="@+id/imbArrowBack"
         android:layout_width="48dp"
         android:layout_height="30dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="28dp"
         android:padding="4dp"
         android:src="@drawable/arrow_back"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/listaTapas"
         app:layout_constraintEnd_toStartOf="@+id/txtNumMesa"
-        app:layout_constraintHorizontal_bias="0.225"
+        app:layout_constraintHorizontal_bias="0.187"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.025" />
 
     <TextView
         android:id="@+id/txtNumMesa"
         android:layout_width="160dp"
         android:layout_height="31dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="28dp"
+        android:elevation="4dp"
         android:gravity="center"
         android:text="TAPAS"
-        android:elevation="4dp"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -36,17 +39,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listaTapas"
-        android:layout_width="match_parent"
-        android:layout_height="700dp"
+        android:layout_width="393dp"
+        android:layout_height="690dp"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtNumMesa"
-        app:layout_constraintVertical_bias="0.813">
+        app:layout_constraintVertical_bias="1.0">
 
 
     </androidx.recyclerview.widget.RecyclerView>

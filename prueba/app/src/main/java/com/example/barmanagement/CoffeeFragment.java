@@ -81,6 +81,7 @@ public class CoffeeFragment extends Fragment implements NavigationBarView.OnItem
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.listaCafes);
         BottomNavigationView btnNav = (BottomNavigationView) view.findViewById(R.id.bottomNavigationViewDrinks);
         db = FirebaseFirestore.getInstance();
+        btnNav.setItemIconTintList(null);
        // Query query = db.collection(CATEGORIAS).document("bebidas").collection("cafes");
 
 
@@ -141,8 +142,8 @@ public class CoffeeFragment extends Fragment implements NavigationBarView.OnItem
             case R.id.cerveza:
                 Navigation.findNavController(requireView()).navigate(R.id.beerFragment);
                 break;
-            case R.id.cafes:
-                Navigation.findNavController(requireView()).navigate(R.id.coffeeFragment);
+            case R.id.refrescos:
+                Navigation.findNavController(requireView()).navigate(R.id.refrescos);
 
         }
         return true;
