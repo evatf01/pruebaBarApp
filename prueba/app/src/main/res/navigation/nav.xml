@@ -154,14 +154,12 @@
         <action
             android:id="@+id/action_moreDrinksFragment_to_drinksFragment"
             app:destination="@id/drinksFragment" />
-<<<<<<< HEAD
         <action
             android:id="@+id/action_moreDrinksFragment_to_beerFragment"
             app:destination="@id/beerFragment" />
         <action
             android:id="@+id/action_moreDrinksFragment_to_coffeeFragment"
             app:destination="@id/coffeeFragment" />
-=======
->>>>>>> f60982bb140a9f00c4f7cfaae108c68d11e7d56c
+
     </fragment>
 </navigation>

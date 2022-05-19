@@ -2,12 +2,8 @@ package com.example.barmanagement;
 
 import static com.example.barmanagement.utils.FirestoreFields.COMANDA;
 
-<<<<<<< HEAD
 import android.annotation.SuppressLint;
-=======
->>>>>>> f60982bb140a9f00c4f7cfaae108c68d11e7d56c
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -15,7 +11,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.FileObserver;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,17 +21,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.barmanagement.adapters.ComandaAdapter;
-import com.example.barmanagement.adapters.DrinksAdapter;
-import com.example.barmanagement.models.Category;
-<<<<<<< HEAD
+
 import com.example.barmanagement.models.Comanda;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-=======
-import com.google.firebase.firestore.FirebaseFirestore;
->>>>>>> f60982bb140a9f00c4f7cfaae108c68d11e7d56c
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,7 +106,7 @@ public class ComandaFragment extends Fragment {
     @SuppressLint("NotifyDataSetChanged")
     private List<Comanda> obtenerDatos() {
         List<Comanda> lista_refrescos = new ArrayList<>();
-        CollectionReference refrescos =  db.collection(COMANDA).document(numero).collection("bebidas");
+        CollectionReference refrescos =  db.collection(COMANDA).document(numero).collection("orden");
 
         refrescos.get().addOnCompleteListener(task -> {
             if(task.isSuccessful() && task.isComplete()){

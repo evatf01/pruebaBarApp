@@ -1,6 +1,9 @@
 package com.example.barmanagement;
 
 
+import static com.example.barmanagement.ComandaFragment.numero;
+import static com.example.barmanagement.utils.FirestoreFields.*;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
@@ -20,13 +23,17 @@ import android.widget.ImageView;
 import com.example.barmanagement.adapters.FoodAdapter;
 import com.example.barmanagement.models.Category;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,10 +47,8 @@ public class TapasFragment extends Fragment implements FoodAdapter.RecyclerViewC
     public static final String CATEGORIAS = "CATEGORIAS";
     ImageView arrow;
     List<Category> tapas = new ArrayList<>();
-
-    public TapasFragment() {
-        // Required empty public constructor
-    }
+    FloatingActionButton btnCheck;
+    public TapasFragment() {  }
 
     /**
      * Use this factory method to create a new instance of
@@ -79,6 +84,7 @@ public class TapasFragment extends Fragment implements FoodAdapter.RecyclerViewC
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.listaTapas);
         db = FirebaseFirestore.getInstance();
+        btnCheck = (FloatingActionButton) view.findViewById(R.id.btnCheck);
       /*  Query query = db.collection(CATEGORIAS).document("tapas_category").collection("tapas");
 
 
@@ -91,7 +97,7 @@ public class TapasFragment extends Fragment implements FoodAdapter.RecyclerViewC
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         tapas = obtenerDatos();
 
-        adapter = new FoodAdapter( tapas,getContext(), this, db);
+        adapter = new FoodAdapter( tapas,getContext(),this);
         adapter.notifyDataSetChanged();
 
 
@@ -101,8 +107,119 @@ public class TapasFragment extends Fragment implements FoodAdapter.RecyclerViewC
 
 
         setOnClickListenerBack();
+        setOnClickListenerCheck();
 
     }
+
+    private void setOnClickListenerCheck() {
+        btnCheck.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                List<HashMap<String, Object>> texto = adapter.getTexto();
+                for (int a =0; a<texto.size();a++)
+                {
+                    HashMap<String, Object> data = (HashMap<String, Object>) texto.get(a);
+                    Set<String> key = data.keySet();
+                    Iterator<String> it = key.iterator();
+                    while (it.hasNext()) {
+                        String keyData = (String)it.next();
+                        Object num = data.get(keyData);
+
+                        System.out.println("Key: "+keyData +" & Data: "+num);
+                        switch (keyData){
+                            case ALPUJARREÑO:
+                                if(num!=null){
+                                    HashMap<String,Object> tapas = new HashMap<>();
+                                    tapas.put("nombre", ALPUJARREÑO);
+                                    tapas.put("cantidad",num);
+                                    Log.d("aloujarreño", tapas.toString());
+                                    db.collection(COMANDA).document(numero).collection("orden").document(ALPUJARREÑO).set(tapas);
+                                }
+                                break;
+                            case ENSALADA_CASA:
+                                if(num!=null){
+                                    HashMap<String,Object> refresco = new HashMap<>();
+                                    refresco.put("nombre", ENSALADA_CASA);
+                                    refresco.put("cantidad",num);
+                                    db.collection(COMANDA).document(numero).collection("orden").document(ENSALADA_CASA).set(refresco);
+                                }
+                                break;
+                            case ENSALADA_CESAR:
+                                if(num!=null){
+                                    HashMap<String,Object> refresco = new HashMap<>();
+                                    refresco.put("nombre", ENSALADA_CESAR);
+                                    refresco.put("cantidad",num);
+                                    db.collection(COMANDA).document(numero).collection("orden").document(ENSALADA_CESAR).set(refresco);
+                                }
+                                break;
+                            case TAPA_CALAMARES:
+                                if(num!=null){
+                                    HashMap<String,Object> refresco = new HashMap<>();
+                                    refresco.put("nombre", TAPA_CALAMARES);
+                                    refresco.put("cantidad",num);
+                                    db.collection(COMANDA).document(numero).collection("orden").document(TAPA_CALAMARES).set(refresco);
+                                }
+                                break;
+                            case TAPA_CARNE_SALSA:
+                                if(num!=null){
+                                    HashMap<String,Object> refresco = new HashMap<>();
+                                    refresco.put("nombre", TAPA_CARNE_SALSA);
+                                    refresco.put("cantidad",num);
+                                    db.collection(COMANDA).document(numero).collection("orden").document(TAPA_CARNE_SALSA).set(refresco);
+                                }
+                                break;
+                            case FAJITA_POLLO:
+                                if(num!=null){
+                                    HashMap<String,Object> refresco = new HashMap<>();
+                                    refresco.put("nombre", FAJITA_POLLO);
+                                    refresco.put("cantidad",num);
+                                    db.collection(COMANDA).document(numero).collection("orden").document(FAJITA_POLLO).set(refresco);
+                                }
+                                break;
+                            case FAJITA_VERDURAS:
+                                if(num!=null){
+                                    HashMap<String,Object> refresco = new HashMap<>();
+                                    refresco.put("nombre", FAJITA_VERDURAS);
+                                    refresco.put("cantidad",num);
+                                    db.collection(COMANDA).document(numero).collection("orden").document(FAJITA_VERDURAS).set(refresco);
+                                }
+                                break;
+                            case LOMO_PIMIENTA:
+                                if(num!=null){
+                                    HashMap<String,Object> refresco = new HashMap<>();
+                                    refresco.put("nombre", LOMO_PIMIENTA);
+                                    refresco.put("cantidad",num);
+                                    db.collection(COMANDA).document(numero).collection("orden").document(LOMO_PIMIENTA).set(refresco);
+                                }
+                                break;
+                            case PATATAS_HUEVO:
+                                if(num!=null){
+                                    HashMap<String,Object> refresco = new HashMap<>();
+                                    refresco.put("nombre", PATATAS_HUEVO);
+                                    refresco.put("cantidad",num);
+                                    db.collection(COMANDA).document(numero).collection("orden").document(PATATAS_HUEVO).set(refresco);
+                                }
+                                break;
+                            case ENSALADILLA_RUSA:
+                                if(num!=null){
+                                    HashMap<String,Object> refresco = new HashMap<>();
+                                    refresco.put("nombre", ENSALADILLA_RUSA);
+                                    refresco.put("cantidad",num);
+                                    db.collection(COMANDA).document(numero).collection("orden").document(ENSALADILLA_RUSA).set(refresco);
+                                }
+                                break;
+
+                        }
+                        it.remove(); // avoids a ConcurrentModificationException
+                    }
+
+                }
+                //Log.d("texto", texto.toString());
+            }
+        });
+    }
+
 
     @SuppressLint("NotifyDataSetChanged")
     private List<Category> obtenerDatos()  {

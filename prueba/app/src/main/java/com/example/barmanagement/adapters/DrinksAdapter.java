@@ -1,6 +1,5 @@
 package com.example.barmanagement.adapters;
 
-<<<<<<< HEAD
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -9,43 +8,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import com.example.barmanagement.R;
+import java.util.ArrayList;
 import java.util.HashMap;
-=======
->>>>>>> f60982bb140a9f00c4f7cfaae108c68d11e7d56c
-import android.content.ContentValues;
 import android.content.Context;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-        import androidx.annotation.NonNull;
-        import androidx.recyclerview.widget.RecyclerView;
-
-        import com.bumptech.glide.Glide;
-        import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-        import com.bumptech.glide.request.RequestOptions;
-        import com.example.barmanagement.R;
-        import com.example.barmanagement.models.Category;
-        import com.example.barmanagement.models.Comanda;
-        import com.google.firebase.firestore.FirebaseFirestore;
-
-<<<<<<< HEAD
-        import java.util.ArrayList;
-        import java.util.Arrays;
-        import java.util.HashMap;
-        import java.util.List;
-=======
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import androidx.recyclerview.widget.RecyclerView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
+import com.example.barmanagement.models.Category;
+import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.List;
->>>>>>> f60982bb140a9f00c4f7cfaae108c68d11e7d56c
+
 
 public class DrinksAdapter extends RecyclerView.Adapter<DrinksAdapter.ViewHolder> {
 
@@ -53,15 +29,13 @@ public class DrinksAdapter extends RecyclerView.Adapter<DrinksAdapter.ViewHolder
     public List<HashMap<String, Object>>texto;
     Context context;
     private final RecyclerViewClickListener listener; // interfaz que me he creado para poder hacer onClick en el recyclerView
-    FirebaseFirestore db;
+
 
     public DrinksAdapter(List<Category> categorias, Context context, RecyclerViewClickListener listener) {
         this.categorias = categorias;
         this.context = context;
         this.listener = listener;
-
         texto =new ArrayList<>();
-        Log.d("longitud lista", String.valueOf(categorias.size()));
     }
 
 
@@ -86,7 +60,7 @@ public class DrinksAdapter extends RecyclerView.Adapter<DrinksAdapter.ViewHolder
                 .apply(RequestOptions.bitmapTransform(new RoundedCorners(50)))
                 .into(holder.imgDrink);
         holder.txtBebida.setText(categorias.get(position).getNombre());
-        //holder.txtCantidad.setText(texto.get(position));
+        holder.txtCantidad.setText(categorias.get(position).getCantidad());
     }
 
     public List<HashMap<String, Object>> getTexto() {
@@ -152,12 +126,8 @@ public class DrinksAdapter extends RecyclerView.Adapter<DrinksAdapter.ViewHolder
             map.put(txtBebida.getText().toString(),cantidad);
             texto.add(map);
 
-
         }
-
         @Override
-        public void afterTextChanged(Editable s) {
-
-        }
+        public void afterTextChanged(Editable s) { }
     }
 }

@@ -144,16 +144,12 @@ public class CoffeeFragment extends Fragment implements NavigationBarView.OnItem
                 Navigation.findNavController(requireView()).navigate(R.id.beerFragment);
                 break;
             case R.id.refrescos:
-<<<<<<< HEAD
-                Navigation.findNavController(requireView()).navigate(R.id.refrescos);
-
-=======
                 Navigation.findNavController(requireView()).navigate(R.id.drinksFragment);
                 break;
             case R.id.more:
                 Navigation.findNavController(requireView()).navigate(R.id.moreDrinksFragment);
                 break;
->>>>>>> f60982bb140a9f00c4f7cfaae108c68d11e7d56c
+
         }
         return true;
     }

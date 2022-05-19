@@ -1,9 +1,12 @@
 package com.example.barmanagement.adapters;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,24 +22,30 @@ import com.example.barmanagement.models.Comanda;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     List<Category> categorias = new ArrayList<>();
     Context context;
     private final RecyclerViewClickListener listener; // interfaz que me he creado para poder hacer onClick en el recyclerView
-    FirebaseFirestore db;
+    public List<HashMap<String, Object>>texto;
 
-    public FoodAdapter(List<Category> categorias, Context context, RecyclerViewClickListener listener, FirebaseFirestore db) {
+    public FoodAdapter(List<Category> categorias, Context context, RecyclerViewClickListener listener) {
         this.categorias = categorias;
         this.context = context;
         this.listener = listener;
-        this.db = db;
+
+        texto = new ArrayList<>();
     }
+
 
 
     public  interface RecyclerViewClickListener{
         void onClick(View view, int position);
+    }
+    public List<HashMap<String, Object>> getTexto() {
+        return texto;
     }
 
     @NonNull
@@ -64,15 +73,16 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         // componentes del RecyclerView
 
         TextView txtFood;
-        TextView txtCantidad;
+        EditText txtCantidad;
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             txtFood = (TextView) itemView.findViewById(R.id.txtFood);
-            txtCantidad = (TextView) itemView.findViewById(R.id.txtCantidadFood);
-
+            txtCantidad = (EditText) itemView.findViewById(R.id.txtCantidadFood);
+            MyTextWatcher myTextWatcher = new MyTextWatcher(txtCantidad, txtFood);
+            txtCantidad.addTextChangedListener(myTextWatcher);
             itemView.setOnClickListener(this);
 
         }
@@ -82,5 +92,29 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
 
             listener.onClick(v,getBindingAdapterPosition());
         }
+    }
+    public class MyTextWatcher implements TextWatcher {
+        private EditText editText;
+        private TextView txtBebida;
+
+        public MyTextWatcher(EditText editText, TextView txtBebida) {
+            this.editText = editText;
+            this.txtBebida = txtBebida;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            String cantidad = String.valueOf(editText.getText());
+            HashMap<String,Object> map= new HashMap<>();
+            map.put(txtBebida.getText().toString(),cantidad);
+            texto.add(map);
+
+        }
+        @Override
+        public void afterTextChanged(Editable s) { }
     }
 }

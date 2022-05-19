@@ -108,12 +108,6 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
 
         btnNav.setOnItemSelectedListener(this);
 
-<<<<<<< HEAD
-        // getCantidadBebidas();
-=======
-       // getCantidadBebidas();
->>>>>>> f60982bb140a9f00c4f7cfaae108c68d11e7d56c
-
         setOnClickListenerBack();
         setOnClickListenerCheck();
 
@@ -125,11 +119,7 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
 
             @Override
             public void onClick(View view) {
-<<<<<<< HEAD
-                List<HashMap<String, Object>> texto = adapter.getTexto();
-=======
                List<HashMap<String, Object>> texto = adapter.getTexto();
->>>>>>> f60982bb140a9f00c4f7cfaae108c68d11e7d56c
                 for (int a =0; a<texto.size();a++)
                 {
                     HashMap<String, Object> data = (HashMap<String, Object>) texto.get(a);
@@ -146,7 +136,7 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
                                     HashMap<String,Object> refresco = new HashMap<>();
                                     refresco.put("nombre", COCA_COLA);
                                     refresco.put("cantidad",num);
-                                    db.collection(COMANDA).document(numero).collection("bebidas").document(COCA_COLA).set(refresco);
+                                    db.collection(COMANDA).document(numero).collection("orden").document(COCA_COLA).set(refresco);
                                 }
                                 break;
                             case COCA_COLA_ZERO:
@@ -154,33 +144,29 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
                                     HashMap<String,Object> refresco = new HashMap<>();
                                     refresco.put("nombre", COCA_COLA_ZERO);
                                     refresco.put("cantidad",num);
-                                    db.collection(COMANDA).document(numero).collection("bebidas").document(COCA_COLA_ZERO).set(refresco);
+                                    db.collection(COMANDA).document(numero).collection("orden").document(COCA_COLA_ZERO).set(refresco);
                                 }
                                 break;
                             case AQUARIUS_LIMON:
                                 if(num!=null){
                                     List<Integer> total = new ArrayList<>();
-                                    total.add(Integer.parseInt(num.toString()));
+                                    //total.add(Integer.parseInt(num.toString()));
                                     HashMap<String,Object> refresco = new HashMap<>();
                                     int resultado=0;
                                     for (int numero : total){
                                         resultado += numero;
                                     }
                                     refresco.put("nombre", AQUARIUS_LIMON);
-<<<<<<< HEAD
-                                    refresco.put("cantidad",String.valueOf(num));
-=======
                                     refresco.put("cantidad",resultado);
->>>>>>> f60982bb140a9f00c4f7cfaae108c68d11e7d56c
-                                    db.collection(COMANDA).document(numero).collection("bebidas").document(AQUARIUS_LIMON).set(refresco);
+                                    db.collection(COMANDA).document(numero).collection("orden").document(AQUARIUS_LIMON).set(refresco);
                                 }
                                 break;
                             case AQUARIUS_NARANJA:
                                 if(num!=null){
                                     HashMap<String,Object> refresco = new HashMap<>();
-                                    refresco.put("nombre", AQUARIUS_LIMON);
+                                    refresco.put("nombre", AQUARIUS_NARANJA);
                                     refresco.put("cantidad",num);
-                                    db.collection(COMANDA).document(numero).collection("bebidas").document(AQUARIUS_NARANJA).set(refresco);
+                                    db.collection(COMANDA).document(numero).collection("orden").document(AQUARIUS_NARANJA).set(refresco);
                                 }
                                 break;
                             case SEVENUP:
@@ -188,7 +174,7 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
                                     HashMap<String,Object> refresco = new HashMap<>();
                                     refresco.put("nombre", SEVENUP);
                                     refresco.put("cantidad",num);
-                                    db.collection(COMANDA).document(numero).collection("bebidas").document(SEVENUP).set(refresco);
+                                    db.collection(COMANDA).document(numero).collection("orden").document(SEVENUP).set(refresco);
                                 }
                                 break;
                             case FANTA_LIMON:
@@ -196,7 +182,7 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
                                     HashMap<String,Object> refresco = new HashMap<>();
                                     refresco.put("nombre", FANTA_LIMON);
                                     refresco.put("cantidad",num);
-                                    db.collection(COMANDA).document(numero).collection("bebidas").document(FANTA_LIMON).set(refresco);
+                                    db.collection(COMANDA).document(numero).collection("orden").document(FANTA_LIMON).set(refresco);
                                 }
                                 break;
                             case FANTA_NARANJA:
@@ -204,30 +190,20 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
                                     HashMap<String,Object> refresco = new HashMap<>();
                                     refresco.put("nombre", FANTA_NARANJA);
                                     refresco.put("cantidad",num);
-                                    db.collection(COMANDA).document(numero).collection("bebidas").document(FANTA_NARANJA).set(refresco);
+                                    db.collection(COMANDA).document(numero).collection("orden").document(FANTA_NARANJA).set(refresco);
                                 }
                                 break;
 
                         }
-<<<<<<< HEAD
-
-=======
->>>>>>> f60982bb140a9f00c4f7cfaae108c68d11e7d56c
-                        it.remove(); // avoids a ConcurrentModificationException
+                        it.remove();
                     }
 
                 }
-                //Log.d("texto", texto.toString());
             }
         });
     }
 
-    private void getCantidadBebidas(String key, String num) {
 
-        Map<String, Object> comanda = new HashMap<>();
-
-        db.collection(CATEGORIAS).document("bebidas").collection("refrescos").document("comandas").set(comanda);
-    }
 
     @SuppressLint("NotifyDataSetChanged")
     private List<Category> obtenerDatos() {

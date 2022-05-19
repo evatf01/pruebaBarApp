@@ -9,8 +9,8 @@
             android:pathData="M0 0H400V800H0z"/>
         <group>
             <path
-                android:fillColor="#FFFE7050"
-                android:pathData="M0 0H400V66H0z"/>
+                android:fillColor="#F98A72"
+                android:pathData="M0 0H400V60H0z"/>
         </group>
     </group>
 </vector>
