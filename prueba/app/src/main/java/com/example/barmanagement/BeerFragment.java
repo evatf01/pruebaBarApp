@@ -87,7 +87,7 @@ public class BeerFragment extends Fragment  implements NavigationBarView.OnItemS
         adapter = new DrinksAdapter(cervezas,getContext(),this);
         adapter.notifyDataSetChanged();
 
-
+        btnNav.setItemIconTintList(null);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -141,15 +141,21 @@ public class BeerFragment extends Fragment  implements NavigationBarView.OnItemS
         adapter.stopListening();
     }*/
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.cafes:
+                item.setCheckable(true);
                 Navigation.findNavController(requireView()).navigate(R.id.coffeeFragment);
                 break;
             case R.id.refrescos:
+                item.setCheckable(true);
                 Navigation.findNavController(requireView()).navigate(R.id.drinksFragment);
-
+                break;
+            case R.id.more:
+                Navigation.findNavController(requireView()).navigate(R.id.moreDrinksFragment);
+                break;
         }
         return true;
     }

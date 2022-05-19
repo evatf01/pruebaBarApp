@@ -108,7 +108,11 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
 
         btnNav.setOnItemSelectedListener(this);
 
+<<<<<<< HEAD
         // getCantidadBebidas();
+=======
+       // getCantidadBebidas();
+>>>>>>> f60982bb140a9f00c4f7cfaae108c68d11e7d56c
 
         setOnClickListenerBack();
         setOnClickListenerCheck();
@@ -121,7 +125,11 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
 
             @Override
             public void onClick(View view) {
+<<<<<<< HEAD
                 List<HashMap<String, Object>> texto = adapter.getTexto();
+=======
+               List<HashMap<String, Object>> texto = adapter.getTexto();
+>>>>>>> f60982bb140a9f00c4f7cfaae108c68d11e7d56c
                 for (int a =0; a<texto.size();a++)
                 {
                     HashMap<String, Object> data = (HashMap<String, Object>) texto.get(a);
@@ -159,7 +167,11 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
                                         resultado += numero;
                                     }
                                     refresco.put("nombre", AQUARIUS_LIMON);
+<<<<<<< HEAD
                                     refresco.put("cantidad",String.valueOf(num));
+=======
+                                    refresco.put("cantidad",resultado);
+>>>>>>> f60982bb140a9f00c4f7cfaae108c68d11e7d56c
                                     db.collection(COMANDA).document(numero).collection("bebidas").document(AQUARIUS_LIMON).set(refresco);
                                 }
                                 break;
@@ -197,7 +209,10 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
                                 break;
 
                         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> f60982bb140a9f00c4f7cfaae108c68d11e7d56c
                         it.remove(); // avoids a ConcurrentModificationException
                     }
 

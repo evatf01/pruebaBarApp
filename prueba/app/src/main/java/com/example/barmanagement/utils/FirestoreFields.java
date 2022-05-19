@@ -35,4 +35,8 @@ public class FirestoreFields {
     public static final String SEVENUP= "Seven up";
     public static final String PRECIO= "2,20";
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> f60982bb140a9f00c4f7cfaae108c68d11e7d56c

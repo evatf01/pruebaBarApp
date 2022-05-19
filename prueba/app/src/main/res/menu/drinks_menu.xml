@@ -21,5 +21,9 @@
         android:id="@+id/more"
         android:icon="@drawable/add"
         android:title="Mas"
+<<<<<<< HEAD
         />
+=======
+       />
+>>>>>>> f60982bb140a9f00c4f7cfaae108c68d11e7d56c
 </menu>

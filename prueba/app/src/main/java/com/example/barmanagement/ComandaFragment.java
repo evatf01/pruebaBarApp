@@ -2,7 +2,10 @@ package com.example.barmanagement;
 
 import static com.example.barmanagement.utils.FirestoreFields.COMANDA;
 
+<<<<<<< HEAD
 import android.annotation.SuppressLint;
+=======
+>>>>>>> f60982bb140a9f00c4f7cfaae108c68d11e7d56c
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,11 +28,15 @@ import android.widget.TextView;
 import com.example.barmanagement.adapters.ComandaAdapter;
 import com.example.barmanagement.adapters.DrinksAdapter;
 import com.example.barmanagement.models.Category;
+<<<<<<< HEAD
 import com.example.barmanagement.models.Comanda;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+=======
+import com.google.firebase.firestore.FirebaseFirestore;
+>>>>>>> f60982bb140a9f00c4f7cfaae108c68d11e7d56c
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +86,7 @@ public class ComandaFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        db = FirebaseFirestore.getInstance();
         if (getArguments()!= null) numero = getArguments().getString("numero");
         db = FirebaseFirestore.getInstance();
         recyclerView = (RecyclerView) view.findViewById(R.id.listaComanda);
@@ -102,6 +110,8 @@ public class ComandaFragment extends Fragment {
 
         setOnClickListenerCategory();
         setOnClickListenerBack();
+        //db.collection(COMANDA).document(numero);
+
     }
 
     @SuppressLint("NotifyDataSetChanged")

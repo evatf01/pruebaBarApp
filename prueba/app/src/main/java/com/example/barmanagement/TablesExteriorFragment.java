@@ -1,21 +1,17 @@
 package com.example.barmanagement;
 
-import static com.example.barmanagement.utils.FirestoreFields.MESAS;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.example.barmanagement.adapters.ListTablesAdapter;
 import com.example.barmanagement.models.Tables;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -38,9 +34,7 @@ public class TablesExteriorFragment extends Fragment  {
     private ListTablesAdapter adapter;
 
 
-    public TablesExteriorFragment() {
-        // Required empty public constructor
-    }
+    public TablesExteriorFragment() { }
 
 
     public static TablesExteriorFragment newInstance(String param1, String param2) {
@@ -50,17 +44,11 @@ public class TablesExteriorFragment extends Fragment  {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-
+        super.onCreate(savedInstanceState); }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
         return inflater.inflate(R.layout.fragment_tables_exterior, container, false);
     }
 
@@ -70,7 +58,7 @@ public class TablesExteriorFragment extends Fragment  {
         super.onViewCreated(view, savedInstanceState);
         txtInterior = (View) view.findViewById(R.id.interior);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.listTablesExterior);
-        //listaMesas = listaMesas();
+
         db =  FirebaseFirestore.getInstance();
         Query query = db.collection(ZONA);
 
@@ -95,7 +83,7 @@ public class TablesExteriorFragment extends Fragment  {
         });
         setOnClickListenerComanda();
         setOnClickListenerTablesInterior();
-       // crearMesasFS();
+
 
     }
 
@@ -125,48 +113,5 @@ public class TablesExteriorFragment extends Fragment  {
         adapter.stopListening();
     }
 
-  /*  private void crearMesasFS() {
-        Map<String,Object> tables = new HashMap<>();
-        tables.put("eMesa1", new Tables("MESA 1","EXTERIOR","","","https://cdn-icons-png.flaticon.com/512/47/47638.png"));
-        tables.put("eMesa2", new Tables("MESA 2","EXTERIOR","","","https://cdn-icons-png.flaticon.com/512/47/47638.png"));
-        tables.put("eMesa3", new Tables("MESA 3","EXTERIOR","","","https://cdn-icons-png.flaticon.com/512/47/47638.png"));
-        tables.put("eMesa4", new Tables("MESA 4","EXTERIOR","","","https://cdn-icons-png.flaticon.com/512/47/47638.png"));
-        tables.put("eMesa5", new Tables("MESA 5","EXTERIOR","","","https://cdn-icons-png.flaticon.com/512/47/47638.png"));
-        tables.put("eMesa6", new Tables("MESA 6","EXTERIOR","","","https://cdn-icons-png.flaticon.com/512/47/47638.png"));
-        tables.put("eMesa7", new Tables("MESA 7","EXTERIOR","","","https://cdn-icons-png.flaticon.com/512/47/47638.png"));
-        tables.put("eMesa8", new Tables("MESA 8","EXTERIOR","","","https://cdn-icons-png.flaticon.com/512/47/47638.png"));
-        tables.put("eMesa9", new Tables("MESA 9","EXTERIOR","","","https://cdn-icons-png.flaticon.com/512/47/47638.png"));
-        tables.put("eMesa10", new Tables("MESA 10","EXTERIOR","","","https://cdn-icons-png.flaticon.com/512/47/47638.png"));
 
-
-        db.collection(MESAS).document(ZONA).set(tables).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Log.d("bien", "añadido");
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d("mal","no añadido");
-            }
-        });
-
-    }*/
-
-
-
-   /* private ArrayList<Tables> listaMesas(){
-        ArrayList<Tables> listaMesas = new ArrayList<>();
-        listaMesas.add(new Tables(R.drawable.mesas, "MESA 1"));
-        listaMesas.add(new Tables(R.drawable.mesas, "MESA 2"));
-        listaMesas.add(new Tables(R.drawable.mesas, "MESA 3"));
-        listaMesas.add(new Tables(R.drawable.mesas, "MESA 4"));
-        listaMesas.add(new Tables(R.drawable.mesas, "MESA 5"));
-        listaMesas.add(new Tables(R.drawable.mesas, "MESA 6"));
-        listaMesas.add(new Tables(R.drawable.mesas, "MESA 7"));
-        listaMesas.add(new Tables(R.drawable.mesas, "MESA 8"));
-
-        return listaMesas;
-
-    }*/
 }

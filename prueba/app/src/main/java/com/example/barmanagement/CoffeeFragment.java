@@ -92,6 +92,7 @@ public class CoffeeFragment extends Fragment implements NavigationBarView.OnItem
                 .setQuery(query, Category.class).build();
 
 */
+        btnNav.setItemIconTintList(null);
         adapter = new DrinksAdapter( cafes,getContext(),this);
         adapter.notifyDataSetChanged();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -122,7 +123,6 @@ public class CoffeeFragment extends Fragment implements NavigationBarView.OnItem
     private List<Category> obtenerDatos()  {
         List<Category> lista_cafes = new ArrayList<>();
         CollectionReference refrescos =  db.collection(CATEGORIAS).document("bebidas").collection("cafes");
-
         refrescos.get().addOnCompleteListener(task -> {
             if(task.isSuccessful()  && task.isComplete()){
                 for (QueryDocumentSnapshot document: task.getResult()){
@@ -133,9 +133,10 @@ public class CoffeeFragment extends Fragment implements NavigationBarView.OnItem
             }
             adapter.notifyDataSetChanged();
         });
-
         return lista_cafes;
     }
+
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
@@ -143,16 +144,22 @@ public class CoffeeFragment extends Fragment implements NavigationBarView.OnItem
                 Navigation.findNavController(requireView()).navigate(R.id.beerFragment);
                 break;
             case R.id.refrescos:
+<<<<<<< HEAD
                 Navigation.findNavController(requireView()).navigate(R.id.refrescos);
 
+=======
+                Navigation.findNavController(requireView()).navigate(R.id.drinksFragment);
+                break;
+            case R.id.more:
+                Navigation.findNavController(requireView()).navigate(R.id.moreDrinksFragment);
+                break;
+>>>>>>> f60982bb140a9f00c4f7cfaae108c68d11e7d56c
         }
         return true;
     }
 
     @Override
-    public void onClick(View view, int position) {
-
-    }
+    public void onClick(View view, int position) { }
 
     private void setOnClickListenerBack() {
         arrow.setOnClickListener(view -> {

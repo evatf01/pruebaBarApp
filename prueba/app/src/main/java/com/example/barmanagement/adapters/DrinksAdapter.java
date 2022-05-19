@@ -1,5 +1,6 @@
 package com.example.barmanagement.adapters;
 
+<<<<<<< HEAD
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import com.example.barmanagement.R;
 import java.util.HashMap;
+=======
+>>>>>>> f60982bb140a9f00c4f7cfaae108c68d11e7d56c
 import android.content.ContentValues;
 import android.content.Context;
 import android.text.Editable;
@@ -32,10 +35,17 @@ import android.widget.TextView;
         import com.example.barmanagement.models.Comanda;
         import com.google.firebase.firestore.FirebaseFirestore;
 
+<<<<<<< HEAD
         import java.util.ArrayList;
         import java.util.Arrays;
         import java.util.HashMap;
         import java.util.List;
+=======
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+>>>>>>> f60982bb140a9f00c4f7cfaae108c68d11e7d56c
 
 public class DrinksAdapter extends RecyclerView.Adapter<DrinksAdapter.ViewHolder> {
 
