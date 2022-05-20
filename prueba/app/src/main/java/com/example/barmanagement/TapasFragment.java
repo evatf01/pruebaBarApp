@@ -133,7 +133,6 @@ public class TapasFragment extends Fragment implements FoodAdapter.RecyclerViewC
                                     HashMap<String,Object> tapas = new HashMap<>();
                                     tapas.put("nombre", ALPUJARREÑO);
                                     tapas.put("cantidad",num);
-                                    Log.d("aloujarreño", tapas.toString());
                                     db.collection(COMANDA).document(numero).collection("orden").document(ALPUJARREÑO).set(tapas);
                                 }
                                 break;

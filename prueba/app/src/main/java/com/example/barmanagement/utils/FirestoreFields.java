@@ -18,14 +18,14 @@ public class FirestoreFields {
     public  static final String EMAIL ="email";
     public  static final String PHONE ="phone";
 
-    /*---------MESAS----------------*/
+    /*--------------MESAS-----------------*/
     public static final String NUM_MESA = "NumMesa";
     public static final String ZONA = "Zona";
     public static final String NUM_COMENSALES = "NumComensales";
     public static final String RESERVADO = "Reservado";
     public static final String URL = "ImgUrl";
 
-    /*--------BEBIDAS---------*/
+    /*---------------BEBIDAS-----------------*/
     public static final String COCA_COLA = "CocaCola normal";
     public static final String COCA_COLA_ZERO = "Cocacola Zero";
     public static final String AQUARIUS_LIMON = "Aquarius Limon";
@@ -35,7 +35,23 @@ public class FirestoreFields {
     public static final String SEVENUP= "Seven up";
     public static final String PRECIO= "2,20";
 
-    /*------RACIONES----------*/
+    /*----------*/
+    public static final String CERVEZA_1925= "1925";
+    public static final String ESTRELLA_GAL= "Estrella Galicia";
+    public static final String SALITOS= "Salitos";
+    public static final String ALHAMBRA= "Alhambra";
+    public static final String SAN_MIGUEL= "San Miguel 00";
+
+    /*-----*/
+    public static final String CAFE_CORTADO= "Cortado";
+    public static final String CAFE_DESCAFEINADO= "Descafeinado";
+    public static final String CAFE_LECHE= "Cafe con leche";
+    public static final String CAFE_SOLO= "Café Solo";
+    public static final String CAPUCCINO= "Capucicno";
+    public static final String MANCHADA= "Manchada";
+
+
+    /*-----------------RACIONES----------------------*/
     public static final String BACALAO = "Bacalao frito";
     public static final String LOMO_COMPLETO = "Bocadillo de Lomo completo (lomo,queso,lechuga,tomate,huevo)";
     public static final String LOMO_NORMAL = "Bocadillo de Lomo (lomo,queso)";

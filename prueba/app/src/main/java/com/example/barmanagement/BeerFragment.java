@@ -1,6 +1,8 @@
 package com.example.barmanagement;
 
+import static com.example.barmanagement.ComandaFragment.numero;
 import static com.example.barmanagement.DrinksFragment.CATEGORIAS;
+import static com.example.barmanagement.utils.FirestoreFields.*;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -23,6 +25,7 @@ import com.example.barmanagement.adapters.DrinksAdapter;
 import com.example.barmanagement.models.Category;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -30,7 +33,10 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,6 +49,7 @@ public class BeerFragment extends Fragment  implements NavigationBarView.OnItemS
     DrinksAdapter adapter;
     ImageView arrow;
     List<Category> cervezas = new ArrayList<>();
+    FloatingActionButton btnCheck;
     public BeerFragment() {
         // Required empty public constructor
     }
@@ -73,7 +80,7 @@ public class BeerFragment extends Fragment  implements NavigationBarView.OnItemS
         BottomNavigationView btnNav = (BottomNavigationView) view.findViewById(R.id.bottomNavigationViewDrinks);
         db =  FirebaseFirestore.getInstance();
         btnNav.setItemIconTintList(null);
-
+        btnCheck = (FloatingActionButton) view.findViewById(R.id.btnCheck);
         cervezas = obtenerDatos();
 
         //Query query = db.collection(CATEGORIAS).document("bebidas").collection("cervezas");
@@ -96,9 +103,85 @@ public class BeerFragment extends Fragment  implements NavigationBarView.OnItemS
         recyclerView.setAdapter(adapter);
 
         setOnClickListenerBack();
+        setOnClickListenerCheck();
         btnNav.setOnItemSelectedListener(this);
 
     }
+
+
+    private void setOnClickListenerCheck() {
+        btnCheck.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                List<HashMap<String, Object>> texto = adapter.getTexto();
+                for (int a =0; a<texto.size();a++)
+                {
+                    HashMap<String, Object> data = (HashMap<String, Object>) texto.get(a);
+                    Set<String> key = data.keySet();
+                    Iterator<String> it = key.iterator();
+                    while (it.hasNext()) {
+                        String keyData = (String)it.next();
+                        Object num = data.get(keyData);
+                        //getCantidadBebidas(keyData, num);
+                        System.out.println("Key: "+keyData +" & Data: "+num);
+                        switch (keyData) {
+                            case CERVEZA_1925:
+                                if (num != null) {
+                                    HashMap<String, Object> refresco = new HashMap<>();
+                                    refresco.put("nombre", CERVEZA_1925);
+                                    refresco.put("cantidad", num);
+                                    db.collection(COMANDA).document(numero).collection("orden").document(CERVEZA_1925).set(refresco);
+                                }
+                                break;
+                            case ALHAMBRA:
+                                if (num != null) {
+                                    HashMap<String, Object> refresco = new HashMap<>();
+                                    refresco.put("nombre", ALHAMBRA);
+                                    refresco.put("cantidad", num);
+                                    db.collection(COMANDA).document(numero).collection("orden").document(ALHAMBRA).set(refresco);
+                                }
+                                break;
+                            case ESTRELLA_GAL:
+                                if (num != null) {
+                                    HashMap<String, Object> refresco = new HashMap<>();
+                                    refresco.put("nombre", ESTRELLA_GAL);
+                                    refresco.put("cantidad", num);
+                                    db.collection(COMANDA).document(numero).collection("orden").document(ESTRELLA_GAL).set(refresco);
+                                }
+                                break;
+                            case SALITOS:
+                                if (num != null) {
+                                    HashMap<String, Object> refresco = new HashMap<>();
+                                   /* List<Integer> total = new ArrayList<>();
+                                    //total.add(Integer.parseInt(num.toString()));
+                                    HashMap<String, Object> refresco = new HashMap<>();
+                                    int resultado = 0;
+                                    for (int numero : total) {
+                                        resultado += numero;
+                                    }*/
+                                    refresco.put("nombre", SALITOS);
+                                    refresco.put("cantidad", num);
+                                    db.collection(COMANDA).document(numero).collection("orden").document(SALITOS).set(refresco);
+                                }
+                                break;
+                            case SAN_MIGUEL:
+                                if (num != null) {
+                                    HashMap<String, Object> refresco = new HashMap<>();
+                                    refresco.put("nombre", SAN_MIGUEL);
+                                    refresco.put("cantidad", num);
+                                    db.collection(COMANDA).document(numero).collection("orden").document(SAN_MIGUEL).set(refresco);
+                                }
+                                break;
+                        }
+                        it.remove();
+                    }
+
+                }
+            }
+        });
+    }
+
 
     private void setOnClickListenerBack() {
         arrow.setOnClickListener(new View.OnClickListener() {

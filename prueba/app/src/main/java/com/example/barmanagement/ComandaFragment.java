@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,11 +23,15 @@ import android.widget.TextView;
 
 import com.example.barmanagement.adapters.ComandaAdapter;
 
+import com.example.barmanagement.models.Category;
 import com.example.barmanagement.models.Comanda;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.net.CookieManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,12 +90,18 @@ public class ComandaFragment extends Fragment {
         TextView txtNum = (TextView) view.findViewById(R.id.txtNumMesa);
         txtNum.setText(numero);
 
-        listaOrdenes = obtenerDatos();
+        //listaOrdenes = obtenerDatos();
+
+
+        Query query = db.collection(COMANDA).document(numero).collection("orden");
+
+        FirestoreRecyclerOptions<Comanda> options = new FirestoreRecyclerOptions.Builder<Comanda>()
+                .setQuery(query, Comanda.class).build();
+
+        adapter = new ComandaAdapter(options,getContext());
+
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-
-        adapter = new ComandaAdapter(listaOrdenes,getContext());
-        adapter.notifyDataSetChanged();
 
         recyclerView.setLayoutManager(layoutManager);
 
@@ -99,7 +110,10 @@ public class ComandaFragment extends Fragment {
 
         setOnClickListenerCategory();
         setOnClickListenerBack();
-        //db.collection(COMANDA).document(numero);
+
+        new ItemTouchHelper(itemTouchHelper).attachToRecyclerView(recyclerView);
+
+        adapter.notifyDataSetChanged();
 
     }
 
@@ -118,11 +132,7 @@ public class ComandaFragment extends Fragment {
             }
             adapter.notifyDataSetChanged();
         }).addOnFailureListener(e -> Log.d("error", e.toString()));
-
-
         Log.d("refrescos", lista_refrescos.toString());
-
-
         return lista_refrescos;
     }
 
@@ -143,5 +153,31 @@ public class ComandaFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.categoriasFragment);
             }
         });
+    }
+
+    ItemTouchHelper.SimpleCallback itemTouchHelper = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @SuppressLint("NotifyDataSetChanged")
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            adapter.deleteComanda(viewHolder.getBindingAdapterPosition());
+
+        }
+    };
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
     }
 }

@@ -34,19 +34,8 @@ public class RacionesFragment extends Fragment {
     RacionesAdapter adapter;
     public static final String CATEGORIAS = "CATEGORIAS";
     ImageView arrow;
-    public RacionesFragment() {
-        // Required empty public constructor
-    }
+    public RacionesFragment() { }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RacionesFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static RacionesFragment newInstance(String param1, String param2) {
 
         return new RacionesFragment();
@@ -73,8 +62,8 @@ public class RacionesFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
         Query query = db.collection(CATEGORIAS).document("tapas_category").collection("raciones");
 
-
         arrow = (ImageView) view.findViewById(R.id.imbArrowBack);
+
         FirestoreRecyclerOptions<Category> options = new FirestoreRecyclerOptions.Builder<Category>()
                 .setQuery(query, Category.class).build();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());

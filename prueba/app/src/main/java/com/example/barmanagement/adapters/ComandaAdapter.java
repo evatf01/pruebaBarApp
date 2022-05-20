@@ -11,21 +11,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.barmanagement.R;
 import com.example.barmanagement.models.Comanda;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ComandaAdapter extends RecyclerView.Adapter<ComandaAdapter.ViewHolder> {
+public class ComandaAdapter extends FirestoreRecyclerAdapter<Comanda, ComandaAdapter.ViewHolder> {
     List<Comanda> comandas = new ArrayList<>();
     Context context;
 
-    public ComandaAdapter(List<Comanda> comandas, Context context) {
-        this.comandas = comandas;
+    /**
+     * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
+     * FirestoreRecyclerOptions} for configuration options.
+     *
+     * @param options
+     */
+    public ComandaAdapter(@NonNull FirestoreRecyclerOptions<Comanda> options, Context context) {
+        super(options);
         this.context = context;
-
     }
-
-
 
 
     public  interface RecyclerViewClickListener{
@@ -46,6 +51,14 @@ public class ComandaAdapter extends RecyclerView.Adapter<ComandaAdapter.ViewHold
         Comanda comanda = comandas.get(position);
         holder.txtBebida.setText(comanda.getNombre());
         holder.txtCantidad.setText(comanda.getCantidad());
+    }
+
+    @Override
+    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Comanda model) {
+
+    }
+    public void deleteComanda(int position){
+        getSnapshots().getSnapshot(position).getReference().delete();
     }
 
     @Override

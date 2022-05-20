@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
@@ -26,6 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.barmanagement.adapters.DrinksAdapter;
 import com.example.barmanagement.models.Category;
@@ -35,6 +37,7 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.pranavpandey.android.dynamic.toasts.DynamicToast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -98,7 +101,7 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
         refrescos = obtenerDatos();
 
         adapter = new DrinksAdapter(refrescos,getContext(),this);
-        adapter.notifyDataSetChanged();
+
 
         recyclerView.setLayoutManager(layoutManager);
 
@@ -112,6 +115,8 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
         setOnClickListenerCheck();
 
 
+
+
     }
 
     private void setOnClickListenerCheck() {
@@ -120,84 +125,102 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
             @Override
             public void onClick(View view) {
                List<HashMap<String, Object>> texto = adapter.getTexto();
-                for (int a =0; a<texto.size();a++)
-                {
+                for (int a =0; a<texto.size();a++) {
                     HashMap<String, Object> data = (HashMap<String, Object>) texto.get(a);
                     Set<String> key = data.keySet();
                     Iterator<String> it = key.iterator();
                     while (it.hasNext()) {
-                        String keyData = (String)it.next();
+                        String keyData = (String) it.next();
                         Object num = data.get(keyData);
                         //getCantidadBebidas(keyData, num);
-                        System.out.println("Key: "+keyData +" & Data: "+num);
-                        switch (keyData){
+                        System.out.println("Key: " + keyData + " & Data: " + num);
+                        switch (keyData) {
                             case COCA_COLA:
-                                if(num!=null){
-                                    HashMap<String,Object> refresco = new HashMap<>();
-                                    refresco.put("nombre", COCA_COLA);
-                                    refresco.put("cantidad",num);
-                                    db.collection(COMANDA).document(numero).collection("orden").document(COCA_COLA).set(refresco);
+                                if (num != null) {
+                                    if (!num.equals("")) {
+                                        HashMap<String, Object> refresco = new HashMap<>();
+                                        refresco.put("nombre", COCA_COLA);
+                                        refresco.put("cantidad", num);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(COCA_COLA).set(refresco);
+                                    }
+
                                 }
                                 break;
                             case COCA_COLA_ZERO:
-                                if(num!=null){
-                                    HashMap<String,Object> refresco = new HashMap<>();
-                                    refresco.put("nombre", COCA_COLA_ZERO);
-                                    refresco.put("cantidad",num);
-                                    db.collection(COMANDA).document(numero).collection("orden").document(COCA_COLA_ZERO).set(refresco);
+                                if (num != null) {
+                                    if (!num.equals("")) {
+                                        HashMap<String, Object> refresco = new HashMap<>();
+                                        refresco.put("nombre", COCA_COLA_ZERO);
+                                        refresco.put("cantidad", num);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(COCA_COLA_ZERO).set(refresco);
+                                    }
                                 }
                                 break;
                             case AQUARIUS_LIMON:
-                                if(num!=null){
-                                    List<Integer> total = new ArrayList<>();
+                                if (num != null) {
+                                    if (!num.equals("")) {
+                                        HashMap<String, Object> refresco = new HashMap<>();
+                                   /* List<Integer> total = new ArrayList<>();
                                     //total.add(Integer.parseInt(num.toString()));
-                                    HashMap<String,Object> refresco = new HashMap<>();
+
                                     int resultado=0;
                                     for (int numero : total){
                                         resultado += numero;
+                                    }*/
+                                        refresco.put("nombre", AQUARIUS_LIMON);
+                                        refresco.put("cantidad", num);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(AQUARIUS_LIMON).set(refresco);
                                     }
-                                    refresco.put("nombre", AQUARIUS_LIMON);
-                                    refresco.put("cantidad",resultado);
-                                    db.collection(COMANDA).document(numero).collection("orden").document(AQUARIUS_LIMON).set(refresco);
                                 }
                                 break;
                             case AQUARIUS_NARANJA:
-                                if(num!=null){
-                                    HashMap<String,Object> refresco = new HashMap<>();
-                                    refresco.put("nombre", AQUARIUS_NARANJA);
-                                    refresco.put("cantidad",num);
-                                    db.collection(COMANDA).document(numero).collection("orden").document(AQUARIUS_NARANJA).set(refresco);
+                                if (num != null) {
+                                    if (!num.equals("")) {
+                                        HashMap<String, Object> refresco = new HashMap<>();
+                                        refresco.put("nombre", AQUARIUS_NARANJA);
+                                        refresco.put("cantidad", num);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(AQUARIUS_NARANJA).set(refresco);
+                                    }
+
                                 }
                                 break;
                             case SEVENUP:
-                                if(num!=null){
-                                    HashMap<String,Object> refresco = new HashMap<>();
-                                    refresco.put("nombre", SEVENUP);
-                                    refresco.put("cantidad",num);
-                                    db.collection(COMANDA).document(numero).collection("orden").document(SEVENUP).set(refresco);
+                                if (num != null) {
+                                    if (!num.equals("")) {
+                                        HashMap<String, Object> refresco = new HashMap<>();
+                                        refresco.put("nombre", SEVENUP);
+                                        refresco.put("cantidad", num);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(SEVENUP).set(refresco);
+                                    }
+
                                 }
                                 break;
                             case FANTA_LIMON:
-                                if(num!=null){
-                                    HashMap<String,Object> refresco = new HashMap<>();
-                                    refresco.put("nombre", FANTA_LIMON);
-                                    refresco.put("cantidad",num);
-                                    db.collection(COMANDA).document(numero).collection("orden").document(FANTA_LIMON).set(refresco);
+                                if (num != null) {
+                                    if (!num.equals("")) {
+                                        HashMap<String, Object> refresco = new HashMap<>();
+                                        refresco.put("nombre", FANTA_LIMON);
+                                        refresco.put("cantidad", num);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(FANTA_LIMON).set(refresco);
+                                    }
+
                                 }
                                 break;
                             case FANTA_NARANJA:
-                                if(num!=null){
-                                    HashMap<String,Object> refresco = new HashMap<>();
-                                    refresco.put("nombre", FANTA_NARANJA);
-                                    refresco.put("cantidad",num);
-                                    db.collection(COMANDA).document(numero).collection("orden").document(FANTA_NARANJA).set(refresco);
+                                if (num != null) {
+                                    if (!num.equals("")) {
+                                        HashMap<String, Object> refresco = new HashMap<>();
+                                        refresco.put("nombre", FANTA_NARANJA);
+                                        refresco.put("cantidad", num);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(FANTA_NARANJA).set(refresco);
+                                    }
+
                                 }
                                 break;
 
                         }
                         it.remove();
                     }
-
                 }
             }
         });
