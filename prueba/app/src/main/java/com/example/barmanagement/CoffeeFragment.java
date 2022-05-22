@@ -43,7 +43,7 @@ import java.util.Set;
  * Use the {@link CoffeeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CoffeeFragment extends Fragment implements NavigationBarView.OnItemSelectedListener, DrinksAdapter.RecyclerViewClickListener {
+public class CoffeeFragment extends Fragment implements NavigationBarView.OnItemSelectedListener{
     private FirebaseFirestore db;
     DrinksAdapter adapter;
     ImageView arrow;
@@ -90,18 +90,19 @@ public class CoffeeFragment extends Fragment implements NavigationBarView.OnItem
         db = FirebaseFirestore.getInstance();
         btnNav.setItemIconTintList(null);
         btnCheck = (FloatingActionButton) view.findViewById(R.id.btnCheck);
-       // Query query = db.collection(CATEGORIAS).document("bebidas").collection("cafes");
+        Query query = db.collection(CATEGORIAS).document("bebidas").collection("cafes");
 
 
-        cafes = obtenerDatos();
+        //cafes = obtenerDatos();
+
 
         arrow = (ImageView) view.findViewById(R.id.imbArrowBack);
-      /*  FirestoreRecyclerOptions<Category> options = new FirestoreRecyclerOptions.Builder<Category>()
+       FirestoreRecyclerOptions<Category> options = new FirestoreRecyclerOptions.Builder<Category>()
                 .setQuery(query, Category.class).build();
 
-*/
+
         btnNav.setItemIconTintList(null);
-        adapter = new DrinksAdapter( cafes,getContext(),this);
+        adapter = new DrinksAdapter(options,getContext());
         adapter.notifyDataSetChanged();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -135,23 +136,28 @@ public class CoffeeFragment extends Fragment implements NavigationBarView.OnItem
                         switch (keyData){
                             case CAFE_CORTADO:
                                 if(num!=null){
-                                    HashMap<String,Object> refresco = new HashMap<>();
-                                    refresco.put("nombre", CAFE_CORTADO);
-                                    refresco.put("cantidad",num);
-                                    db.collection(COMANDA).document(numero).collection("orden").document(CAFE_CORTADO).set(refresco);
+                                    if(!num.equals("")){
+                                        HashMap<String,Object> refresco = new HashMap<>();
+                                        refresco.put("nombre", CAFE_CORTADO);
+                                        refresco.put("cantidad",num);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(CAFE_CORTADO).set(refresco);
+                                    }
                                 }
                                 break;
                             case CAFE_DESCAFEINADO:
                                 if(num!=null){
-                                    HashMap<String,Object> refresco = new HashMap<>();
-                                    refresco.put("nombre", COCA_COLA_ZERO);
-                                    refresco.put("cantidad",num);
-                                    db.collection(COMANDA).document(numero).collection("orden").document(CAFE_DESCAFEINADO).set(refresco);
+                                    if(!num.equals("")){
+                                        HashMap<String,Object> refresco = new HashMap<>();
+                                        refresco.put("nombre", COCA_COLA_ZERO);
+                                        refresco.put("cantidad",num);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(CAFE_DESCAFEINADO).set(refresco);
+                                    }
                                 }
                                 break;
                             case CAFE_LECHE:
                                 if(num!=null){
-                                    HashMap<String,Object> refresco = new HashMap<>();
+                                    if(!num.equals("")){
+                                        HashMap<String,Object> refresco = new HashMap<>();
                                    /* List<Integer> total = new ArrayList<>();
                                     //total.add(Integer.parseInt(num.toString()));
 
@@ -159,41 +165,50 @@ public class CoffeeFragment extends Fragment implements NavigationBarView.OnItem
                                     for (int numero : total){
                                         resultado += numero;
                                     }*/
-                                    refresco.put("nombre", CAFE_LECHE);
-                                    refresco.put("cantidad",num);
-                                    db.collection(COMANDA).document(numero).collection("orden").document(CAFE_LECHE).set(refresco);
+                                        refresco.put("nombre", CAFE_LECHE);
+                                        refresco.put("cantidad",num);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(CAFE_LECHE).set(refresco);
+                                    }
                                 }
                                 break;
                             case CAFE_SOLO:
                                 if(num!=null){
-                                    HashMap<String,Object> refresco = new HashMap<>();
-                                    refresco.put("nombre", CAFE_SOLO);
-                                    refresco.put("cantidad",num);
-                                    db.collection(COMANDA).document(numero).collection("orden").document(CAFE_SOLO).set(refresco);
+                                    if(!num.equals("")){
+                                        HashMap<String,Object> refresco = new HashMap<>();
+                                        refresco.put("nombre", CAFE_SOLO);
+                                        refresco.put("cantidad",num);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(CAFE_SOLO).set(refresco);
+                                    }
                                 }
                                 break;
                             case CAPUCCINO:
                                 if(num!=null){
-                                    HashMap<String,Object> refresco = new HashMap<>();
-                                    refresco.put("nombre", CAPUCCINO);
-                                    refresco.put("cantidad",num);
-                                    db.collection(COMANDA).document(numero).collection("orden").document(CAPUCCINO).set(refresco);
+                                    if(!num.equals("")){
+                                        HashMap<String,Object> refresco = new HashMap<>();
+                                        refresco.put("nombre", CAPUCCINO);
+                                        refresco.put("cantidad",num);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(CAPUCCINO).set(refresco);
+                                    }
                                 }
                                 break;
                             case MANCHADA:
                                 if(num!=null){
-                                    HashMap<String,Object> refresco = new HashMap<>();
-                                    refresco.put("nombre", MANCHADA);
-                                    refresco.put("cantidad",num);
-                                    db.collection(COMANDA).document(numero).collection("orden").document(MANCHADA).set(refresco);
+                                    if(!num.equals("")){
+                                        HashMap<String,Object> refresco = new HashMap<>();
+                                        refresco.put("nombre", MANCHADA);
+                                        refresco.put("cantidad",num);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(MANCHADA).set(refresco);
+                                    }
                                 }
                                 break;
                             case FANTA_NARANJA:
                                 if(num!=null){
-                                    HashMap<String,Object> refresco = new HashMap<>();
-                                    refresco.put("nombre", FANTA_NARANJA);
-                                    refresco.put("cantidad",num);
-                                    db.collection(COMANDA).document(numero).collection("orden").document(FANTA_NARANJA).set(refresco);
+                                    if(!num.equals("")){
+                                        HashMap<String,Object> refresco = new HashMap<>();
+                                        refresco.put("nombre", FANTA_NARANJA);
+                                        refresco.put("cantidad",num);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(FANTA_NARANJA).set(refresco);
+                                    }
                                 }
                                 break;
 
@@ -207,7 +222,7 @@ public class CoffeeFragment extends Fragment implements NavigationBarView.OnItem
     }
 
 
-  /*  @Override
+   @Override
     public void onStart() {
         super.onStart();
         adapter.startListening();
@@ -217,7 +232,7 @@ public class CoffeeFragment extends Fragment implements NavigationBarView.OnItem
     public void onStop() {
         super.onStop();
         adapter.stopListening();
-    }*/
+    }
 
     @SuppressLint("NotifyDataSetChanged")
     private List<Category> obtenerDatos()  {
@@ -253,9 +268,6 @@ public class CoffeeFragment extends Fragment implements NavigationBarView.OnItem
         }
         return true;
     }
-
-    @Override
-    public void onClick(View view, int position) { }
 
     private void setOnClickListenerBack() {
         arrow.setOnClickListener(view -> {

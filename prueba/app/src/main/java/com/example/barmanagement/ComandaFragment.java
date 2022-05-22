@@ -46,7 +46,6 @@ public class ComandaFragment extends Fragment {
     private ComandaAdapter adapter;
     private EditText txtNumComensales;
     private ImageButton btnAdd;
-    private ImageView btnArrow;
     public static String numero;
     private FirebaseFirestore db;
 
@@ -86,7 +85,7 @@ public class ComandaFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.listaComanda);
 
         btnAdd= (ImageButton) view.findViewById(R.id.btnAdd);
-        btnArrow = (ImageView) view.findViewById(R.id.imgArrow);
+
         TextView txtNum = (TextView) view.findViewById(R.id.txtNumMesa);
         txtNum.setText(numero);
 
@@ -109,16 +108,17 @@ public class ComandaFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         setOnClickListenerCategory();
-        setOnClickListenerBack();
+
 
         new ItemTouchHelper(itemTouchHelper).attachToRecyclerView(recyclerView);
 
         adapter.notifyDataSetChanged();
+        obtenerDatos();
 
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private List<Comanda> obtenerDatos() {
+    private void obtenerDatos() {
         List<Comanda> lista_refrescos = new ArrayList<>();
         CollectionReference refrescos =  db.collection(COMANDA).document(numero).collection("orden");
 
@@ -129,21 +129,14 @@ public class ComandaFragment extends Fragment {
                     lista_refrescos.add(category);
 
                 }
+                Log.d("refrescos", lista_refrescos.toString());
             }
             adapter.notifyDataSetChanged();
         }).addOnFailureListener(e -> Log.d("error", e.toString()));
-        Log.d("refrescos", lista_refrescos.toString());
-        return lista_refrescos;
+
+
     }
 
-    private void setOnClickListenerBack() {
-        btnArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.tablesInteriorFragment);
-            }
-        });
-    }
 
     private void setOnClickListenerCategory() {
 

@@ -33,9 +33,7 @@ public class ComandaAdapter extends FirestoreRecyclerAdapter<Comanda, ComandaAda
     }
 
 
-    public  interface RecyclerViewClickListener{
-        void onClick(View view, int position);
-    }
+
 
     @NonNull
     @Override
@@ -46,25 +44,16 @@ public class ComandaAdapter extends FirestoreRecyclerAdapter<Comanda, ComandaAda
         return new ViewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Comanda comanda = comandas.get(position);
-        holder.txtBebida.setText(comanda.getNombre());
-        holder.txtCantidad.setText(comanda.getCantidad());
-    }
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Comanda model) {
-
+        holder.txtBebida.setText(model.getNombre());
+        holder.txtCantidad.setText(model.getCantidad());
     }
     public void deleteComanda(int position){
         getSnapshots().getSnapshot(position).getReference().delete();
     }
 
-    @Override
-    public int getItemCount() {
-        return comandas.size();
-    }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         // componentes del RecyclerView

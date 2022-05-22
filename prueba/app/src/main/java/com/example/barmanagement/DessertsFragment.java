@@ -1,72 +1,63 @@
 package com.example.barmanagement;
 
-
 import static com.example.barmanagement.ComandaFragment.numero;
-import static com.example.barmanagement.utils.FirestoreFields.AQUARIUS_LIMON;
-import static com.example.barmanagement.utils.FirestoreFields.AQUARIUS_NARANJA;
-import static com.example.barmanagement.utils.FirestoreFields.COCA_COLA;
-import static com.example.barmanagement.utils.FirestoreFields.COCA_COLA_ZERO;
-import static com.example.barmanagement.utils.FirestoreFields.COMANDA;
-import static com.example.barmanagement.utils.FirestoreFields.FANTA_LIMON;
-import static com.example.barmanagement.utils.FirestoreFields.FANTA_NARANJA;
-import static com.example.barmanagement.utils.FirestoreFields.SEVENUP;
+import static com.example.barmanagement.utils.FirestoreFields.*;
 
 import android.annotation.SuppressLint;
-import android.content.ContentValues;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.util.Log;
+
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.example.barmanagement.adapters.DrinksAdapter;
+import com.example.barmanagement.adapters.RacionesAdapter;
 import com.example.barmanagement.models.Category;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationBarView;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.pranavpandey.android.dynamic.toasts.DynamicToast;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link DrinksFragment#newInstance} factory method to
+ * Use the {@link DessertsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DrinksFragment extends Fragment implements NavigationBarView.OnItemSelectedListener{
-    private FirebaseFirestore db;
-    DrinksAdapter adapter;
-    List<Category> refrescos = new ArrayList<>();
-    public static final String CATEGORIAS = "CATEGORIAS";
-    ImageView arrow;
+public class DessertsFragment extends Fragment {
     FloatingActionButton btnCheck;
-    List<ContentValues> escrito;
-    RecyclerView recyclerView;
+    FirebaseFirestore db;
+    ImageView arrow;
+    RacionesAdapter adapter;
 
-    public DrinksFragment() { }
 
-    public static DrinksFragment newInstance(String param1, String param2) {
-        return new DrinksFragment();
+    public DessertsFragment() {
+        // Required empty public constructor
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment DessertsFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static DessertsFragment newInstance(String param1, String param2) {
+
+        return new DessertsFragment();
     }
 
     @Override
@@ -77,55 +68,45 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_refrescos, container, false);
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_desserts, container, false);
     }
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        db =  FirebaseFirestore.getInstance();
+        db = FirebaseFirestore.getInstance();
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.listaPostres);
+        btnCheck = (FloatingActionButton) view.findViewById(R.id.btnCheck);
+        Query query = db.collection(CATEGORIAS).document("postres_category").collection("postres");
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.listaRefrescos);
-        BottomNavigationView btnNav = (BottomNavigationView) view.findViewById(R.id.bottomNavigationViewDrinks);
-        btnNav.setItemIconTintList(null);
-        btnCheck = (FloatingActionButton)view.findViewById(R.id.btnCheck);
         arrow = (ImageView) view.findViewById(R.id.imbArrowBack);
 
-        escrito = new ArrayList<>();
-        Query query = db.collection(CATEGORIAS).document("bebidas").collection("refrescos");
         FirestoreRecyclerOptions<Category> options = new FirestoreRecyclerOptions.Builder<Category>()
                 .setQuery(query, Category.class).build();
-        Log.d("query", options.getSnapshots().toString());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 
-        //refrescos = obtenerDatos();
-
-        adapter = new DrinksAdapter(options,getContext());
-
+        adapter = new RacionesAdapter( options,getContext());
+        adapter.notifyDataSetChanged();
 
         recyclerView.setLayoutManager(layoutManager);
-
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
-        recyclerView.setItemViewCacheSize(refrescos.size());
-
-        btnNav.setOnItemSelectedListener(this);
 
         setOnClickListenerBack();
         setOnClickListenerCheck();
-
-
-
-
     }
+
+
+
 
     private void setOnClickListenerCheck() {
         btnCheck.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-               List<HashMap<String, Object>> texto = adapter.getTexto();
+                List<HashMap<String, Object>> texto = adapter.getTexto();
                 for (int a =0; a<texto.size();a++) {
                     HashMap<String, Object> data = (HashMap<String, Object>) texto.get(a);
                     Set<String> key = data.keySet();
@@ -136,28 +117,28 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
                         //getCantidadBebidas(keyData, num);
                         System.out.println("Key: " + keyData + " & Data: " + num);
                         switch (keyData) {
-                            case COCA_COLA:
+                            case ENSALADA_FRUTAS:
                                 if (num != null) {
                                     if (!num.equals("")) {
                                         HashMap<String, Object> refresco = new HashMap<>();
                                         refresco.put("nombre", COCA_COLA);
                                         refresco.put("cantidad", num);
-                                        db.collection(COMANDA).document(numero).collection("orden").document(COCA_COLA).set(refresco);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(ENSALADA_FRUTAS).set(refresco);
                                     }
 
                                 }
                                 break;
-                            case COCA_COLA_ZERO:
+                            case FLAN:
                                 if (num != null) {
                                     if (!num.equals("")) {
                                         HashMap<String, Object> refresco = new HashMap<>();
-                                        refresco.put("nombre", COCA_COLA_ZERO);
+                                        refresco.put("nombre", FLAN);
                                         refresco.put("cantidad", num);
-                                        db.collection(COMANDA).document(numero).collection("orden").document(COCA_COLA_ZERO).set(refresco);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(FLAN).set(refresco);
                                     }
                                 }
                                 break;
-                            case AQUARIUS_LIMON:
+                            case HELADO_NATACHOC:
                                 if (num != null) {
                                     if (!num.equals("")) {
                                         HashMap<String, Object> refresco = new HashMap<>();
@@ -168,9 +149,9 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
                                     for (int numero : total){
                                         resultado += numero;
                                     }*/
-                                        refresco.put("nombre", AQUARIUS_LIMON);
+                                        refresco.put("nombre", HELADO_NATACHOC);
                                         refresco.put("cantidad", num);
-                                        db.collection(COMANDA).document(numero).collection("orden").document(AQUARIUS_LIMON).set(refresco);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(HELADO_NATACHOC).set(refresco);
                                     }
                                 }
                                 break;
@@ -185,35 +166,35 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
 
                                 }
                                 break;
-                            case SEVENUP:
+                            case NATILLAS:
                                 if (num != null) {
                                     if (!num.equals("")) {
                                         HashMap<String, Object> refresco = new HashMap<>();
-                                        refresco.put("nombre", SEVENUP);
+                                        refresco.put("nombre", NATILLAS);
                                         refresco.put("cantidad", num);
-                                        db.collection(COMANDA).document(numero).collection("orden").document(SEVENUP).set(refresco);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(NATILLAS).set(refresco);
                                     }
 
                                 }
                                 break;
-                            case FANTA_LIMON:
+                            case TARTA_QUESO:
                                 if (num != null) {
                                     if (!num.equals("")) {
                                         HashMap<String, Object> refresco = new HashMap<>();
-                                        refresco.put("nombre", FANTA_LIMON);
+                                        refresco.put("nombre", TARTA_QUESO);
                                         refresco.put("cantidad", num);
-                                        db.collection(COMANDA).document(numero).collection("orden").document(FANTA_LIMON).set(refresco);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(TARTA_QUESO).set(refresco);
                                     }
 
                                 }
                                 break;
-                            case FANTA_NARANJA:
+                            case TARTA_ZANAHORIA:
                                 if (num != null) {
                                     if (!num.equals("")) {
                                         HashMap<String, Object> refresco = new HashMap<>();
-                                        refresco.put("nombre", FANTA_NARANJA);
+                                        refresco.put("nombre", TARTA_ZANAHORIA);
                                         refresco.put("cantidad", num);
-                                        db.collection(COMANDA).document(numero).collection("orden").document(FANTA_NARANJA).set(refresco);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(TARTA_ZANAHORIA).set(refresco);
                                     }
 
                                 }
@@ -224,6 +205,12 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
                     }
                 }
             }
+        });
+    }
+
+    private void setOnClickListenerBack() {
+        arrow.setOnClickListener(view -> {
+            Navigation.findNavController(view).navigate(R.id.comandaFragment);
         });
     }
 
@@ -238,52 +225,4 @@ public class DrinksFragment extends Fragment implements NavigationBarView.OnItem
         super.onStop();
         adapter.stopListening();
     }
-
-
-    @SuppressLint("NotifyDataSetChanged")
-    private List<Category> obtenerDatos() {
-        List<Category> lista_refrescos = new ArrayList<>();
-        CollectionReference refrescos =  db.collection(CATEGORIAS).document("bebidas").collection("refrescos");
-
-        refrescos.get().addOnCompleteListener(task -> {
-            if(task.isSuccessful() && task.isComplete()){
-                for (QueryDocumentSnapshot document: task.getResult()){
-                    Category category = document.toObject(Category.class);
-                    lista_refrescos.add(category);
-                }
-            }
-            adapter.notifyDataSetChanged();
-        });
-
-        //Thread.sleep(200);
-        Log.d("refrescos", lista_refrescos.toString());
-
-
-        return lista_refrescos;
-    }
-
-    private void setOnClickListenerBack() {
-        arrow.setOnClickListener(view -> {
-            Navigation.findNavController(view).navigate(R.id.comandaFragment);
-        });
-    }
-
-
-    @SuppressLint("NonConstantResourceId")
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.cerveza:
-                Navigation.findNavController(requireView()).navigate(R.id.beerFragment);
-                break;
-            case R.id.cafes:
-                Navigation.findNavController(requireView()).navigate(R.id.coffeeFragment);
-                break;
-            case R.id.more:
-                Navigation.findNavController(requireView()).navigate(R.id.moreDrinksFragment);
-        }
-        return true;
-    }
-
-
 }

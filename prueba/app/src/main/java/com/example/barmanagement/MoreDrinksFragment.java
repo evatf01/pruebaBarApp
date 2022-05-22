@@ -1,5 +1,8 @@
 package com.example.barmanagement;
 
+import static com.example.barmanagement.ComandaFragment.numero;
+import static com.example.barmanagement.utils.FirestoreFields.*;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -18,15 +21,19 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import com.example.barmanagement.adapters.DrinksAdapter;
 import com.example.barmanagement.models.Category;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
-
+import java.util.Set;
 
 
 /**
@@ -34,7 +41,7 @@ import java.util.List;
  * Use the {@link DrinksFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MoreDrinksFragment extends Fragment implements NavigationBarView.OnItemSelectedListener, DrinksAdapter.RecyclerViewClickListener {
+public class MoreDrinksFragment extends Fragment implements NavigationBarView.OnItemSelectedListener{
     private FirebaseFirestore db;
     DrinksAdapter adapter;
     List<Category> refrescos = new ArrayList<>();
@@ -57,7 +64,7 @@ public class MoreDrinksFragment extends Fragment implements NavigationBarView.On
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_refrescos, container, false);
+        return inflater.inflate(R.layout.fragment_more_drinks, container, false);
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -66,51 +73,36 @@ public class MoreDrinksFragment extends Fragment implements NavigationBarView.On
         super.onViewCreated(view, savedInstanceState);
         db = FirebaseFirestore.getInstance();
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.listaRefrescos);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.listaMas);
         BottomNavigationView btnNav = (BottomNavigationView) view.findViewById(R.id.bottomNavigationViewDrinks);
         btnNav.setItemIconTintList(null);
         btnCheck = (FloatingActionButton) view.findViewById(R.id.btnCheck);
         arrow = (ImageView) view.findViewById(R.id.imbArrowBack);
         escrito = new ArrayList<>();
-        //Query query = db.collection(CATEGORIAS).document("bebidas").collection("refrescos");
-
+        Query query = db.collection(CATEGORIAS).document("bebidas").collection("mas_bebidas");
+        FirestoreRecyclerOptions<Category> options = new FirestoreRecyclerOptions.Builder<Category>()
+                .setQuery(query, Category.class).build();
             //Log.d("query", options.getSnapshots().toString());
-            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+            //refrescos = obtenerDatos();
 
-            refrescos = obtenerDatos();
+        adapter = new DrinksAdapter(options, getContext());
+        adapter.notifyDataSetChanged();
 
-            adapter = new DrinksAdapter(refrescos, getContext(),this);
-            adapter.notifyDataSetChanged();
+        recyclerView.setLayoutManager(layoutManager);
 
-            recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setItemViewCacheSize(refrescos.size());
 
-            recyclerView.setHasFixedSize(true);
-            recyclerView.setAdapter(adapter);
-            recyclerView.setItemViewCacheSize(refrescos.size());
-
-            btnNav.setOnItemSelectedListener(this);
+        btnNav.setOnItemSelectedListener(this);
 
             // getCantidadBebidas();
 
-            setOnClickListenerBack();
-            setOnClickListenerCheck();
-        }
+        setOnClickListenerBack();
+    }
 
-
-        private void setOnClickListenerCheck() {
-            btnCheck.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //escrito = adapter.getTexto();
-
-                    Log.d("escrito", escrito.toString());
-                }
-            });
-        }
-
-
-
-        @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint("NotifyDataSetChanged")
         private List<Category> obtenerDatos() {
             List<Category> lista_refrescos = new ArrayList<>();
             CollectionReference refrescos =  db.collection(CATEGORIAS).document("bebidas").collection("mas_bebidas");
@@ -120,14 +112,10 @@ public class MoreDrinksFragment extends Fragment implements NavigationBarView.On
                     for (QueryDocumentSnapshot document: task.getResult()){
                         Category category = document.toObject(Category.class);
                         lista_refrescos.add(category);
-
                     }
                 }
-
-
                 adapter.notifyDataSetChanged();
             });
-
             return lista_refrescos;
         }
 
@@ -136,7 +124,6 @@ public class MoreDrinksFragment extends Fragment implements NavigationBarView.On
                 Navigation.findNavController(view).navigate(R.id.comandaFragment);
             });
         }
-
 
         @SuppressLint("NonConstantResourceId")
         @Override
@@ -151,14 +138,20 @@ public class MoreDrinksFragment extends Fragment implements NavigationBarView.On
                 case R.id.refrescos:
                     Navigation.findNavController(requireView()).navigate(R.id.drinksFragment);
                     break;
-
             }
             return true;
         }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
 
     @Override
-    public void onClick(View view, int position) {
-
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
     }
+
 }

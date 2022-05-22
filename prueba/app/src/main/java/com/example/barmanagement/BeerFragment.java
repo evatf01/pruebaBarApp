@@ -43,7 +43,7 @@ import java.util.Set;
  * Use the {@link BeerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BeerFragment extends Fragment  implements NavigationBarView.OnItemSelectedListener, DrinksAdapter.RecyclerViewClickListener {
+public class BeerFragment extends Fragment  implements NavigationBarView.OnItemSelectedListener{
 
     private FirebaseFirestore db;
     DrinksAdapter adapter;
@@ -81,17 +81,17 @@ public class BeerFragment extends Fragment  implements NavigationBarView.OnItemS
         db =  FirebaseFirestore.getInstance();
         btnNav.setItemIconTintList(null);
         btnCheck = (FloatingActionButton) view.findViewById(R.id.btnCheck);
-        cervezas = obtenerDatos();
+        //cervezas = obtenerDatos();
 
-        //Query query = db.collection(CATEGORIAS).document("bebidas").collection("cervezas");
+        Query query = db.collection(CATEGORIAS).document("bebidas").collection("cervezas");
 
 
         arrow = (ImageView) view.findViewById(R.id.imbArrowBack);
-       /* FirestoreRecyclerOptions<Category> options = new FirestoreRecyclerOptions.Builder<Category>()
+       FirestoreRecyclerOptions<Category> options = new FirestoreRecyclerOptions.Builder<Category>()
                 .setQuery(query, Category.class).build();
 
-        */
-        adapter = new DrinksAdapter(cervezas,getContext(),this);
+
+        adapter = new DrinksAdapter(options,getContext());
         adapter.notifyDataSetChanged();
 
         btnNav.setItemIconTintList(null);
@@ -128,31 +128,38 @@ public class BeerFragment extends Fragment  implements NavigationBarView.OnItemS
                         switch (keyData) {
                             case CERVEZA_1925:
                                 if (num != null) {
-                                    HashMap<String, Object> refresco = new HashMap<>();
-                                    refresco.put("nombre", CERVEZA_1925);
-                                    refresco.put("cantidad", num);
-                                    db.collection(COMANDA).document(numero).collection("orden").document(CERVEZA_1925).set(refresco);
+                                    if(!num.equals("")){
+                                        HashMap<String, Object> refresco = new HashMap<>();
+                                        refresco.put("nombre", CERVEZA_1925);
+                                        refresco.put("cantidad", num);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(CERVEZA_1925).set(refresco);
+                                    }
                                 }
                                 break;
                             case ALHAMBRA:
                                 if (num != null) {
-                                    HashMap<String, Object> refresco = new HashMap<>();
-                                    refresco.put("nombre", ALHAMBRA);
-                                    refresco.put("cantidad", num);
-                                    db.collection(COMANDA).document(numero).collection("orden").document(ALHAMBRA).set(refresco);
+                                    if(!num.equals("")){
+                                        HashMap<String, Object> refresco = new HashMap<>();
+                                        refresco.put("nombre", ALHAMBRA);
+                                        refresco.put("cantidad", num);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(ALHAMBRA).set(refresco);
+                                    }
                                 }
                                 break;
                             case ESTRELLA_GAL:
                                 if (num != null) {
-                                    HashMap<String, Object> refresco = new HashMap<>();
-                                    refresco.put("nombre", ESTRELLA_GAL);
-                                    refresco.put("cantidad", num);
-                                    db.collection(COMANDA).document(numero).collection("orden").document(ESTRELLA_GAL).set(refresco);
+                                    if(!num.equals("")){
+                                        HashMap<String, Object> refresco = new HashMap<>();
+                                        refresco.put("nombre", ESTRELLA_GAL);
+                                        refresco.put("cantidad", num);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(ESTRELLA_GAL).set(refresco);
+                                    }
                                 }
                                 break;
                             case SALITOS:
                                 if (num != null) {
-                                    HashMap<String, Object> refresco = new HashMap<>();
+                                    if(!num.equals("")){
+                                        HashMap<String, Object> refresco = new HashMap<>();
                                    /* List<Integer> total = new ArrayList<>();
                                     //total.add(Integer.parseInt(num.toString()));
                                     HashMap<String, Object> refresco = new HashMap<>();
@@ -160,17 +167,20 @@ public class BeerFragment extends Fragment  implements NavigationBarView.OnItemS
                                     for (int numero : total) {
                                         resultado += numero;
                                     }*/
-                                    refresco.put("nombre", SALITOS);
-                                    refresco.put("cantidad", num);
-                                    db.collection(COMANDA).document(numero).collection("orden").document(SALITOS).set(refresco);
+                                        refresco.put("nombre", SALITOS);
+                                        refresco.put("cantidad", num);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(SALITOS).set(refresco);
+                                    }
                                 }
                                 break;
                             case SAN_MIGUEL:
                                 if (num != null) {
-                                    HashMap<String, Object> refresco = new HashMap<>();
-                                    refresco.put("nombre", SAN_MIGUEL);
-                                    refresco.put("cantidad", num);
-                                    db.collection(COMANDA).document(numero).collection("orden").document(SAN_MIGUEL).set(refresco);
+                                    if(!num.equals("")){
+                                        HashMap<String, Object> refresco = new HashMap<>();
+                                        refresco.put("nombre", SAN_MIGUEL);
+                                        refresco.put("cantidad", num);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(SAN_MIGUEL).set(refresco);
+                                    }
                                 }
                                 break;
                         }
@@ -181,7 +191,6 @@ public class BeerFragment extends Fragment  implements NavigationBarView.OnItemS
             }
         });
     }
-
 
     private void setOnClickListenerBack() {
         arrow.setOnClickListener(new View.OnClickListener() {
@@ -202,7 +211,6 @@ public class BeerFragment extends Fragment  implements NavigationBarView.OnItemS
                 for (QueryDocumentSnapshot document: task.getResult()){
                     Category category = document.toObject(Category.class);
                     lista_cervza.add(category);
-
                 }
             }
             adapter.notifyDataSetChanged();
@@ -212,7 +220,7 @@ public class BeerFragment extends Fragment  implements NavigationBarView.OnItemS
         return lista_cervza;
     }
 
- /*   @Override
+   @Override
     public void onStart() {
         super.onStart();
         adapter.startListening();
@@ -222,18 +230,16 @@ public class BeerFragment extends Fragment  implements NavigationBarView.OnItemS
     public void onStop() {
         super.onStop();
         adapter.stopListening();
-    }*/
+    }
 
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.cafes:
-                item.setCheckable(true);
                 Navigation.findNavController(requireView()).navigate(R.id.coffeeFragment);
                 break;
             case R.id.refrescos:
-                item.setCheckable(true);
                 Navigation.findNavController(requireView()).navigate(R.id.drinksFragment);
                 break;
             case R.id.more:
@@ -241,10 +247,5 @@ public class BeerFragment extends Fragment  implements NavigationBarView.OnItemS
                 break;
         }
         return true;
-    }
-
-    @Override
-    public void onClick(View view, int position) {
-
     }
 }

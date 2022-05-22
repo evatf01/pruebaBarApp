@@ -96,7 +96,7 @@ public class CreateAccountFragment extends Fragment {
                 String email = txtEmail.getText().toString();
                 String phone = txtPhone.getText().toString();
 
-                sqliteController.createUserSqlite(getContext(), name, password, dni, email, phone);
+                //sqliteController.createUserSqlite(getContext(), name, password, dni, email, phone);
                 createUser(view);
             }
 

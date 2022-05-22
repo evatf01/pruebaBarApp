@@ -86,21 +86,14 @@ public class TapasFragment extends Fragment implements FoodAdapter.RecyclerViewC
         db = FirebaseFirestore.getInstance();
         btnCheck = (FloatingActionButton) view.findViewById(R.id.btnCheck);
       /*  Query query = db.collection(CATEGORIAS).document("tapas_category").collection("tapas");
-
-
-
         FirestoreRecyclerOptions<Category> options = new FirestoreRecyclerOptions.Builder<Category>()
                 .setQuery(query, Category.class).build();*/
 
         arrow = (ImageView) view.findViewById(R.id.imbArrowBack);
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         tapas = obtenerDatos();
-
         adapter = new FoodAdapter( tapas,getContext(),this);
         adapter.notifyDataSetChanged();
-
-
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
@@ -116,7 +109,7 @@ public class TapasFragment extends Fragment implements FoodAdapter.RecyclerViewC
 
             @Override
             public void onClick(View view) {
-                List<HashMap<String, Object>> texto = adapter.getTexto();
+                List<HashMap<String, Object>> texto = adapter.getExtra();
                 for (int a =0; a<texto.size();a++)
                 {
                     HashMap<String, Object> data = (HashMap<String, Object>) texto.get(a);
@@ -130,82 +123,102 @@ public class TapasFragment extends Fragment implements FoodAdapter.RecyclerViewC
                         switch (keyData){
                             case ALPUJARREÑO:
                                 if(num!=null){
-                                    HashMap<String,Object> tapas = new HashMap<>();
-                                    tapas.put("nombre", ALPUJARREÑO);
-                                    tapas.put("cantidad",num);
-                                    db.collection(COMANDA).document(numero).collection("orden").document(ALPUJARREÑO).set(tapas);
+                                    if(!num.equals("")){
+                                        HashMap<String,Object> tapas = new HashMap<>();
+                                        tapas.put("nombre", ALPUJARREÑO);
+                                        tapas.put("cantidad",num);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(ALPUJARREÑO).set(tapas);
+                                    }
                                 }
                                 break;
                             case ENSALADA_CASA:
                                 if(num!=null){
-                                    HashMap<String,Object> refresco = new HashMap<>();
-                                    refresco.put("nombre", ENSALADA_CASA);
-                                    refresco.put("cantidad",num);
-                                    db.collection(COMANDA).document(numero).collection("orden").document(ENSALADA_CASA).set(refresco);
+                                    if(!num.equals("")){
+                                        HashMap<String,Object> refresco = new HashMap<>();
+                                        refresco.put("nombre", ENSALADA_CASA);
+                                        refresco.put("cantidad",num);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(ENSALADA_CASA).set(refresco);
+                                    }
                                 }
                                 break;
                             case ENSALADA_CESAR:
                                 if(num!=null){
-                                    HashMap<String,Object> refresco = new HashMap<>();
-                                    refresco.put("nombre", ENSALADA_CESAR);
-                                    refresco.put("cantidad",num);
-                                    db.collection(COMANDA).document(numero).collection("orden").document(ENSALADA_CESAR).set(refresco);
+                                    if(!num.equals("")){
+                                        HashMap<String,Object> refresco = new HashMap<>();
+                                        refresco.put("nombre", ENSALADA_CESAR);
+                                        refresco.put("cantidad",num);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(ENSALADA_CESAR).set(refresco);
+                                    }
                                 }
                                 break;
                             case TAPA_CALAMARES:
                                 if(num!=null){
-                                    HashMap<String,Object> refresco = new HashMap<>();
-                                    refresco.put("nombre", TAPA_CALAMARES);
-                                    refresco.put("cantidad",num);
-                                    db.collection(COMANDA).document(numero).collection("orden").document(TAPA_CALAMARES).set(refresco);
+                                    if(!num.equals("")){
+                                        HashMap<String,Object> refresco = new HashMap<>();
+                                        refresco.put("nombre", TAPA_CALAMARES);
+                                        refresco.put("cantidad",num);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(TAPA_CALAMARES).set(refresco);
+                                    }
                                 }
                                 break;
                             case TAPA_CARNE_SALSA:
                                 if(num!=null){
-                                    HashMap<String,Object> refresco = new HashMap<>();
-                                    refresco.put("nombre", TAPA_CARNE_SALSA);
-                                    refresco.put("cantidad",num);
-                                    db.collection(COMANDA).document(numero).collection("orden").document(TAPA_CARNE_SALSA).set(refresco);
+                                    if(!num.equals("")){
+                                        HashMap<String,Object> refresco = new HashMap<>();
+                                        refresco.put("nombre", TAPA_CARNE_SALSA);
+                                        refresco.put("cantidad",num);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(TAPA_CARNE_SALSA).set(refresco);
+                                    }
                                 }
                                 break;
                             case FAJITA_POLLO:
                                 if(num!=null){
-                                    HashMap<String,Object> refresco = new HashMap<>();
-                                    refresco.put("nombre", FAJITA_POLLO);
-                                    refresco.put("cantidad",num);
-                                    db.collection(COMANDA).document(numero).collection("orden").document(FAJITA_POLLO).set(refresco);
+                                    if(!num.equals("")){
+                                        HashMap<String,Object> refresco = new HashMap<>();
+                                        refresco.put("nombre", FAJITA_POLLO);
+                                        refresco.put("cantidad",num);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(FAJITA_POLLO).set(refresco);
+                                    }
                                 }
                                 break;
                             case FAJITA_VERDURAS:
                                 if(num!=null){
-                                    HashMap<String,Object> refresco = new HashMap<>();
-                                    refresco.put("nombre", FAJITA_VERDURAS);
-                                    refresco.put("cantidad",num);
-                                    db.collection(COMANDA).document(numero).collection("orden").document(FAJITA_VERDURAS).set(refresco);
+                                    if(!num.equals("")){
+                                        HashMap<String,Object> refresco = new HashMap<>();
+                                        refresco.put("nombre", FAJITA_VERDURAS);
+                                        refresco.put("cantidad",num);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(FAJITA_VERDURAS).set(refresco);
+                                    }
                                 }
                                 break;
                             case LOMO_PIMIENTA:
                                 if(num!=null){
-                                    HashMap<String,Object> refresco = new HashMap<>();
-                                    refresco.put("nombre", LOMO_PIMIENTA);
-                                    refresco.put("cantidad",num);
-                                    db.collection(COMANDA).document(numero).collection("orden").document(LOMO_PIMIENTA).set(refresco);
+                                    if(!num.equals("")){
+                                        HashMap<String,Object> refresco = new HashMap<>();
+                                        refresco.put("nombre", LOMO_PIMIENTA);
+                                        refresco.put("cantidad",num);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(LOMO_PIMIENTA).set(refresco);
+                                    }
                                 }
                                 break;
                             case PATATAS_HUEVO:
                                 if(num!=null){
-                                    HashMap<String,Object> refresco = new HashMap<>();
-                                    refresco.put("nombre", PATATAS_HUEVO);
-                                    refresco.put("cantidad",num);
-                                    db.collection(COMANDA).document(numero).collection("orden").document(PATATAS_HUEVO).set(refresco);
+                                    if(!num.equals("")){
+                                        HashMap<String,Object> refresco = new HashMap<>();
+                                        refresco.put("nombre", PATATAS_HUEVO);
+                                        refresco.put("cantidad",num);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(PATATAS_HUEVO).set(refresco);
+                                    }
                                 }
                                 break;
                             case ENSALADILLA_RUSA:
                                 if(num!=null){
-                                    HashMap<String,Object> refresco = new HashMap<>();
-                                    refresco.put("nombre", ENSALADILLA_RUSA);
-                                    refresco.put("cantidad",num);
-                                    db.collection(COMANDA).document(numero).collection("orden").document(ENSALADILLA_RUSA).set(refresco);
+                                    if(!num.equals("")){
+                                        HashMap<String,Object> refresco = new HashMap<>();
+                                        refresco.put("nombre", ENSALADILLA_RUSA);
+                                        refresco.put("cantidad",num);
+                                        db.collection(COMANDA).document(numero).collection("orden").document(ENSALADILLA_RUSA).set(refresco);
+                                    }
                                 }
                                 break;
 

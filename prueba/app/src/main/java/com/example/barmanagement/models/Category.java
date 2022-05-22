@@ -7,17 +7,19 @@ public class Category {
     private String img;
     private String extra;
     private String familia;
+    private String stock;
 
 
     public Category(){}
 
-    public Category(String nombre, String precio, String cantidad, String img, String extra, String familia) {
+    public Category(String nombre, String precio, String cantidad, String img, String extra, String familia, String stock) {
         this.nombre = nombre;
         this.precio = precio;
         this.cantidad = cantidad;
         this.img = img;
         this.extra = extra;
         this.familia = familia;
+        this.stock = stock;
     }
 
     public String getNombre() {
@@ -45,7 +47,13 @@ public class Category {
         return null;
     }
 
+    public String getStock() {
+        return stock;
+    }
 
+    public void setStock(String stock) {
+        this.stock = stock;
+    }
 
     public String getImg() {
         return img;

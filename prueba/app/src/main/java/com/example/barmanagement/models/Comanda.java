@@ -26,4 +26,14 @@ public class Comanda {
     public void setCantidad(String cantidad) {
         this.cantidad = cantidad;
     }
+
+    @Override
+    public String toString() {
+        return "Comanda{" +
+                "nombre='" + nombre + '\'' +
+                ", cantidad='" + cantidad + '\'' +
+                '}';
+    }
+
+
 }

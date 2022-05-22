@@ -32,13 +32,13 @@
 
         <EditText
             android:id="@+id/txtCantidadFood"
-            android:layout_width="70dp"
+            android:layout_width="60dp"
             android:layout_height="40dp"
             android:layout_below="@+id/txtFood"
             android:layout_alignEnd="@+id/txtFood"
 
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="177dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="186dp"
             android:backgroundTint="@color/black"
             android:gravity="center"
 
@@ -53,10 +53,10 @@
             android:layout_alignStart="@+id/txtFood"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="1dp"
-            android:layout_marginTop="14dp"
-            android:paddingStart="4dp"
-            android:layout_marginBottom="14dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:gravity="left"
+            android:paddingStart="4dp"
 
             android:textColor="@color/black"
             android:textSize="15sp" />

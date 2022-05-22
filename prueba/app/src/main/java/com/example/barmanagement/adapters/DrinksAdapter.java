@@ -19,28 +19,27 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.barmanagement.models.Category;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.List;
 
 
-public class DrinksAdapter extends RecyclerView.Adapter<DrinksAdapter.ViewHolder> {
-
-    List<Category> categorias;
+public class DrinksAdapter extends FirestoreRecyclerAdapter<Category, DrinksAdapter.ViewHolder> {
     public List<HashMap<String, Object>>texto;
     Context context;
-    private final RecyclerViewClickListener listener; // interfaz que me he creado para poder hacer onClick en el recyclerView
+    // interfaz que me he creado para poder hacer onClick en el recyclerView
 
-
-    public DrinksAdapter(List<Category> categorias, Context context, RecyclerViewClickListener listener) {
-        this.categorias = categorias;
+    /**
+     * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
+     * FirestoreRecyclerOptions} for configuration options.
+     *
+     * @param options
+     */
+    public DrinksAdapter(@NonNull FirestoreRecyclerOptions<Category> options, Context context) {
+        super(options);
         this.context = context;
-        this.listener = listener;
-        texto =new ArrayList<>();
-    }
-
-
-    public  interface RecyclerViewClickListener{
-        void onClick(View view, int position);
+        texto = new ArrayList<>();
     }
 
     @NonNull
@@ -51,25 +50,19 @@ public class DrinksAdapter extends RecyclerView.Adapter<DrinksAdapter.ViewHolder
         return new ViewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.setIsRecyclable(false);
-        Glide.with(context). // inserto la foto en el recycler con Glide
-                load(categorias.get(position).getImg())
-                .error(R.mipmap.ic_launcher)
-                .apply(RequestOptions.bitmapTransform(new RoundedCorners(50)))
-                .into(holder.imgDrink);
-        holder.txtBebida.setText(categorias.get(position).getNombre());
-        holder.txtCantidad.setText(categorias.get(position).getCantidad());
-    }
-
     public List<HashMap<String, Object>> getTexto() {
         return texto;
     }
 
     @Override
-    public int getItemCount() {
-        return categorias.size();
+    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Category model) {
+        Glide.with(context). // inserto la foto en el recycler con Glide
+                load(model.getImg())
+                .error(R.mipmap.ic_launcher)
+                .apply(RequestOptions.bitmapTransform(new RoundedCorners(50)))
+                .into(holder.imgDrink);
+        holder.txtBebida.setText(model.getNombre());
+        holder.txtCantidad.setText(model.getCantidad());
     }
 
     @Override
@@ -82,7 +75,7 @@ public class DrinksAdapter extends RecyclerView.Adapter<DrinksAdapter.ViewHolder
         return super.getItemId(position);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder{
         // componentes del RecyclerView
 
         ImageView imgDrink;
@@ -96,14 +89,10 @@ public class DrinksAdapter extends RecyclerView.Adapter<DrinksAdapter.ViewHolder
             txtCantidad = (EditText) itemView.findViewById(R.id.txtCantidad);
             MyTextWatcher myTextWatcher = new MyTextWatcher(txtCantidad, txtBebida);
             txtCantidad.addTextChangedListener(myTextWatcher);
-            itemView.setOnClickListener(this);
 
         }
         // implementamos el metodo onClick, donde usaremos el metodo de la interfaz creada anteriormente
-        @Override
-        public void onClick(View v) {
-            listener.onClick(v,getBindingAdapterPosition());
-        }
+
     }
 
     public class MyTextWatcher implements TextWatcher {

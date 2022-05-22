@@ -1,6 +1,12 @@
 package com.example.barmanagement;
 
+import static com.example.barmanagement.utils.FirestoreFields.EMPLOYE;
+import static com.example.barmanagement.utils.FirestoreFields.PASSWORD;
+import static com.firebase.ui.auth.AuthUI.getApplicationContext;
+
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,19 +19,26 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
 import com.example.barmanagement.adapters.ListTablesAdapter;
 import com.example.barmanagement.models.Tables;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-
+import com.pranavpandey.android.dynamic.toasts.DynamicToast;
 
 
 public class TablesInteriorFragment extends Fragment {
     View txtExterior;
     private FirebaseFirestore db;
     ListTablesAdapter adapter;
+    ImageView admin;
 
 
     private static final String ZONA = "INTERIOR";
@@ -58,7 +71,7 @@ public class TablesInteriorFragment extends Fragment {
 
         db =  FirebaseFirestore.getInstance();
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.listTablesInterior);
-
+        admin = (ImageView) view.findViewById(R.id.admin);
 
         Query query = db.collection(ZONA);
         FirestoreRecyclerOptions<Tables> options = new FirestoreRecyclerOptions.Builder<Tables>()
@@ -73,6 +86,18 @@ public class TablesInteriorFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
 
+
+         txtExterior = (View)view.findViewById(R.id.exterior);
+         setOnClickListenerComanda(view);
+         setOnClickListenerExterior();
+         setOnClickListenerAdmin();
+        //crearMesasFS();
+        //obtenerDatos();
+
+    }
+
+
+    private void setOnClickListenerComanda(View view) {
         adapter.setOnClickListener(new ListTablesAdapter.OnTablesListener() {
             @Override
             public void onTableClick(DocumentSnapshot documentSnapshot, int position) {
@@ -83,14 +108,57 @@ public class TablesInteriorFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.comandaFragment, bundle);
             }
         });
+    }
 
 
-         txtExterior = (View)view.findViewById(R.id.exterior);
+    private void setOnClickListenerAdmin() {
+        admin.setOnClickListener(view -> {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(requireContext());
+            alertDialog.setTitle("CODIGO");
+            alertDialog.setMessage("Escriba el codigo");
 
-        setOnClickListenerExterior();
-        //crearMesasFS();
-        //obtenerDatos();
+            final EditText input = new EditText(requireContext());
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT);
+            input.setLayoutParams(lp);
+            alertDialog.setView(input);
+            alertDialog.setPositiveButton("OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            DocumentReference userRef = db.collection(EMPLOYE).document("admin");
+                            userRef.get().addOnCompleteListener(task -> {
+                                if(task.isSuccessful()){
+                                    DocumentSnapshot doc = task.getResult();
+                                    if(doc.exists()){
+                                        String codigo = doc.getString("codigo");
+                                        assert codigo != null;
+                                        if(codigo.equals(input.getText().toString())){
+                                            Navigation.findNavController(requireView()).navigate(R.id.adminMenuFragment);
+                                            DynamicToast.makeSuccess(requireContext(),"Codigo correcto", Toast.LENGTH_SHORT).show();
+                                        }
+                                        else DynamicToast.makeError(requireContext(),"Codigo incorrecto", Toast.LENGTH_SHORT).show();
+                                    }
+                                }else{
+                                    Log.d("Error","Error: ",task.getException());
+                                }
+                            });
 
+                            String password = input.getText().toString();
+
+                        }
+                    });
+
+            alertDialog.setNegativeButton("CANCELAR",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+
+            alertDialog.show();
+
+        });
     }
 
     @Override

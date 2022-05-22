@@ -44,6 +44,9 @@
         <action
             android:id="@+id/action_tablesInteriorFragment_to_comandaFragment"
             app:destination="@id/comandaFragment" />
+        <action
+            android:id="@+id/action_tablesInteriorFragment_to_adminMenuFragment"
+            app:destination="@id/adminMenuFragment" />
     </fragment>
     <fragment
         android:id="@+id/tablesExteriorFragment"
@@ -56,6 +59,9 @@
         <action
             android:id="@+id/action_tablesExteriorFragment_to_comandaFragment"
             app:destination="@id/comandaFragment" />
+        <action
+            android:id="@+id/action_tablesExteriorFragment_to_adminMenuFragment"
+            app:destination="@id/adminMenuFragment" />
     </fragment>
     <fragment
         android:id="@+id/categoriasFragment"
@@ -74,6 +80,9 @@
         <action
             android:id="@+id/action_categoriasFragment_to_racionesFragment"
             app:destination="@id/racionesFragment" />
+        <action
+            android:id="@+id/action_categoriasFragment_to_dessertsFragment"
+            app:destination="@id/dessertsFragment" />
     </fragment>
     <fragment
         android:id="@+id/drinksFragment"
@@ -148,6 +157,14 @@
             app:destination="@id/categoriasFragment" />
     </fragment>
     <fragment
+        android:id="@+id/dessertsFragment"
+        android:name="com.example.barmanagement.DessertsFragment"
+        android:label="DessertsFragment" >
+        <action
+            android:id="@+id/action_dessertsFragment_to_categoriasFragment"
+            app:destination="@id/categoriasFragment" />
+    </fragment>
+    <fragment
         android:id="@+id/moreDrinksFragment"
         android:name="com.example.barmanagement.MoreDrinksFragment"
         android:label="MoreDrinksFragment" >
@@ -155,11 +172,34 @@
             android:id="@+id/action_moreDrinksFragment_to_drinksFragment"
             app:destination="@id/drinksFragment" />
         <action
-            android:id="@+id/action_moreDrinksFragment_to_beerFragment"
-            app:destination="@id/beerFragment" />
-        <action
             android:id="@+id/action_moreDrinksFragment_to_coffeeFragment"
             app:destination="@id/coffeeFragment" />
-
+        <action
+            android:id="@+id/action_moreDrinksFragment_to_beerFragment"
+            app:destination="@id/beerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminMenuFragment"
+        android:name="com.example.barmanagement.AdminMenuFragment"
+        android:label="fragment_admin_menu"
+        tools:layout="@layout/fragment_admin_menu" >
+        <action
+            android:id="@+id/action_adminMenuFragment_to_tablesInteriorFragment"
+            app:destination="@id/tablesInteriorFragment" />
+        <action
+            android:id="@+id/action_adminMenuFragment_to_stockFragment"
+            app:destination="@id/stockFragment" />
+        <action
+            android:id="@+id/action_adminMenuFragment_to_tablesExteriorFragment2"
+            app:destination="@id/tablesExteriorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/stockFragment"
+        android:name="com.example.barmanagement.StockFragment"
+        android:label="fragment_stock"
+        tools:layout="@layout/fragment_stock" >
+        <action
+            android:id="@+id/action_stockFragment_to_adminMenuFragment"
+            app:destination="@id/adminMenuFragment" />
     </fragment>
 </navigation>

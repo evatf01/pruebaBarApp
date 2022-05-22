@@ -55,6 +55,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/tables_menu"
         tools:ignore="MissingConstraints" />
+    <ImageView
+        android:id="@+id/admin"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/adminicon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.092"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

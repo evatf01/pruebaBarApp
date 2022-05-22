@@ -5,6 +5,7 @@ public class FirestoreFields {
     /*COLECCIONES*/
     public static final String EMPLOYE = "EMPLOYE";
     public static final String RECEIPT = "RECEIPT";
+    public static final String CATEGORIAS = "CATEGORIAS";
     public static final String COMANDA = "COMANDA";
     public static final String MESAS = "MESAS";
 
@@ -69,10 +70,19 @@ public class FirestoreFields {
     public static final String ENSALADA_CASA = "Ensalada de la casa(lechuga,tomate,cebolla,huevo,pollo)";
     public static final String ENSALADA_CESAR = "Ensalada cesar(lechuga,tomate,pollo,picatostes,salsa cesar)";
     public static final String TAPA_CALAMARES = "Calamares";
-    public static final String TAPA_CARNE_SALSA = "Carne en salsa";
+    public static final String TAPA_CARNE_SALSA = "Carne en salsa (tapa)";
     public static final String FAJITA_POLLO= "Fajita de pollo";
     public static final String FAJITA_VERDURAS= "Fajita de verduras";
     public static final String LOMO_PIMIENTA = "Lomo  a la pimienta";
     public static final String PATATAS_HUEVO= "Patatas y huevo";
     public static final String ENSALADILLA_RUSA= "Ensaladilla rusa";
+
+
+    /*-------POSTRES-------------*/
+    public static final String ENSALADA_FRUTAS= "Ensalada de frutas";
+    public static final String FLAN= "Flan";
+    public static final String HELADO_NATACHOC= "Helado natachoc";
+    public static final String NATILLAS= "Natillas caseras";
+    public static final String TARTA_QUESO= "Tarta de Queso";
+    public static final String TARTA_ZANAHORIA= "Tarta de zanahoria";
 }
