@@ -7,6 +7,7 @@ import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.icu.text.RelativeDateTimeFormatter;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,6 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.barmanagement.adapters.ListTablesAdapter;
+import com.example.barmanagement.controllers.SqliteController;
 import com.example.barmanagement.models.Tables;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentReference;
@@ -35,11 +37,11 @@ import com.pranavpandey.android.dynamic.toasts.DynamicToast;
 
 
 public class TablesInteriorFragment extends Fragment {
-    View txtExterior;
+    private View txtExterior;
     private FirebaseFirestore db;
-    ListTablesAdapter adapter;
-    ImageView admin;
-
+    private ListTablesAdapter adapter;
+    private ImageView admin;
+    private SqliteController sqliteController;
 
     private static final String ZONA = "INTERIOR";
 
@@ -57,9 +59,6 @@ public class TablesInteriorFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        // Inflate the layout for this fragment
-
         return inflater.inflate(R.layout.fragment_tables_interior, container, false);
     }
 
@@ -70,6 +69,7 @@ public class TablesInteriorFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         db =  FirebaseFirestore.getInstance();
+        sqliteController = new SqliteController();
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.listTablesInterior);
         admin = (ImageView) view.findViewById(R.id.admin);
 
@@ -82,20 +82,15 @@ public class TablesInteriorFragment extends Fragment {
         adapter.notifyDataSetChanged();
 
         recyclerView.setLayoutManager(layoutManager);
-
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
-
 
          txtExterior = (View)view.findViewById(R.id.exterior);
          setOnClickListenerComanda(view);
          setOnClickListenerExterior();
          setOnClickListenerAdmin();
-        //crearMesasFS();
-        //obtenerDatos();
-
+         sqliteController.createTables(requireContext());
     }
-
 
     private void setOnClickListenerComanda(View view) {
         adapter.setOnClickListener(new ListTablesAdapter.OnTablesListener() {
@@ -104,17 +99,15 @@ public class TablesInteriorFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 String num =  documentSnapshot.getString("num");
                 bundle.putString("numero", num);
-                Log.d("numero", documentSnapshot.getString("num"));
                 Navigation.findNavController(view).navigate(R.id.comandaFragment, bundle);
             }
         });
     }
 
-
     private void setOnClickListenerAdmin() {
         admin.setOnClickListener(view -> {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(requireContext());
-            alertDialog.setTitle("CODIGO");
+            alertDialog.setTitle("Administrador");
             alertDialog.setMessage("Escriba el codigo");
 
             final EditText input = new EditText(requireContext());
@@ -182,7 +175,4 @@ public class TablesInteriorFragment extends Fragment {
             }
         });
     }
-
-
-
 }

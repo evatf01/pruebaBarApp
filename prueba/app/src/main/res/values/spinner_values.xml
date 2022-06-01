@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="familia">
+        <item>Refrescos</item>
+        <item>Cervezas</item>
+        <item>Cafes</item>
+        <item>Más bebidas</item>
+    </string-array>
+
+</resources>

@@ -110,6 +110,9 @@
         <action
             android:id="@+id/action_comandaFragment_to_categoriasFragment"
             app:destination="@id/categoriasFragment" />
+        <action
+            android:id="@+id/action_comandaFragment_to_receiptFragment"
+            app:destination="@id/receiptFragment" />
     </fragment>
     <fragment
         android:id="@+id/beerFragment"
@@ -192,6 +195,9 @@
         <action
             android:id="@+id/action_adminMenuFragment_to_tablesExteriorFragment2"
             app:destination="@id/tablesExteriorFragment" />
+        <action
+            android:id="@+id/action_adminMenuFragment_to_empleadosFragment"
+            app:destination="@id/empleadosFragment" />
     </fragment>
     <fragment
         android:id="@+id/stockFragment"
@@ -201,5 +207,35 @@
         <action
             android:id="@+id/action_stockFragment_to_adminMenuFragment"
             app:destination="@id/adminMenuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/empleadosFragment"
+        android:name="com.example.barmanagement.EmpleadosFragment"
+        android:label="fragment_empleados"
+        tools:layout="@layout/fragment_empleados" >
+        <action
+            android:id="@+id/action_empleadosFragment_to_adminMenuFragment"
+            app:destination="@id/adminMenuFragment" />
+        <action
+            android:id="@+id/action_empleadosFragment_to_employeeDetailFragment"
+            app:destination="@id/employeeDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/employeeDetailFragment"
+        android:name="com.example.barmanagement.EmployeeDetailFragment"
+        android:label="fragment_employee_detail"
+        tools:layout="@layout/fragment_employee_detail" >
+        <action
+            android:id="@+id/action_employeeDetailFragment_to_empleadosFragment"
+            app:destination="@id/empleadosFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/receiptFragment"
+        android:name="com.example.barmanagement.ReceiptFragment"
+        android:label="fragment_receipt"
+        tools:layout="@layout/fragment_receipt" >
+        <action
+            android:id="@+id/action_receiptFragment_to_comandaFragment"
+            app:destination="@id/comandaFragment" />
     </fragment>
 </navigation>

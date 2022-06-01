@@ -23,20 +23,21 @@
             android:paddingEnd="2dp"
             android:textColor="@color/black"
             android:textSize="16sp"
-             />
+            />
 
         <TextView
-            android:id="@+id/txtFamilia"
-            android:layout_width="95dp"
+            android:id="@+id/txtCant"
+            android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_alignTop="@+id/txtNombre"
-            android:layout_marginStart="-21dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="0dp"
             android:layout_toEndOf="@+id/txtNombre"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/txtStock"
+            android:id="@+id/txtPrecio"
             android:layout_width="46dp"
             android:layout_height="41dp"
             android:layout_alignTop="@+id/txtNombre"
@@ -45,7 +46,7 @@
 
             android:layout_marginTop="0dp"
             android:layout_marginEnd="30dp"
-            android:layout_toEndOf="@+id/txtFamilia"
+            android:layout_toEndOf="@+id/txtCant"
             android:textColor="@color/black"
             android:textSize="16sp" />
 

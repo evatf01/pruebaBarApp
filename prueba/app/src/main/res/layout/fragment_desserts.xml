@@ -61,7 +61,7 @@
         android:layout_marginTop="44dp"
         android:backgroundTint="#FDBDA0"
         android:clickable="true"
-        android:src="@drawable/check"
+        android:src="@drawable/icons"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.952"
         app:layout_constraintStart_toStartOf="parent"

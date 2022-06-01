@@ -27,7 +27,8 @@ public class FirestoreFields {
     public static final String URL = "ImgUrl";
 
     /*---------------BEBIDAS-----------------*/
-    public static final String COCA_COLA = "CocaCola normal";
+    /*-----refrescos-----*/
+    public static final String COCA_COLA = "CocaCola Normal";
     public static final String COCA_COLA_ZERO = "Cocacola Zero";
     public static final String AQUARIUS_LIMON = "Aquarius Limon";
     public static final String AQUARIUS_NARANJA = "Aquarius Naranja";
@@ -36,20 +37,28 @@ public class FirestoreFields {
     public static final String SEVENUP= "Seven up";
     public static final String PRECIO= "2,20";
 
-    /*----------*/
+    /*---cervezas---*/
     public static final String CERVEZA_1925= "1925";
     public static final String ESTRELLA_GAL= "Estrella Galicia";
     public static final String SALITOS= "Salitos";
     public static final String ALHAMBRA= "Alhambra";
     public static final String SAN_MIGUEL= "San Miguel 00";
 
-    /*-----*/
+    /*--cafes---*/
     public static final String CAFE_CORTADO= "Cortado";
     public static final String CAFE_DESCAFEINADO= "Descafeinado";
     public static final String CAFE_LECHE= "Cafe con leche";
     public static final String CAFE_SOLO= "Café Solo";
     public static final String CAPUCCINO= "Capucicno";
     public static final String MANCHADA= "Manchada";
+
+    /*-----mas bebidas-----*/
+    public static final String AGUA= "Botella de Agua";
+    public static final String TINTO_VERANO= "Tinto Verano";
+    public static final String ZUMO_NARANJA= "Zumo de Naranja";
+    public static final String ZUMO_PIÑA= "Zumo de Piña";
+
+
 
 
     /*-----------------RACIONES----------------------*/

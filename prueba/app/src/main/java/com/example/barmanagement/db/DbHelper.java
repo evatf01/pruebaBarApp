@@ -27,7 +27,6 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE "+TABLE_USERS+" (" +
                 " "+COLUMN_ID+ " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                " "+COLUMN_TYPE+ " TEXT NOT NUll," +
                 " "+COLUMN_NAME+ " TEXT NOT NULL," +
                 " "+COLUMN_PASSWORD+ " TEXT NOT NULL," +
                 " "+COLUMN_DNI+ " TEXT NOT NULL," +
@@ -44,6 +43,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 " "+COLUMN_TABLES_ID+ " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 " "+COLUMN_TABLES_NUM+ "  TEXT," +
                 " "+COLUMN_TABLES_ZONE+ " TEXT," +
+                " "+COLUMN_TABLES_IMG+ " TEXT," +
                 " "+COLUMN_TABLES_GHESTS+" INTEGER," +
                 " "+COLUMN_TABLES_RESERVED+ "INTEGER )");
 

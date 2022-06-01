@@ -11,7 +11,6 @@ import com.example.barmanagement.R;
 import java.util.ArrayList;
 import java.util.HashMap;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,7 +20,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.barmanagement.models.Category;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.DocumentSnapshot;
+
 import java.util.List;
 
 
@@ -63,6 +63,8 @@ public class DrinksAdapter extends FirestoreRecyclerAdapter<Category, DrinksAdap
                 .into(holder.imgDrink);
         holder.txtBebida.setText(model.getNombre());
         holder.txtCantidad.setText(model.getCantidad());
+        holder.txtStock.setText(model.getStock());
+        holder.txtPrecio.setText(model.getPrecio());
     }
 
     @Override
@@ -75,33 +77,40 @@ public class DrinksAdapter extends FirestoreRecyclerAdapter<Category, DrinksAdap
         return super.getItemId(position);
     }
 
+
     public class ViewHolder extends RecyclerView.ViewHolder{
         // componentes del RecyclerView
 
         ImageView imgDrink;
         public TextView txtBebida;
+        public TextView txtStock;
+        public TextView txtPrecio;
         public EditText txtCantidad;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imgDrink = (ImageView) itemView.findViewById(R.id.imgDrink);
             txtBebida = (TextView) itemView.findViewById(R.id.txtBebida);
+            txtStock = (TextView) itemView.findViewById(R.id.txtStock);
+            txtPrecio = (TextView) itemView.findViewById(R.id.txtPrecio);
             txtCantidad = (EditText) itemView.findViewById(R.id.txtCantidad);
-            MyTextWatcher myTextWatcher = new MyTextWatcher(txtCantidad, txtBebida);
+            MyTextWatcher myTextWatcher = new MyTextWatcher(txtCantidad, txtBebida, txtStock, txtPrecio);
             txtCantidad.addTextChangedListener(myTextWatcher);
 
         }
-        // implementamos el metodo onClick, donde usaremos el metodo de la interfaz creada anteriormente
-
     }
 
     public class MyTextWatcher implements TextWatcher {
         private EditText editText;
         private TextView txtBebida;
+        private TextView txtStock;
+        private TextView txtPrecio;
 
-        public MyTextWatcher(EditText editText, TextView txtBebida) {
+        public MyTextWatcher(EditText editText, TextView txtBebida, TextView txtStock, TextView txtPrecio) {
             this.editText = editText;
             this.txtBebida = txtBebida;
+            this.txtStock = txtStock;
+            this.txtPrecio = txtPrecio;
         }
 
         @Override
@@ -109,11 +118,13 @@ public class DrinksAdapter extends FirestoreRecyclerAdapter<Category, DrinksAdap
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            String cantidad = String.valueOf(editText.getText());
+            String cantidad = editText.getText().toString();
             HashMap<String,Object> map= new HashMap<>();
             map.put(txtBebida.getText().toString(),cantidad);
+            map.put("stock", txtStock.getText().toString());
+            map.put("precio", txtPrecio.getText().toString());
             texto.add(map);
+
 
         }
         @Override

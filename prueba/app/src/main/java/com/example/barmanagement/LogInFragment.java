@@ -1,15 +1,13 @@
 package com.example.barmanagement;
 
+
 import static com.example.barmanagement.utils.FirestoreFields.EMPLOYE;
 import static com.example.barmanagement.utils.FirestoreFields.PASSWORD;
-import static com.example.barmanagement.utils.FirestoreFields.PHONE;
+
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,16 +17,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
+import com.example.barmanagement.controllers.SqliteController;
+import com.example.barmanagement.firestorecontroller.FirestoreController;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.pranavpandey.android.dynamic.toasts.DynamicToast;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,15 +41,11 @@ public class LogInFragment extends Fragment {
     private TextView txtRegistro;
     private EditText txtUser, txtPassword;
     private  FirebaseFirestore db;
-
-    //private  final FragmentManager fm =  LogInFragment.class.getSupportFragmentManager();
-    //)  private final FragmentTransaction ft = fm.beginTransaction();
-
-
+    private FirestoreController firestoreController;
+    private SqliteController sqliteController;
     public LogInFragment() {  }
 
-    public static LogInFragment newInstance(String param1, String param2) {
-
+    public static LogInFragment newInstance() {
         return new LogInFragment();
     }
 
@@ -76,10 +72,12 @@ public class LogInFragment extends Fragment {
         txtPassword = (EditText)view.findViewById(R.id.txtPassword);
         FirebaseApp.initializeApp(requireContext());
         db =  FirebaseFirestore.getInstance();
+        firestoreController = new FirestoreController(this.db);
 
 
         ButtonSetOncLickListener();
         RegisterSetOnClickListener();
+
     }
 
     //AL PULSAR EL TEXTO DE REGISTRATE, LANZA EL FRAGMENT PARA CREAR TU CUENTA
@@ -88,26 +86,37 @@ public class LogInFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.createAccountFragment2);
-
-               /* fm.beginTransaction().add(R.id.contenedorZonaInterior, fragment);
-                ft.commit();*/
             }
         });
     }
+
+
 
     //DESDE EL BOTON DE LOGEARSE VOY AL FRAGMENT DONDE ESTÁN LAS MESAS QUE TIENE EL BAR
     private void ButtonSetOncLickListener() {
 
         signIn.setOnClickListener(view -> {
             if(txtUser.getText().toString().isEmpty() || txtPassword.getText().toString().isEmpty()){
-                Navigation.findNavController(view).navigate(R.id.tablesInteriorFragment);
-                //DynamicToast.makeWarning(requireContext(),"Rellene los campos", Toast.LENGTH_SHORT).show();
+                DynamicToast.makeWarning(requireContext(),"Rellene los campos", Toast.LENGTH_SHORT).show();
             }else{
-                ComprobarUser(view);
+                if(firestoreController.isOnline(requireContext())){
+                    comprobarUser(view);
+                }
+                if(!firestoreController.isOnline(requireContext())){
+                    int respuesta = sqliteController.comprobarUserSqlite(requireContext(), txtUser.getText().toString(), txtPassword.getText().toString());
+                    if(respuesta == -1){
+                        DynamicToast.makeError(requireContext(),"Error al iniciar sesion, registrese si no lo ha hecho", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Navigation.findNavController(view).navigate(R.id.tablesInteriorFragment);
+                    }
+                }
             }
+
         });
     }
-    private void ComprobarUser(View view) {
+
+
+    private void comprobarUser(View view) {
         DocumentReference userRef = db.collection(EMPLOYE).document(txtUser.getText().toString());
         userRef.get().addOnCompleteListener(task -> {
             if(task.isSuccessful()){
@@ -115,7 +124,9 @@ public class LogInFragment extends Fragment {
                 if(doc.exists()){
                     String password = doc.getString(PASSWORD);
                     assert password != null;
-                    if(password.equals(txtPassword.getText().toString())) Navigation.findNavController(view).navigate(R.id.tablesInteriorFragment);
+                    if(password.equals(txtPassword.getText().toString())){
+                        Navigation.findNavController(view).navigate(R.id.tablesInteriorFragment);
+                    }
                     else DynamicToast.makeError(requireContext(),"Contraseña incorrecta", Toast.LENGTH_SHORT).show();
 
                 }else{
@@ -127,4 +138,4 @@ public class LogInFragment extends Fragment {
         });
 
     }
-    }
+}

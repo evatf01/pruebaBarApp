@@ -1,6 +1,6 @@
 package com.example.barmanagement.models;
 
-public class Category {
+public class Category  {
     private String nombre;
     private String precio;
     private String cantidad;

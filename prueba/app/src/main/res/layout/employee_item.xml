@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="74dp"
+    android:background="@color/white"
+    >
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="74dp"
+        android:background="@color/white"
+        >
+
+
+        <TextView
+            android:id="@+id/txtNameUser"
+            android:layout_width="170dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="4dp"
+            android:gravity="start"
+            android:paddingStart="20dp"
+            android:paddingEnd="2dp"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/txtDni"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_alignTop="@+id/txtNameUser"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="10dp"
+            android:layout_toEndOf="@+id/txtNameUser"
+            android:backgroundTint="@color/black"
+            android:gravity="left"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignTop="@+id/txtNameUser"
+            android:layout_alignBottom="@+id/txtNameUser"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="12dp"
+
+            android:layout_marginBottom="21dp"
+            app:srcCompat="@drawable/user" />
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
+

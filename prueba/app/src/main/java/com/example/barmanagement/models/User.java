@@ -3,26 +3,38 @@ package com.example.barmanagement.models;
 import java.io.Serializable;
 
 public class User implements Serializable {
-
     String type;
     String name;
     String password;
     String dni;
     String email;
     String phone;
+    String codigo;
 
-    public User( String type, String name, String password, String dni, String email, String phone) {
+    public User() { }
+
+    public User(String type, String name, String password, String dni, String email, String phone, String codigo) {
         this.type = type;
         this.name = name;
         this.password = password;
         this.dni = dni;
         this.email = email;
         this.phone = phone;
+        this.codigo = codigo;
     }
 
     public User(String name, String password) {
         this.name = name;
         this.password = password;
+    }
+
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     public String getType() {

@@ -8,6 +8,7 @@ public final class TableMesas {
         public static final String COLUMN_TABLES_ID = "Id";
         public static final String COLUMN_TABLES_NUM = "NunMesa";
         public static final String COLUMN_TABLES_ZONE = "Zone";
+        public static final String COLUMN_TABLES_IMG = "Img";
         public static final String COLUMN_TABLES_GHESTS = "Ghests";
         public static final String COLUMN_TABLES_RESERVED = "Reserved";
     }

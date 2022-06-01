@@ -13,12 +13,9 @@ import com.example.barmanagement.R;
 import com.example.barmanagement.models.Comanda;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 public class ComandaAdapter extends FirestoreRecyclerAdapter<Comanda, ComandaAdapter.ViewHolder> {
-    List<Comanda> comandas = new ArrayList<>();
     Context context;
 
     /**
@@ -31,9 +28,6 @@ public class ComandaAdapter extends FirestoreRecyclerAdapter<Comanda, ComandaAda
         super(options);
         this.context = context;
     }
-
-
-
 
     @NonNull
     @Override
@@ -54,8 +48,13 @@ public class ComandaAdapter extends FirestoreRecyclerAdapter<Comanda, ComandaAda
         getSnapshots().getSnapshot(position).getReference().delete();
     }
 
+    public DocumentSnapshot getName(int position){
+       return getSnapshots().getSnapshot(position);
+    }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
         // componentes del RecyclerView
         TextView txtBebida;
         TextView txtCantidad;
@@ -66,7 +65,6 @@ public class ComandaAdapter extends FirestoreRecyclerAdapter<Comanda, ComandaAda
             txtCantidad = (TextView) itemView.findViewById(R.id.txtCantidad);
 
         }
-        // implementamos el metodo onClick, donde usaremos el metodo de la interfaz creada anteriormente
 
     }
 }

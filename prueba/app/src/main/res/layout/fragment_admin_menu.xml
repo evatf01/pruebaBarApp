@@ -24,29 +24,31 @@
 
     <TextView
         android:id="@+id/txtStock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="48dp"
+        android:gravity="center"
         android:text="STOCK"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.435"
+        app:layout_constraintHorizontal_bias="0.419"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/txtEmpleados"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="76dp"
+        android:gravity="center"
         android:text="EMPLEADOS"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.047"
         app:layout_constraintStart_toStartOf="@+id/txtStock"
         app:layout_constraintTop_toBottomOf="@+id/txtStock" />
 </androidx.constraintlayout.widget.ConstraintLayout>

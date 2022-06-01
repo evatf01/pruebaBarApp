@@ -19,7 +19,8 @@ import android.widget.TextView;
  * create an instance of this fragment.
  */
 public class AdminMenuFragment extends Fragment {
-
+    TextView  txtStock;
+    TextView  txtEmpleados;
 
     public AdminMenuFragment() { }
 
@@ -43,8 +44,8 @@ public class AdminMenuFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextView  txtStock = (TextView) view.findViewById(R.id.txtStock);
-        TextView  txtEmpleados = (TextView) view.findViewById(R.id.txtEmpleados);
+        txtStock = (TextView) view.findViewById(R.id.txtStock);
+        txtEmpleados = (TextView) view.findViewById(R.id.txtEmpleados);
 
         setOnClickListenerStock(view);
         setOnClickListenerEmpleados(view);
@@ -52,10 +53,21 @@ public class AdminMenuFragment extends Fragment {
     }
 
     private void setOnClickListenerEmpleados(View view) {
+        txtEmpleados.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.empleadosFragment);
+            }
+        });
     }
 
     private void setOnClickListenerStock(View view) {
-        Navigation.findNavController(view).navigate(R.id.stockFragment);
+        txtStock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.stockFragment);
+            }
+        });
 
     }
 }

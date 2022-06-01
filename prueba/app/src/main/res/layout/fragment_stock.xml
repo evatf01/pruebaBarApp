@@ -11,9 +11,11 @@
         android:id="@+id/txtNombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="18dp"
         android:text="NOMBRE"
+        android:textStyle="bold"
+
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,9 +24,11 @@
         android:id="@+id/txtFamilia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="95dp"
+        android:layout_marginTop="18dp"
         android:text="FAMILIA"
+        android:textStyle="bold"
+
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/txtNombre"
         app:layout_constraintTop_toTopOf="parent" />
@@ -33,11 +37,11 @@
         android:id="@+id/txtStock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="18dp"
         android:text="STOCK"
         android:textColor="@color/black"
-
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/txtFamilia"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,5 +57,33 @@
 
 
     </TableRow>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listaStock"
+        android:layout_width="392dp"
+        android:layout_height="603dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtFamilia"
+        app:layout_constraintVertical_bias="0.112" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="220dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/botones"
+        android:gravity="center"
+        android:paddingStart="5dp"
+        android:popupBackground="@drawable/spinner"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
